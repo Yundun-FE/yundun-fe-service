@@ -17,5 +17,9 @@ module.exports = app => {
   router.delete('/nodes', controller.node.delete)
   router.put('/nodes/:id', controller.node.update)
   router.get('/nodes', controller.node.list)
-  // router.get('/nodes/:id', controller.node.index)
+
+  router.post('/accounts', controller.account.create)
+  router.delete('/accounts', controller.account.delete)
+  router.put('/accounts/:id', controller.account.update)
+  router.get('/accounts', controller.account.list)
 }
