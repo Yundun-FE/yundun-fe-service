@@ -17,7 +17,7 @@ module.exports = appInfo => {
   }
 
   // add your config here
-  config.middleware = []
+  config.middleware = ['errorHandler']
 
   config.security = {
     csrf: {

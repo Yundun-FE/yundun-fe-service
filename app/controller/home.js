@@ -5,7 +5,7 @@ const PKG = require('../../package.json')
 
 class HomeController extends Controller {
   async index() {
-    const { ctx } = this
+    const { ctx } = this 
 
     await ctx.model.Product.sync({ force: true })
     await ctx.model.ProductNode.sync({ force: true })
