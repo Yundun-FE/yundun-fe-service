@@ -22,4 +22,6 @@ module.exports = app => {
   router.delete('/accounts', controller.account.delete)
   router.put('/accounts/:id', controller.account.update)
   router.get('/accounts', controller.account.list)
+
+  router.get('/progress', controller.progress.list)
 }

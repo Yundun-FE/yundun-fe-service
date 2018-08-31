@@ -16,6 +16,11 @@ module.exports = appInfo => {
     timezone: '+08:00'
   }
 
+  config.jenkins = {
+    url: '',
+    interval: '10s'
+  }
+
   // add your config here
   config.middleware = ['errorHandler']
 
