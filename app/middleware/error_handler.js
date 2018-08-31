@@ -3,7 +3,13 @@ module.exports = () => {
     try {
       await next()
     } catch (err) {
-      ctx.body = err
+      const { message, code = 1, errors } = err
+      const data = {
+        message,
+        code,
+        errors
+      }
+      ctx.body = data
       return
     }
 

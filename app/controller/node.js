@@ -1,18 +1,21 @@
 const { Controller } = require('egg')
 
-class ProductController extends Controller {
+class NodeController extends Controller {
   constructor(ctx) {
     super(ctx)
-    this.Model = ctx.model.Product
+    this.Model = ctx.model.Node
     this.Rule = {
-      title: { type: 'string', required: true }
+      title: { type: 'string', required: true },
+      url: { type: 'string', required: true }
     }
   }
 
   async create() {
-    const { title, show, index } = this.ctx.request.body
+    const { title, url, env, show, index } = this.ctx.request.body
     const create = {
       title,
+      url,
+      env,
       show,
       index
     }
@@ -35,15 +38,17 @@ class ProductController extends Controller {
 
   async update() {
     const { id } = this.ctx.params
-    const { title, show, index } = this.ctx.request.body
+    const { title, url, env, show, index } = this.ctx.request.body
     const update = {
       title,
+      url,
+      env,
       show,
       index
     }
 
     this.ctx.validate(this.Rule, update)
-    
+
     const data = await this.Model.findOne({ where: { id } })
     if (!data) throw new Error('Not Found')
 
@@ -71,4 +76,4 @@ class ProductController extends Controller {
   }
 }
 
-module.exports = ProductController
+module.exports = NodeController
