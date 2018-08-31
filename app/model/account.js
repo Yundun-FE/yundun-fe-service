@@ -11,7 +11,8 @@ module.exports = app => {
       allowNull: false
     },
     password: {
-      type: STRING(255)
+      type: STRING(255),
+      defaultValue: ''
     },
     show: {
       type: BOOLEAN,

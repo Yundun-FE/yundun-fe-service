@@ -11,10 +11,11 @@ class AccountController extends Controller {
   }
 
   async create() {
-    const { title, name, show, index } = this.ctx.request.body
+    const { title, name, password, show, index } = this.ctx.request.body
     const create = {
       title,
       name,
+      password,
       show,
       index
     }
@@ -41,6 +42,7 @@ class AccountController extends Controller {
     const update = {
       title,
       name,
+      password,
       show,
       index
     }
