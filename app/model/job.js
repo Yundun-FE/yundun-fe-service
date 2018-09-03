@@ -1,7 +1,7 @@
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN } = app.Sequelize
 
-  const Node = app.model.define('nodes', {
+  const Job = app.model.define('jobs', {
     title: {
       type: STRING(255),
       allowNull: false
@@ -24,5 +24,5 @@ module.exports = app => {
     }
   })
 
-  return Node
+  return Job
 }

@@ -13,10 +13,10 @@ module.exports = app => {
   router.get('/products', controller.product.list)
   // router.get('/products/:id', controller.product.index)
 
-  router.post('/nodes', controller.node.create)
-  router.delete('/nodes', controller.node.delete)
-  router.put('/nodes/:id', controller.node.update)
-  router.get('/nodes', controller.node.list)
+  router.post('/jobs', controller.job.create)
+  router.delete('/jobs', controller.job.delete)
+  router.put('/jobs/:id', controller.job.update)
+  router.get('/jobs', controller.job.list)
 
   router.post('/accounts', controller.account.create)
   router.delete('/accounts', controller.account.delete)

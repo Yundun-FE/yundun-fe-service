@@ -1,9 +1,9 @@
 const { Controller } = require('egg')
 
-class NodeController extends Controller {
+class JobController extends Controller {
   constructor(ctx) {
     super(ctx)
-    this.Model = ctx.model.Node
+    this.Model = ctx.model.Job
     this.Rule = {
       title: { type: 'string', required: true },
       url: { type: 'string', required: true }
@@ -76,4 +76,4 @@ class NodeController extends Controller {
   }
 }
 
-module.exports = NodeController
+module.exports = JobController
