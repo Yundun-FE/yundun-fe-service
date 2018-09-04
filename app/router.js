@@ -23,5 +23,15 @@ module.exports = app => {
   router.put('/accounts/:id', controller.account.update)
   router.get('/accounts', controller.account.list)
 
+  router.post('/cmds', controller.cmd.create)
+  router.delete('/cmds', controller.cmd.delete)
+  router.put('/cmds/:id', controller.cmd.update)
+  router.get('/cmds', controller.cmd.list)
+
+  router.post('/websites', controller.website.create)
+  router.delete('/websites', controller.website.delete)
+  router.put('/websites/:id', controller.website.update)
+  router.get('/websites', controller.website.list)
+
   router.get('/progress', controller.progress.list)
 }

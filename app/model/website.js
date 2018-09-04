@@ -1,11 +1,11 @@
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN } = app.Sequelize
 
-  const ProductNodeCmd = app.model.define('products_nodes_cmds', {
+  const Website = app.model.define('websites', {
     title: {
       type: STRING(255)
     },
-    content: {
+    url: {
       type: STRING(255),
       allowNull: false
     },
@@ -19,5 +19,5 @@ module.exports = app => {
     }
   })
 
-  return ProductNodeCmd
+  return Website
 }
