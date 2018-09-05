@@ -1,7 +1,7 @@
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN } = app.Sequelize
 
-  const Model = app.model.define('cmds', {
+  const Model = app.model.define('jobs_cmds', {
     title: {
       type: STRING(255)
     },
@@ -18,13 +18,6 @@ module.exports = app => {
       defaultValue: 0
     }
   })
-
-  Model.associate = () => {
-    Model.belongsTo(app.model.Job, {
-      as: 'job',
-      foreignKey: 'jid',
-    })
-  }
 
   return Model
 }

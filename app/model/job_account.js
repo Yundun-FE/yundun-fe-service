@@ -1,13 +1,18 @@
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN } = app.Sequelize
 
-  const Model = app.model.define('cmds', {
+  const Model = app.model.define('jobs_accounts', {
     title: {
-      type: STRING(255)
-    },
-    content: {
       type: STRING(255),
       allowNull: false
+    },
+    name: {
+      type: STRING(255),
+      allowNull: false
+    },
+    password: {
+      type: STRING(255),
+      defaultValue: ''
     },
     show: {
       type: BOOLEAN,
@@ -18,13 +23,6 @@ module.exports = app => {
       defaultValue: 0
     }
   })
-
-  Model.associate = () => {
-    Model.belongsTo(app.model.Job, {
-      as: 'job',
-      foreignKey: 'jid',
-    })
-  }
 
   return Model
 }

@@ -8,13 +8,13 @@ class HomeController extends Controller {
     const { ctx } = this 
 
     // await ctx.model.Job.sync({ force: true })
+    // await ctx.model.JobCmd.sync({ force: true }) 
+    // await ctx.model.JobAccount.sync({ force: true })
     // await ctx.model.Product.sync({ force: true })
-    // await ctx.model.ProductNode.sync({ force: true })
     // await ctx.model.Cmd.sync({ force: true })
     // await ctx.model.Website.sync({ force: true })
-    // await ctx.model.Build.sync({ force: true })
     // await ctx.model.Progress.sync({ force: true })
-    // await ctx.model.Account.sync({ force: true })
+    await ctx.model.Account.sync({ force: true })
 
     const { name, version } = PKG 
     ctx.body = { name, version }

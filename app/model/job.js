@@ -1,7 +1,7 @@
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN } = app.Sequelize
 
-  const Job = app.model.define('jobs', {
+  const Model = app.model.define('jobs', {
     title: {
       type: STRING(255),
       allowNull: false
@@ -14,6 +14,10 @@ module.exports = app => {
       type: STRING(255),
       defaultValue: 'default'
     },
+    name: {
+      type: STRING(255),
+      allowNull: false
+    },
     show: {
       type: BOOLEAN,
       defaultValue: true
@@ -24,5 +28,14 @@ module.exports = app => {
     }
   })
 
-  return Job
+  Model.associate = function() {
+    Model.hasMany(app.model.Cmd, {
+      foreignKey: 'jid'
+    })
+    Model.hasMany(app.model.Account, {
+      foreignKey: 'jid'
+    })
+  }
+
+  return Model
 }

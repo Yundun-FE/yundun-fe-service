@@ -1,5 +1,7 @@
 const { Controller } = require('egg')
 
+const FORM_KEYS = ['title', 'name', 'url', 'env', 'show', 'index']
+
 class JobController extends Controller {
   constructor(ctx) {
     super(ctx)
@@ -11,13 +13,9 @@ class JobController extends Controller {
   }
 
   async create() {
-    const { title, url, env, show, index } = this.ctx.request.body
+    const { ...FORM_KEYS } = this.ctx.request.body
     const create = {
-      title,
-      url,
-      env,
-      show,
-      index
+      ...FORM_KEYS
     }
 
     this.ctx.validate(this.Rule, create)
@@ -38,14 +36,8 @@ class JobController extends Controller {
 
   async update() {
     const { id } = this.ctx.params
-    const { title, url, env, show, index } = this.ctx.request.body
-    const update = {
-      title,
-      url,
-      env,
-      show,
-      index
-    }
+    const { ...FORM_KEYS } = this.ctx.request.body
+    const update = { ...FORM_KEYS }
 
     this.ctx.validate(this.Rule, update)
 
@@ -59,7 +51,16 @@ class JobController extends Controller {
   }
 
   async list() {
-    const list = await this.Model.findAll()
+    const list = await this.Model.findAll({
+      include: [
+        {
+          model: this.ctx.model.Cmd
+        },
+        {
+          model: this.ctx.model.Account
+        }
+      ]
+    })
     const total = await this.Model.count()
 
     this.ctx.body = {
