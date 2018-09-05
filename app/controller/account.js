@@ -1,5 +1,7 @@
 const { Controller } = require('egg')
 
+const FROM_KEY = ['title', 'name', 'password', 'jid', 'show', 'index']
+
 class AccountController extends Controller {
   constructor(ctx) {
     super(ctx)
@@ -11,14 +13,8 @@ class AccountController extends Controller {
   }
 
   async create() {
-    const { title, name, password, show, index } = this.ctx.request.body
-    const create = {
-      title,
-      name,
-      password,
-      show,
-      index
-    }
+    const { ...FROM_KEY } = this.ctx.request.body
+    const create = { ...FROM_KEY }
 
     this.ctx.validate(this.Rule, create)
     this.Model.create(create)
@@ -38,14 +34,8 @@ class AccountController extends Controller {
 
   async update() {
     const { id } = this.ctx.params
-    const { title, name, show, index } = this.ctx.request.body
-    const update = {
-      title,
-      name,
-      password,
-      show,
-      index
-    }
+    const { ...FROM_KEY } = this.ctx.request.body
+    const update = { ...FROM_KEY }
 
     this.ctx.validate(this.Rule, update)
 

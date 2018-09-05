@@ -16,7 +16,7 @@ module.exports = app => {
     },
     name: {
       type: STRING(255),
-      allowNull: false
+      defaultValue: ''
     },
     show: {
       type: BOOLEAN,
