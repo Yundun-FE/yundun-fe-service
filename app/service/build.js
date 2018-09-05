@@ -2,6 +2,7 @@ const { Service } = require('egg')
 const charset = require('superagent-charset')
 const superagent = charset(require('superagent'))
 const cheerio = require('cheerio')
+const moment = require('moment')
 
 class BuildService extends Service {
   async getProgress() {
@@ -26,7 +27,8 @@ class BuildService extends Service {
 
       const itemProgress = {
         name,
-        progress
+        progress,
+        utime: moment().format('X')
       }
 
       listProgress.push(itemProgress)

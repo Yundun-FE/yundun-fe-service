@@ -34,4 +34,5 @@ module.exports = app => {
   router.get('/websites', controller.website.list)
 
   router.get('/progress', controller.progress.list)
+  router.get('/progress/:name', controller.progress.name)
 }
