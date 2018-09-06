@@ -26,8 +26,13 @@ module.exports = appInfo => {
 
   config.security = {
     csrf: {
-      enable: false,
+      enable: false
     }
+  }
+
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
   }
 
   return config

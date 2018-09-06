@@ -33,6 +33,6 @@ module.exports = app => {
   router.put('/websites/:id', controller.website.update)
   router.get('/websites', controller.website.list)
 
-  router.get('/progress', controller.progress.list)
-  router.get('/progress/:name', controller.progress.name)
+  router.get('/progresses', controller.progress.list)
+  router.get('/progresses/:name', controller.progress.name)
 }

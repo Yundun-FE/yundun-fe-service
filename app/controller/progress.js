@@ -24,7 +24,7 @@ class ProgressController extends Controller {
       order: [['updated_at', 'DESC']]
     })
 
-    this.ctx.body = data
+    this.ctx.body = data || {}
   }
 }
 
