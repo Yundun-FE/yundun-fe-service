@@ -15,6 +15,7 @@ class HomeController extends Controller {
     // await ctx.model.Website.sync({ force: true })
     // await ctx.model.Progress.sync({ force: true })
     // await ctx.model.Account.sync({ force: true })
+    // await ctx.model.JobExecutor.sync({ force: true })
 
     const { name, version } = PKG 
     ctx.body = { name, version }
