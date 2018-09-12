@@ -13,7 +13,7 @@ class HomeController extends Controller {
     // await ctx.model.Product.sync({ force: true })
     // await ctx.model.Cmd.sync({ force: true })
     // await ctx.model.Website.sync({ force: true })
-    await ctx.model.Progress.sync({ force: true })
+    // await ctx.model.Progress.sync({ force: true })
     // await ctx.model.Account.sync({ force: true })
 
     const { name, version } = PKG 

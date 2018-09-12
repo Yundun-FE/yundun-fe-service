@@ -10,6 +10,10 @@ module.exports = app => {
       type:INTEGER,
       allowNull: false
     },
+    pid: {
+      type: INTEGER,
+      allowNull: false
+    },
     utime: {
       type: INTEGER,
       allowNull: false
