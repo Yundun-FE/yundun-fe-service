@@ -1,7 +1,7 @@
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN } = app.Sequelize
 
-  const Model = app.model.define('jobs_cmds', {
+  const Model = app.model.define('notices', {
     title: {
       type: STRING(255)
     },
@@ -9,13 +9,13 @@ module.exports = app => {
       type: STRING(255),
       allowNull: false
     },
-    show: {
+    isRead: {
       type: BOOLEAN,
-      defaultValue: true
+      defaultValue: false
     },
-    index: {
-      type: INTEGER,
-      defaultValue: 0
+    userid: {
+      type: STRING(255),
+      allowNull: false
     }
   })
 
