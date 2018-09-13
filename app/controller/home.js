@@ -8,7 +8,7 @@ class HomeController extends Controller {
     const { ctx } = this 
 
     // await ctx.model.Job.sync({ force: true })
-    // await ctx.model.JobExecutor.sync({ force: true })
+    await ctx.model.JobExecutor.sync({ force: true })
     // await ctx.model.Product.sync({ force: true })
     // await ctx.model.Cmd.sync({ force: true })
     // await ctx.model.Website.sync({ force: true })

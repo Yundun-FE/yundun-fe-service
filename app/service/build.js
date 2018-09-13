@@ -19,11 +19,11 @@ class BuildService extends Service {
 
       let name = item.find('.pane a').attr('href')
       let progress = item.find('.progress-bar-done').attr('style')
-      let pid = item.find('.pane a').eq(1).text()
+      let number = item.find('.pane a').eq(1).text()
 
       name = name ? name.split('/')[2] : null
       progress = progress ? parseInt(progress.replace(/[^0-9]/gi, '')) : null
-      pid = parseInt(pid.replace('#', ''))
+      number = parseInt(number.replace('#', ''))
 
       if (!name || !progress) return
 
@@ -31,13 +31,14 @@ class BuildService extends Service {
         name,
         progress,
         utime: moment().format('X'),
-        pid
+        number
       }
 
       listProgress.push(itemProgress)
     })
 
     listProgress.forEach(item => {
+      this.ctx.service.executor.add(item)
       this.ctx.model.Progress.create(item)
     })
 

@@ -2,13 +2,13 @@ module.exports = app => {
   const { INTEGER, STRING, BOOLEAN, DATE } = app.Sequelize
 
   const Model = app.model.define('jobsExecutors', {
-    pid: {
+    number: {
       type: INTEGER,
       allowNull: false
     },
     status: {
       type: STRING(255),
-      allowNull: false
+      defaultValue: ''
     },
     duration: {
       type: INTEGER,
@@ -18,15 +18,12 @@ module.exports = app => {
       type: INTEGER,
       defaultValue: 0
     },
+    name: {
+      type: STRING(255),
+      allowNull: false
+    },
     timestamp: DATE
   })
-
-  Model.associate = () => {
-    Model.belongsTo(app.model.Job, {
-      as: 'job',
-      foreignKey: 'jid'
-    })
-  }
 
   return Model
 }

@@ -12,6 +12,11 @@ class JobController extends Controller {
     }
   }
 
+  async executor() {
+    const data = await this.ctx.service.executor.getStatus() 
+    this.ctx.body = data
+  }
+
   async create() {
     const { ...FORM_KEYS } = this.ctx.request.body
     const create = {

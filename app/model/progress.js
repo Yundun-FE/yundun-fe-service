@@ -10,7 +10,7 @@ module.exports = app => {
       type:INTEGER,
       allowNull: false
     },
-    pid: {
+    number: {
       type: INTEGER,
       allowNull: false
     },
