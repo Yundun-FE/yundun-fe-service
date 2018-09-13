@@ -7,11 +7,15 @@ const cheerio = require('cheerio')
 
 class ExecutorService extends Service {
   async add(item) {
-    const { id, number } = item
-    const data = await this.ctx.model.JobExecutor.findOne({ where: { number } })
+    const { id, number, name } = item
+    const data = await this.ctx.model.JobExecutor.findOne({ where: { number, name } })
 
-    const ret = data ? '' : await this.ctx.model.JobExecutor.create(item)
-    return ret
+    if (data) {
+      return false
+    } else {
+      await this.ctx.model.JobExecutor.create(item)
+      return item
+    }
   }
 
   async getStatus() {
@@ -49,6 +53,10 @@ class ExecutorService extends Service {
       Object.assign(item, itemUpdate)
       nList.push(item)
     }
+    
+    this.ctx.service.client.addNotice(nList)
+
+    console.log('EXECUTOR UPDATED')
 
     return nList
   }

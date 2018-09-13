@@ -42,6 +42,8 @@ class BuildService extends Service {
       this.ctx.model.Progress.create(item)
     })
 
+    this.ctx.service.executor.getStatus()
+
     return listProgress
   }
 }

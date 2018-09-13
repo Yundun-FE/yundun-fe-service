@@ -1,21 +1,22 @@
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN } = app.Sequelize
 
-  const Model = app.model.define('notices', {
-    title: {
-      type: STRING(255)
+  const Model = app.model.define('users', {
+    name: {
+      type: STRING(255),
+      defaultValue: ''
     },
-    content: {
+    password: {
       type: STRING(255),
       allowNull: false
     },
-    isRead: {
-      type: BOOLEAN,
-      defaultValue: false
-    },
-    clientid: {
+    email: {
       type: STRING(255),
       allowNull: false
+    },
+    token: {
+      type: STRING(255),
+      defaultValue: ''
     }
   })
 
