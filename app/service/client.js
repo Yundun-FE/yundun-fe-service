@@ -8,6 +8,15 @@ class ClientService extends Service {
     clientList.set(id, Date.now())
   }
 
+  async clear() {
+    const EXPIRE = Date.now() - 1000 * 600 // 10分
+    clientList.forEach((value, key) => {
+      if (key > EXPIRE) {
+        clientList.delete(value)
+      }
+    })
+  }
+
   async list() {
     return clientList
   }

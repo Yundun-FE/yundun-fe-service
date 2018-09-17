@@ -3,18 +3,25 @@
 const Service = require('egg').Service
 const charset = require('superagent-charset')
 const superagent = charset(require('superagent'))
-const cheerio = require('cheerio')
 
 class ExecutorService extends Service {
   async add(item) {
     const { id, number, name } = item
-    const data = await this.ctx.model.JobExecutor.findOne({ where: { number, name } })
+    // const data = await this.ctx.model.JobExecutor.findOne({ where: { number, name } })
 
-    if (data) {
-      return false
-    } else {
-      await this.ctx.model.JobExecutor.create(item)
-      return item
+    // if (data) {
+    //   return false
+    // } else {
+    //   await this.ctx.model.JobExecutor.create(item)
+    //   return item
+    // }
+
+    const data = await this.ctx.model.JobExecutor.update(item, {
+      where: { number, name }
+    })
+
+    if (!data) {
+      await this.ctx.model.JobExecutor.findOne({ where: { number, name } })
     }
   }
 
@@ -53,7 +60,7 @@ class ExecutorService extends Service {
       Object.assign(item, itemUpdate)
       nList.push(item)
     }
-    
+
     this.ctx.service.client.addNotice(nList)
 
     console.log('EXECUTOR UPDATED')

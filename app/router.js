@@ -36,7 +36,7 @@ module.exports = app => {
   router.get('/progresses', controller.progress.list)
   router.get('/progresses/:name', controller.progress.name)
 
-  router.get('/jobs-executor', controller.job.executor)
+  // router.get('/jobs-executor', controller.job.executor)
 
   router.get('/notices', controller.notice.list)
 }
