@@ -50,7 +50,7 @@ class ExecutorService extends Service {
         estimatedDuration
       }
 
-      this.ctx.model.JobExecutor.update(itemUpdate, {
+      await this.ctx.model.JobExecutor.update(itemUpdate, {
         where: {
           number,
           name
@@ -61,7 +61,7 @@ class ExecutorService extends Service {
       nList.push(item)
     }
 
-    this.ctx.service.client.addNotice(nList)
+    await this.ctx.service.client.addNotice(nList)
 
     console.log('EXECUTOR UPDATED')
 
