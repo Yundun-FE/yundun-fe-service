@@ -9,6 +9,7 @@ module.exports = app => {
   router.get('/install', controller.home.install)
 
   router.get('/jenkins/jobs', controller.jenkins.jobs)
+  router.get('/jenkins/jobs/:id/start', controller.jenkins.jobsStart)
 
   router.post('/products', controller.product.create)
   router.delete('/products', controller.product.delete)
