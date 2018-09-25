@@ -5,6 +5,38 @@ const cheerio = require('cheerio')
 const moment = require('moment')
 
 class BuildService extends Service {
+  async getJobs() {
+    const { jenkins } = this.app.config
+
+    const ret = await superagent.get(`${jenkins.url}`)
+    const $ = cheerio.load(ret.text)
+
+    const list = $('#projectstatus>tbody>tr')
+    const listJobs = []
+
+    list.each((index, item) => {
+      item = $(item)
+
+      const props = item
+        .find('.model-link')
+        .text()
+        .split('#')
+
+      let [name, numberSuccerr = 0, numberFail = 0] = props
+
+      numberSuccerr = parseInt(numberSuccerr)
+      numberFail = parseInt(numberFail)
+
+      const number = numberSuccerr > numberFail ? numberSuccerr : numberFail
+      if (!name) return
+
+      const itemJobs = { name, numberSuccerr, numberFail, number }
+      listJobs.push(itemJobs)
+    })
+
+    return listJobs
+  }
+
   async getProgress() {
     const { jenkins } = this.app.config
 
@@ -19,7 +51,10 @@ class BuildService extends Service {
 
       let name = item.find('.pane a').attr('href')
       let progress = item.find('.progress-bar-done').attr('style')
-      let number = item.find('.pane a').eq(1).text()
+      let number = item
+        .find('.pane a')
+        .eq(1)
+        .text()
 
       name = name ? name.split('/')[2] : null
       progress = progress ? parseInt(progress.replace(/[^0-9]/gi, '')) : null

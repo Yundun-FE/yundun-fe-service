@@ -4,8 +4,11 @@
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-  const { router, controller } = app
+  const { router, controller, service } = app
   router.get('/', controller.home.index)
+  router.get('/install', controller.home.install)
+
+  router.get('/jenkins/jobs', controller.jenkins.jobs)
 
   router.post('/products', controller.product.create)
   router.delete('/products', controller.product.delete)

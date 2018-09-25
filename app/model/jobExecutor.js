@@ -1,5 +1,5 @@
 module.exports = app => {
-  const { INTEGER, STRING, BOOLEAN, DATE } = app.Sequelize
+  const { INTEGER, STRING, BOOLEAN, DATE, JSON } = app.Sequelize
 
   const Model = app.model.define('jobsExecutors', {
     number: {
@@ -21,6 +21,10 @@ module.exports = app => {
     name: {
       type: STRING(255),
       allowNull: false
+    },
+    config: {
+      type: JSON,
+      defaultValue: ''
     },
     timestamp: DATE
   })
