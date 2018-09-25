@@ -8,6 +8,24 @@ class ServiceService extends Service {
     this.ctx.body = data
   }
 
+  async jobName() {
+    const { name } = this.ctx.params
+
+    // 获取编译号
+    const listJobs = await this.service.build.getJobs()
+    const dataJobs = listJobs.find(_ => _.name === name)
+    if (!dataJobs) {
+      const message = '没有此项目'
+      this.ctx.body = {
+        message
+      }
+      return
+    }
+    const next = dataJobs.number + 1
+    Object.assign(dataJobs, { next })
+    this.ctx.body = dataJobs
+  }
+
   async jobsStart() {
     const { name } = this.ctx.params
 
@@ -32,7 +50,6 @@ class ServiceService extends Service {
       return
     }
     const number = ++dataJobs.number
-
 
     // 保存编译配置
     const { content, config } = this.ctx.request.body
