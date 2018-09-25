@@ -13,7 +13,16 @@ class JobController extends Controller {
   }
 
   async executor() {
-    const data = await this.ctx.service.executor.getStatus() 
+    const data = await this.ctx.service.executor.getStatus()
+    this.ctx.body = data
+  }
+
+  async jobExecutor() {
+    const { name, number } = this.ctx.params
+
+    const data = await this.ctx.model.JobExecutor.findOne({
+      where: { name, number }
+    })
     this.ctx.body = data
   }
 

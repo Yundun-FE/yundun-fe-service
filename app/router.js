@@ -9,7 +9,7 @@ module.exports = app => {
   router.get('/install', controller.home.install)
 
   router.get('/jenkins/jobs', controller.jenkins.jobs)
-  router.get('/jenkins/jobs/:id/start', controller.jenkins.jobsStart)
+  router.post('/jenkins/jobs/:name/start', controller.jenkins.jobsStart)
 
   router.post('/products', controller.product.create)
   router.delete('/products', controller.product.delete)
@@ -21,6 +21,7 @@ module.exports = app => {
   router.delete('/jobs', controller.job.delete)
   router.put('/jobs/:id', controller.job.update)
   router.get('/jobs', controller.job.list)
+  router.get('/jobs/executor/:name/:number', controller.job.jobExecutor)
 
   router.post('/accounts', controller.account.create)
   router.delete('/accounts', controller.account.delete)

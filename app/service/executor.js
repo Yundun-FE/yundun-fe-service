@@ -16,13 +16,13 @@ class ExecutorService extends Service {
     //   return item
     // }
 
-    const data = await this.ctx.model.JobExecutor.update(item, {
-      where: { number, name }
-    })
+    // const data = await this.ctx.model.JobExecutor.update(item, {
+    //   where: { number, name }
+    // })
 
-    if (!data) {
-      await this.ctx.model.JobExecutor.findOne({ where: { number, name } })
-    }
+    // if (!data) {
+    //   await this.ctx.model.JobExecutor.findOne({ where: { number, name } })
+    // }
   }
 
   async getStatus() {
