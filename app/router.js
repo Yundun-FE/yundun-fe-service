@@ -6,7 +6,7 @@
 module.exports = app => {
   const { router, controller, service } = app
   router.get('/', controller.home.index)
-  router.get('/install', controller.home.install)
+  // router.get('/install', controller.home.install)
 
   router.get('/jenkins/jobs', controller.jenkins.jobs)
   router.post('/jenkins/jobs/:name/start', controller.jenkins.jobsStart)
