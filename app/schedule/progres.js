@@ -9,8 +9,8 @@ class Progress extends Subscription {
   }
 
   async subscribe() {
-    this.ctx.service.build.getProgress()
-    console.log(Date.now(), 'PROGRESS UPDATED')
+    // this.ctx.service.build.getProgress()
+    // console.log(Date.now(), 'PROGRESS UPDATED')
   }
 }
 
