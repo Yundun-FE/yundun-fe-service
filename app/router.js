@@ -23,7 +23,8 @@ module.exports = app => {
   router.put('/jobs/:id', controller.job.update)
   router.get('/jobs', controller.job.list)
   router.get('/jobs/:id', controller.job.id)
-  router.get('/jobs/executor/:name/:number', controller.job.jobExecutor)
+  router.get('/jobs/executor/:name/:number', controller.job.jobExecutorNumber)
+  router.get('/jobs/executor/:name', controller.job.jobExecutor)
 
   router.post('/accounts', controller.account.create)
   router.delete('/accounts', controller.account.delete)

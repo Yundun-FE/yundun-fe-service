@@ -18,6 +18,16 @@ class JobController extends Controller {
   }
 
   async jobExecutor() {
+    const { name } = this.ctx.params
+
+    const data = await this.ctx.model.JobExecutor.findAll({
+      where: { name },
+      order: [['number', 'DESC']]
+    })
+    this.ctx.body = data
+  }
+
+  async jobExecutorNumber() {
     const { name, number } = this.ctx.params
 
     const data = await this.ctx.model.JobExecutor.findOne({
