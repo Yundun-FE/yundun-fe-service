@@ -1,4 +1,6 @@
-const { Controller } = require('egg')
+'use strict';
+
+const { Controller } = require('egg');
 
 class BuildController extends Controller {
   list() {
@@ -6,4 +8,4 @@ class BuildController extends Controller {
   }
 }
 
-module.exports = BuildController
+module.exports = BuildController;

@@ -1,23 +1,25 @@
+'use strict';
+
 module.exports = app => {
-  const { INTEGER, STRING, BOOLEAN } = app.Sequelize
+  const { INTEGER, STRING, BOOLEAN } = app.Sequelize;
 
   const Model = app.model.define('notices', {
     title: {
-      type: STRING(255)
+      type: STRING(255),
     },
     content: {
       type: STRING(255),
-      allowNull: false
+      allowNull: false,
     },
     isRead: {
       type: BOOLEAN,
-      defaultValue: false
+      defaultValue: false,
     },
     clientid: {
       type: STRING(255),
-      allowNull: false
-    }
-  })
+      allowNull: false,
+    },
+  });
 
-  return Model
-}
+  return Model;
+};

@@ -1,28 +1,30 @@
+'use strict';
+
 module.exports = app => {
-  const { INTEGER, STRING, BOOLEAN } = app.Sequelize
+  const { INTEGER, STRING, BOOLEAN } = app.Sequelize;
 
   const Build = app.model.define('builds', {
     title: {
       type: STRING(255),
-      allowNull: false
+      allowNull: false,
     },
     url: {
       type: STRING(255),
-      allowNull: false
+      allowNull: false,
     },
     type: {
       type: STRING(255),
-      allowNull: false
+      allowNull: false,
     },
     show: {
       type: BOOLEAN,
-      defaultValue: true
+      defaultValue: true,
     },
     index: {
       type: INTEGER,
-      defaultValue: 0
-    }
-  })
+      defaultValue: 0,
+    },
+  });
 
-  return Build
-}
+  return Build;
+};

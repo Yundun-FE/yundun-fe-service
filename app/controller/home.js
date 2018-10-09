@@ -1,17 +1,17 @@
-'use strict'
+'use strict';
 
-const Controller = require('egg').Controller
-const PKG = require('../../package.json')
+const Controller = require('egg').Controller;
+const PKG = require('../../package.json');
 
 class HomeController extends Controller {
   async index() {
-    const { ctx } = this
-    const { name, version } = PKG
-    ctx.body = { name, version }
+    const { ctx } = this;
+    const { name, version } = PKG;
+    ctx.body = { name, version };
   }
 
   async install() {
-    const { ctx } = this
+    const { ctx } = this;
     // await ctx.model.Job.sync({ force: true })
     // await ctx.model.JobExecutor.sync({ force: true })
     // await ctx.model.Product.sync({ force: true })
@@ -21,9 +21,9 @@ class HomeController extends Controller {
     // await ctx.model.Account.sync({ force: true })
     // await ctx.model.Notice.sync({ force: true })
 
-    const { name, version } = PKG
-    ctx.body = { name, version }
+    const { name, version } = PKG;
+    ctx.body = { name, version };
   }
 }
 
-module.exports = HomeController
+module.exports = HomeController;

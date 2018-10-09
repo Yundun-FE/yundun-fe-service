@@ -1,24 +1,26 @@
+'use strict';
+
 module.exports = app => {
-  const { INTEGER, STRING } = app.Sequelize
+  const { INTEGER, STRING } = app.Sequelize;
 
   const Model = app.model.define('progresses', {
     name: {
       type: STRING(255),
-      allowNull: false
+      allowNull: false,
     },
     progress: {
-      type:INTEGER,
-      allowNull: false
+      type: INTEGER,
+      allowNull: false,
     },
     number: {
       type: INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     utime: {
       type: INTEGER,
-      allowNull: false
-    }
-  })
+      allowNull: false,
+    },
+  });
 
-  return Model
-}
+  return Model;
+};

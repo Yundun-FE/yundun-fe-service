@@ -1,20 +1,22 @@
+'use strict';
+
 module.exports = app => {
-  const { INTEGER, STRING, BOOLEAN } = app.Sequelize
+  const { INTEGER, STRING, BOOLEAN } = app.Sequelize;
 
   const Product = app.model.define('products', {
     title: {
       type: STRING(32),
-      allowNull: false
+      allowNull: false,
     },
     show: {
       type: BOOLEAN,
-      defaultValue: true
+      defaultValue: true,
     },
     index: {
       type: INTEGER,
-      defaultValue: 0
-    }
-  })
+      defaultValue: 0,
+    },
+  });
 
-  return Product
-}
+  return Product;
+};

@@ -1,24 +1,26 @@
+'use strict';
+
 module.exports = app => {
-  const { INTEGER, STRING, BOOLEAN } = app.Sequelize
+  const { INTEGER, STRING, BOOLEAN } = app.Sequelize;
 
   const Model = app.model.define('users', {
     name: {
       type: STRING(255),
-      defaultValue: ''
+      defaultValue: '',
     },
     password: {
       type: STRING(255),
-      allowNull: false
+      allowNull: false,
     },
     email: {
       type: STRING(255),
-      allowNull: false
+      allowNull: false,
     },
     token: {
       type: STRING(255),
-      defaultValue: ''
-    }
-  })
+      defaultValue: '',
+    },
+  });
 
-  return Model
-}
+  return Model;
+};

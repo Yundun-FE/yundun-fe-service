@@ -1,17 +1,19 @@
-const { Subscription } = require('egg')
+'use strict';
+
+const { Subscription } = require('egg');
 
 class Progress extends Subscription {
   static get schedule() {
     return {
       interval: '10s',
-      type: 'all'
-    }
+      type: 'all',
+    };
   }
 
   async subscribe() {
-    this.ctx.service.build.getProgress()
-    console.log(Date.now(), 'PROGRESS UPDATED')
+    this.ctx.service.build.getProgress();
+    console.log(Date.now(), 'PROGRESS UPDATED');
   }
 }
 
-module.exports = Progress
+module.exports = Progress;

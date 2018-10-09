@@ -1,41 +1,43 @@
+'use strict';
+
 module.exports = app => {
-  const { INTEGER, STRING, BOOLEAN } = app.Sequelize
+  const { INTEGER, STRING, BOOLEAN } = app.Sequelize;
 
   const Model = app.model.define('jobs', {
     title: {
       type: STRING(255),
-      allowNull: false
+      allowNull: false,
     },
     url: {
       type: STRING(255),
-      allowNull: false
+      allowNull: false,
     },
     env: {
       type: STRING(255),
-      defaultValue: 'default'
+      defaultValue: 'default',
     },
     name: {
       type: STRING(255),
-      defaultValue: ''
+      defaultValue: '',
     },
     show: {
       type: BOOLEAN,
-      defaultValue: true
+      defaultValue: true,
     },
     index: {
       type: INTEGER,
-      defaultValue: 0
-    }
-  })
+      defaultValue: 0,
+    },
+  });
 
   Model.associate = function() {
     Model.hasMany(app.model.Cmd, {
-      foreignKey: 'jid'
-    })
+      foreignKey: 'jid',
+    });
     Model.hasMany(app.model.Account, {
-      foreignKey: 'jid'
-    })
-  }
+      foreignKey: 'jid',
+    });
+  };
 
-  return Model
-}
+  return Model;
+};
