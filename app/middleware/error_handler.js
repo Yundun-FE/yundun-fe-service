@@ -16,7 +16,7 @@ module.exports = () => {
     }
 
     if (ctx.status === 404 && !ctx.body) {
-      ctx.body = { massage: 'Not Api', code: 404 };
+      ctx.body = { message: 'Not Api', code: 404 };
     }
   };
 };

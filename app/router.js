@@ -37,7 +37,7 @@ module.exports = app => {
   router.get('/cmds', controller.cmd.list);
 
   router.post('/websites', controller.website.create);
-  router.delete('/websites', controller.website.delete);
+  router.delete('/websites/:id', controller.website.delete);
   router.put('/websites/:id', controller.website.update);
   router.get('/websites', controller.website.list);
 
