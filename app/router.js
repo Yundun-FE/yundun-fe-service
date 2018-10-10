@@ -27,7 +27,7 @@ module.exports = app => {
   router.get('/jobs/executor/:name', controller.job.jobExecutor);
 
   router.post('/accounts', controller.account.create);
-  router.delete('/accounts', controller.account.delete);
+  router.delete('/accounts/:id', controller.account.delete);
   router.put('/accounts/:id', controller.account.update);
   router.get('/accounts', controller.account.list);
 
