@@ -1,7 +1,7 @@
 'use strict';
 
 const { Controller } = require('egg');
-const FORM_KEYS = [ 'title', 'name', 'url', 'env', 'show', 'index' ];
+const FORM_KEYS = [ 'title', 'name', 'url', 'env', 'show', 'index', 'setting' ];
 
 class JobController extends Controller {
   constructor(ctx) {

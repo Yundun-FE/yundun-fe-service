@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = app => {
-  const { INTEGER, STRING, BOOLEAN } = app.Sequelize;
+  const { INTEGER, STRING, BOOLEAN, JSON } = app.Sequelize;
 
   const Model = app.model.define('jobs', {
     title: {
@@ -23,6 +23,10 @@ module.exports = app => {
     show: {
       type: BOOLEAN,
       defaultValue: true,
+    },
+    setting: {
+      type: JSON,
+      defaultValue: '',
     },
     index: {
       type: INTEGER,
