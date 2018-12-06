@@ -2,6 +2,7 @@
 
 const { Controller } = require('egg');
 const FORM_KEYS = [ 'title', 'name', 'url', 'env', 'show', 'index', 'setting' ];
+const { clearnDef } = require('../utils');
 
 class JobController extends Controller {
   constructor(ctx) {
@@ -76,7 +77,14 @@ class JobController extends Controller {
   }
 
   async list() {
+    const { title } = this.ctx.query;
+
+    const where = clearnDef({
+      title,
+    });
+
     const list = await this.Model.findAll({
+      where,
       include: [
         {
           model: this.ctx.model.Cmd,
