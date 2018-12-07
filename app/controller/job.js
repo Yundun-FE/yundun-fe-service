@@ -1,16 +1,26 @@
 'use strict';
 
-const { Controller } = require('egg');
+const {
+  Controller,
+} = require('egg');
 const FORM_KEYS = [ 'title', 'name', 'url', 'env', 'show', 'index', 'setting' ];
-const { clearnDef } = require('../utils');
+const {
+  clearnDef,
+} = require('../utils');
 
 class JobController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.Model = ctx.model.Job;
     this.Rule = {
-      title: { type: 'string', required: true },
-      url: { type: 'string', required: true },
+      title: {
+        type: 'string',
+        required: true,
+      },
+      url: {
+        type: 'string',
+        required: true,
+      },
     };
   }
 
@@ -20,26 +30,39 @@ class JobController extends Controller {
   }
 
   async jobExecutor() {
-    const { name } = this.ctx.params;
+    const {
+      name,
+    } = this.ctx.params;
 
     const data = await this.ctx.model.JobExecutor.findAll({
-      where: { name },
-      order: [[ 'number', 'DESC' ]],
+      where: {
+        name,
+      },
+      order: [
+        [ 'number', 'DESC' ],
+      ],
     });
     this.ctx.body = data;
   }
 
   async jobExecutorNumber() {
-    const { name, number } = this.ctx.params;
+    const {
+      name,
+      number,
+    } = this.ctx.params;
 
     const data = await this.ctx.model.JobExecutor.findOne({
-      where: { name, number },
+      where: {
+        name,
+        number,
+      },
     });
     this.ctx.body = data;
   }
 
   async create() {
-    const { ...FORM_KEYS } = this.ctx.request.body;
+    const { ...FORM_KEYS
+    } = this.ctx.request.body;
     const create = {
       ...FORM_KEYS,
     };
@@ -50,34 +73,50 @@ class JobController extends Controller {
   }
 
   async delete() {
-    const { id } = this.ctx.params;
+    const {
+      id,
+    } = this.ctx.params;
 
     await this.Model.destroy({
       where: {
         id,
       },
     });
-    this.ctx.body = { id };
+    this.ctx.body = {
+      id,
+    };
   }
 
   async update() {
-    const { id } = this.ctx.params;
-    const { ...FORM_KEYS } = this.ctx.request.body;
-    const update = { ...FORM_KEYS };
+    const {
+      id,
+    } = this.ctx.params;
+    const { ...FORM_KEYS
+    } = this.ctx.request.body;
+    const update = { ...FORM_KEYS,
+    };
 
     this.ctx.validate(this.Rule, update);
 
-    const data = await this.Model.findOne({ where: { id } });
+    const data = await this.Model.findOne({
+      where: {
+        id,
+      },
+    });
     if (!data) throw new Error('Not Found');
 
     this.Model.update(update, {
-      where: { id },
+      where: {
+        id,
+      },
     });
     this.ctx.body = update;
   }
 
   async list() {
-    const { title } = this.ctx.query;
+    const {
+      title,
+    } = this.ctx.query;
 
     const where = clearnDef({
       title,
@@ -85,13 +124,12 @@ class JobController extends Controller {
 
     const list = await this.Model.findAll({
       where,
-      include: [
-        {
-          model: this.ctx.model.Cmd,
-        },
-        {
-          model: this.ctx.model.Account,
-        },
+      include: [{
+        model: this.ctx.model.Cmd,
+      },
+      {
+        model: this.ctx.model.Account,
+      },
       ],
     });
     const total = await this.Model.count();
@@ -103,9 +141,22 @@ class JobController extends Controller {
   }
 
   async id() {
-    const { id } = this.ctx.params;
+    const {
+      id,
+    } = this.ctx.params;
 
-    const data = await this.Model.findOne({ where: { id } });
+    const data = await this.Model.findOne({
+      where: {
+        id,
+      },
+      include: [{
+        model: this.ctx.model.Cmd,
+      },
+      {
+        model: this.ctx.model.Account,
+      },
+      ],
+    });
     this.ctx.body = data;
   }
 }
