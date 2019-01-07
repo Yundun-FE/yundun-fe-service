@@ -1,0 +1,27 @@
+'use strict';
+
+// 目录版本库，用于代理商调用
+
+module.exports = app => {
+  const { INTEGER, STRING, BOOLEAN, JSON } = app.Sequelize;
+
+  const Model = app.model.define('agents', {
+    name: {
+      type: STRING(255),
+      allowNull: false,
+    },
+
+    version: {
+      type: STRING(255),
+      allowNull: false,
+    },
+
+    JSON: {
+      type: JSON,
+      defaultValue: {},
+    },
+  });
+
+  return Model;
+};
+
