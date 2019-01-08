@@ -21,6 +21,13 @@ class HomeController extends Controller {
     // await ctx.model.Account.sync({ force: true })
     // await ctx.model.Notice.sync({ force: true })
 
+    // await ctx.model.Agent.sync({ force: true });
+    // await ctx.model.Brand.sync({ force: true });
+    // await ctx.model.BrandVersion.sync({ force: true });
+    await ctx.model.Menu.sync({ force: true });
+    // await ctx.model.MenuVersion.sync({ force: true });
+    // await ctx.model.Description.sync({ force: true });
+
     const { name, version } = PKG;
     ctx.body = { name, version };
   }

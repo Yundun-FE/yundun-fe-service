@@ -20,6 +20,16 @@ module.exports = app => {
       type: STRING(255),
       defaultValue: '',
     },
+
+    children: {
+      type: JSON,
+      defaultValue: [],
+    },
+
+    enable: {
+      type: BOOLEAN,
+      defaultValue: true,
+    },
   });
 
   return Model;

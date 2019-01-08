@@ -9,6 +9,9 @@ module.exports = app => {
     name: {
       type: STRING(255),
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
 
     website: {
@@ -30,6 +33,13 @@ module.exports = app => {
       type: INTEGER,
       defaultValue: 0,
     },
+  }, {
+    indexes: [
+      {
+        unique: true,
+        fields: [ 'name' ],
+      },
+    ],
   });
 
   return Model;

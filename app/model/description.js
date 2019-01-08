@@ -28,7 +28,7 @@ module.exports = app => {
 
     type: {
       type: INTEGER,
-      defaultValue: '',
+      defaultValue: 0,
     },
   });
 

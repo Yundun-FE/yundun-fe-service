@@ -6,7 +6,7 @@
 module.exports = app => {
   const { router, controller, service } = app;
   router.get('/', controller.home.index);
-  // router.get('/install', controller.home.install)
+  router.get('/install', controller.home.install);
 
   router.get('/jenkins/jobs', controller.jenkins.jobs);
   router.post('/jenkins/jobs/:name/start', controller.jenkins.jobsStart);
@@ -47,4 +47,28 @@ module.exports = app => {
   // router.get('/jobs-executor', controller.job.executor)
 
   router.get('/notices', controller.notice.list);
+
+  router.post('/agents', controller.agent.create);
+  router.delete('/agents/:id', controller.agent.delete);
+  router.put('/agents/:id', controller.agent.update);
+  router.get('/agents', controller.agent.list);
+  router.get('/agents/:id', controller.agent.id);
+
+  router.post('/brands', controller.brand.create);
+  router.delete('/brands/:id', controller.brand.delete);
+  router.put('/brands/:id', controller.brand.update);
+  router.get('/brands', controller.brand.list);
+  router.get('/brands/:id', controller.brand.id);
+
+  router.post('/brandsVersion', controller.brandVersion.create);
+  router.delete('/brandsVersion/:id', controller.brandVersion.delete);
+  router.put('/brandsVersion/:id', controller.brandVersion.update);
+  router.get('/brandsVersion', controller.brandVersion.list);
+  router.get('/brandsVersion/:id', controller.brandVersion.id);
+
+  router.post('/menus', controller.menu.create);
+  router.delete('/menus/:id', controller.menu.delete);
+  router.put('/menus/:id', controller.menu.update);
+  router.get('/menus', controller.menu.list);
+  router.get('/menus/:id', controller.menu.id);
 };

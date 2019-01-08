@@ -15,4 +15,5 @@ function clearnDef(obj) {
   return obj;
 }
 
+exports.isDef = isDef;
 exports.clearnDef = clearnDef;

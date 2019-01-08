@@ -7,6 +7,7 @@ class Progress extends Subscription {
     return {
       interval: '10s',
       type: 'all',
+      disable: true,
     };
   }
 

@@ -7,6 +7,7 @@ class Clients extends Subscription {
     return {
       interval: '600s',
       type: 'all',
+      disable: true,
     };
   }
 

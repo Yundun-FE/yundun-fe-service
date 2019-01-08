@@ -11,6 +11,7 @@ module.exports = () => {
         code,
         errors,
       };
+      ctx.status = 400;
       ctx.body = data;
       return;
     }

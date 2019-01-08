@@ -16,7 +16,7 @@ module.exports = app => {
       allowNull: false,
     },
 
-    JSON: {
+    data: {
       type: JSON,
       defaultValue: {},
     },
