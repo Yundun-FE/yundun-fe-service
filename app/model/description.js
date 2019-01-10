@@ -20,13 +20,23 @@ module.exports = app => {
       allowNull: false,
     },
 
+    type: {
+      type: INTEGER,
+      defaultValue: 0,
+    },
+
     content: {
       type: STRING(255),
       allowNull: false,
       defaultValue: '',
     },
 
-    type: {
+    translate: {
+      type: JSON,
+      defaultValue: {},
+    },
+
+    appid: {
       type: INTEGER,
       defaultValue: 0,
     },

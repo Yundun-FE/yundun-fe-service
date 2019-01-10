@@ -1,26 +1,24 @@
 'use strict';
 
 const { Controller } = require('egg');
-// const { FORM, TABLE } = require('../../packages/yundun-fe-common/form/menu');
 const { mergeShare } = require('../utils/object');
 const { formatForm, formatRules } = require('../utils/form');
-const DATA = require('../../packages/yundun-fe-common/form/menu');
+const DATA = require('../../packages/yundun-fe-common/form/application');
 
-class MenuController extends Controller {
+class ApplicationController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.TABLE = DATA.TABLE;
     this.FORM = DATA.FORM;
     this.form = formatForm(DATA.FORM);
     this.Rules = formatRules(DATA.FORM);
-    this.Model = ctx.model.Menu;
+    this.Model = ctx.model.Application;
   }
 
   async create() {
     const create = mergeShare(this.form, this.ctx.request.body);
-    // await this.ctx.validate(this.Rules, create);
-    const result = await this.Model.create(create);
-    this.ctx.body = result;
+    await this.ctx.validate(this.Rules, create);
+    this.ctx.body = await this.ctx.service.application.create(create);
   }
 
   async delete() {
@@ -41,13 +39,11 @@ class MenuController extends Controller {
     const data = await this.Model.findOne({ where: { id } });
     if (!data) throw new Error('Not Found');
 
-    this.Model.update(update, {
-      where: { id },
-    });
-    this.ctx.body = update;
+    this.ctx.body = await this.ctx.service.application.updateId(id, update);
   }
 
   async list() {
+    const list = await this.Model.findAll();
     const total = await this.Model.count();
     const { resources } = this.ctx.query;
     if (resources === 'form') {
@@ -58,7 +54,10 @@ class MenuController extends Controller {
       return;
     }
 
-    const list = await this.Model.findAll();
+    list.forEach(item => {
+      if (!item.menus) item.menus = [];
+    });
+
     this.ctx.body = {
       list,
       total,
@@ -72,4 +71,4 @@ class MenuController extends Controller {
   }
 }
 
-module.exports = MenuController;
+module.exports = ApplicationController;

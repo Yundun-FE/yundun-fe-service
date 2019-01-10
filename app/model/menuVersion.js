@@ -5,7 +5,7 @@
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN, JSON } = app.Sequelize;
 
-  const Model = app.model.define('agents', {
+  const Model = app.model.define('menusVersion', {
     name: {
       type: STRING(255),
       allowNull: false,
@@ -16,7 +16,22 @@ module.exports = app => {
       allowNull: false,
     },
 
-    JSON: {
+    remarks: {
+      type: STRING(255),
+      defaultValue: '',
+    },
+
+    menus: {
+      type: JSON,
+      defaultValue: [],
+    },
+
+    settings: {
+      type: JSON,
+      defaultValue: {},
+    },
+
+    translate: {
       type: JSON,
       defaultValue: {},
     },

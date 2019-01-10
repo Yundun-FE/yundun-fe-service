@@ -66,9 +66,21 @@ module.exports = app => {
   router.get('/brandsVersion', controller.brandVersion.list);
   router.get('/brandsVersion/:id', controller.brandVersion.id);
 
-  router.post('/menus', controller.menu.create);
-  router.delete('/menus/:id', controller.menu.delete);
-  router.put('/menus/:id', controller.menu.update);
-  router.get('/menus', controller.menu.list);
-  router.get('/menus/:id', controller.menu.id);
+  // router.post('/menus', controller.menu.create);
+  // router.delete('/menus/:id', controller.menu.delete);
+  // router.put('/menus/:id', controller.menu.update);
+  // router.get('/menus', controller.menu.list);
+  // router.get('/menus/:id', controller.menu.id);
+
+  router.post('/menusVersion', controller.menuVersion.create);
+  router.delete('/menusVersion/:id', controller.menuVersion.delete);
+  router.put('/menusVersion/:id', controller.menuVersion.update);
+  router.get('/menusVersion', controller.menuVersion.list);
+  router.get('/menusVersion/:id', controller.menuVersion.id);
+
+  router.post('/applications', controller.application.create);
+  router.delete('/applications/:id', controller.application.delete);
+  router.put('/applications/:id', controller.application.update);
+  router.get('/applications', controller.application.list);
+  router.get('/applications/:id', controller.application.id);
 };
