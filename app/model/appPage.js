@@ -2,15 +2,14 @@
 
 const TYPE = {
   0: '默认',
-  1: '主提示',
-  2: '',
+  1: '提示',
 };
 
 // 品牌表
 module.exports = app => {
-  const { INTEGER, STRING, BOOLEAN } = app.Sequelize;
+  const { INTEGER, STRING, BOOLEAN, JSON } = app.Sequelize;
 
-  const Model = app.model.define('descriptions', {
+  const Model = app.model.define('appsPages', {
     name: {
       type: STRING(255),
       allowNull: false,
@@ -18,18 +17,22 @@ module.exports = app => {
 
     code: {
       type: STRING(255),
-      allowNull: false,
-    },
-
-    type: {
-      type: INTEGER,
-      defaultValue: 0,
-    },
-
-    content: {
-      type: STRING(255),
-      allowNull: false,
       defaultValue: '',
+    },
+
+    remarks: {
+      type: STRING(255),
+      defaultValue: '',
+    },
+
+    path: {
+      type: STRING(255),
+      defaultValue: '',
+    },
+
+    words: {
+      type: JSON,
+      defaultValue: [],
     },
 
     translate: {
@@ -37,9 +40,14 @@ module.exports = app => {
       defaultValue: {},
     },
 
-    appid: {
+    appId: {
       type: INTEGER,
       defaultValue: 0,
+    },
+
+    layout: {
+      type: JSON,
+      defaultValue: {},
     },
   });
 
