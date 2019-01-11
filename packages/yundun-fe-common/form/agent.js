@@ -21,8 +21,29 @@ const FORM = [
     default: '',
   },
   {
+    prop: 'code',
+    default: '',
+  },
+  {
     prop: 'assets',
-    default: [],
+    default: [
+      {
+        key: 'favicon',
+        value: '',
+      },
+      {
+        key: 'logoFull',
+        value: '',
+      },
+      {
+        key: 'logoBase',
+        value: '',
+      },
+      {
+        key: '404Page',
+        value: '',
+      },
+    ],
     defaultRow: {
       key: '',
       label: '',

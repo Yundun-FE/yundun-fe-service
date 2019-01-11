@@ -46,11 +46,8 @@ class AgentController extends Controller {
 
   async list() {
     const { resources, code } = this.ctx.query;
-    if (resources === 'rules') {
-      this.ctx.body = {
-        form: this.form,
-        rules: this.Rules,
-      };
+    if (resources === 'form') {
+      this.ctx.body = this.FORM;
       return;
     }
     if (code) {
