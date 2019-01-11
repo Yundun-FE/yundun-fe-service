@@ -48,11 +48,8 @@ class AppPageController extends Controller {
   }
 
   async list() {
-    const list = await this.Model.findAll();
 
-
-    const total = await this.Model.count();
-    const { resources } = this.ctx.query;
+    const { resources, code, agent } = this.ctx.query;
     if (resources === 'form') {
       this.ctx.body = this.FORM;
       return;
@@ -61,6 +58,14 @@ class AppPageController extends Controller {
       return;
     }
 
+
+    if (code) {
+      this.ctx.body = await this.ctx.service.appPage.getByCode(code, agent);
+      return;
+    }
+
+    const list = await this.Model.findAll();
+    const total = await this.Model.count();
     this.ctx.body = {
       list,
       total,
@@ -69,6 +74,7 @@ class AppPageController extends Controller {
 
   async id() {
     const { id } = this.ctx.params;
+
     const data = await this.Model.findOne({ where: { id } });
     this.ctx.body = data;
   }

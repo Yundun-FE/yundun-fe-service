@@ -39,6 +39,7 @@ const FORM = [
       {
         label: '',
         value: '',
+        valueOem: '',
       },
     ],
   },
@@ -48,6 +49,7 @@ const FORM = [
       {
         label: '',
         value: '',
+        valueOem: '',
         remarks: '',
       },
     ],

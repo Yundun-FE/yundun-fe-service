@@ -30,12 +30,27 @@ module.exports = app => {
       defaultValue: [],
     },
 
+    columnsAgents: {
+      type: JSON,
+      defaultValue: [],
+    },
+
     words: {
       type: JSON,
       defaultValue: [],
     },
 
+    wordsAgents: {
+      type: JSON,
+      defaultValue: [],
+    },
+
     settings: {
+      type: JSON,
+      defaultValue: [],
+    },
+
+    settingsAgents: {
       type: JSON,
       defaultValue: [],
     },
