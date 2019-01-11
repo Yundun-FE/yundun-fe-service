@@ -1,10 +1,5 @@
 'use strict';
 
-const TYPE = {
-  0: '默认',
-  1: '提示',
-};
-
 // 品牌表
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN, JSON } = app.Sequelize;
@@ -30,7 +25,17 @@ module.exports = app => {
       defaultValue: '',
     },
 
+    columns: {
+      type: JSON,
+      defaultValue: [],
+    },
+
     words: {
+      type: JSON,
+      defaultValue: [],
+    },
+
+    settings: {
       type: JSON,
       defaultValue: [],
     },
@@ -44,11 +49,13 @@ module.exports = app => {
       type: INTEGER,
       defaultValue: 0,
     },
-
-    layout: {
-      type: JSON,
-      defaultValue: {},
-    },
+  }, {
+    indexes: [
+      {
+        unique: true,
+        fields: [ 'code' ],
+      },
+    ],
   });
 
   return Model;

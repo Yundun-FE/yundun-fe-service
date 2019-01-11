@@ -37,6 +37,15 @@ class MenuVersionController extends Controller {
     const update = mergeShare(this.form, this.ctx.request.body);
     await this.ctx.validate(this.Rules, update);
 
+    const apps = await this.ctx.model.Application.findAll();
+    const { menus } = update;
+
+    menus.forEach(item => {
+      item.childrens.forEach(app => {
+        app.code = apps.find(_ => _.id === app.id).code;
+      });
+    });
+
     const data = await this.Model.findOne({ where: { id } });
     if (!data) throw new Error('Not Found');
 

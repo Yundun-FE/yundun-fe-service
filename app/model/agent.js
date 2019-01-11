@@ -14,6 +14,11 @@ module.exports = app => {
       },
     },
 
+    code: {
+      type: STRING(255),
+      allowNull: false,
+    },
+
     website: {
       type: STRING(255),
       defaultValue: '',
@@ -38,6 +43,10 @@ module.exports = app => {
       {
         unique: true,
         fields: [ 'name' ],
+      },
+      {
+        unique: true,
+        fields: [ 'code' ],
       },
     ],
   });

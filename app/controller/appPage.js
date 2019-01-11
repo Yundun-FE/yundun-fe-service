@@ -1,21 +1,24 @@
 'use strict';
 
 const { Controller } = require('egg');
-const DATA = require('../../packages/yundun-fe-common/form/agent');
-const { mergeShare } = require('../utils/object');
 const { formatForm, formatRules } = require('../utils/form');
+const DATA = require('../../packages/yundun-fe-common/form/appPage');
+const { mergeShare } = require('../utils/object');
 
-class AgentController extends Controller {
+class AppPageController extends Controller {
   constructor(ctx) {
     super(ctx);
-    this.Model = ctx.model.Agent;
+    this.TABLE = DATA.TABLE;
     this.FORM = DATA.FORM;
     this.form = formatForm(DATA.FORM);
     this.Rules = formatRules(DATA.FORM);
+    this.Model = ctx.model.AppPage;
   }
 
   async create() {
     const create = mergeShare(this.form, this.ctx.request.body);
+    create.words = create.words.filter(_ => _.code);
+
     await this.ctx.validate(this.Rules, create);
     this.ctx.body = await this.Model.create(create);
   }
@@ -38,28 +41,26 @@ class AgentController extends Controller {
     const data = await this.Model.findOne({ where: { id } });
     if (!data) throw new Error('Not Found');
 
-    this.Model.update(update, {
+    const result = await this.Model.update(update, {
       where: { id },
     });
-    this.ctx.body = update;
+    this.ctx.body = result;
   }
 
   async list() {
-    const { resources, code } = this.ctx.query;
-    if (resources === 'rules') {
-      this.ctx.body = {
-        form: this.form,
-        rules: this.Rules,
-      };
+    const list = await this.Model.findAll();
+
+
+    const total = await this.Model.count();
+    const { resources } = this.ctx.query;
+    if (resources === 'form') {
+      this.ctx.body = this.FORM;
       return;
-    }
-    if (code) {
-      this.ctx.body = await this.ctx.service.agent.getByCode(code);
+    } else if (resources === 'table') {
+      this.ctx.body = this.TABLE;
       return;
     }
 
-    const list = await this.Model.findAll();
-    const total = await this.Model.count();
     this.ctx.body = {
       list,
       total,
@@ -73,4 +74,4 @@ class AgentController extends Controller {
   }
 }
 
-module.exports = AgentController;
+module.exports = AppPageController;
