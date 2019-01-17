@@ -24,12 +24,27 @@ class MenuVersionController extends Controller {
 
   async delete() {
     const { id } = this.ctx.params;
-    await this.Model.destroy({
-      where: {
-        id,
-      },
-    });
-    this.ctx.body = { id };
+    if (!id) throw new Error('no id');
+
+    const ids = id.split(',');
+    if (ids.length > 0) {
+      if (ids.length > 100) throw new Error('最大支持100条删除');
+      await this.Model.destroy({
+        where: {
+          id: {
+            $in: ids,
+          },
+        },
+      });
+      this.ctx.body = { id: ids };
+    } else {
+      await this.Model.destroy({
+        where: {
+          id,
+        },
+      });
+      this.ctx.body = { id };
+    }
   }
 
   async update() {

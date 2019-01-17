@@ -41,7 +41,7 @@ const TABLE = [
   {
     prop: 'id',
     label: 'ID',
-    minWidth: 80,
+    width: 80,
   },
   {
     prop: 'name',
@@ -51,7 +51,7 @@ const TABLE = [
   {
     prop: 'version',
     label: '版本',
-    minWidth: 180,
+    minWidth: 80,
   },
   {
     prop: 'remarks',
