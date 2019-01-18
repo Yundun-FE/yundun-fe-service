@@ -37,6 +37,29 @@ const FORM = [
   },
 ];
 
+const TOOLBAR = [
+  {
+    label: '创建新目录',
+    command: 'Create',
+  },
+  {
+    label: '删除',
+    command: 'Delete',
+  },
+  {
+    components: 'InputSearch',
+    align: 'right',
+    props: {
+
+    },
+  },
+  {
+    icon: 'el-setting',
+    align: 'right',
+    command: 'Setting',
+  },
+];
+
 const TABLE = [
   {
     prop: 'id',
@@ -57,6 +80,25 @@ const TABLE = [
     prop: 'remarks',
     label: '备注',
     minWidth: 180,
+  },
+  {
+    label: '操作',
+    action: [
+      {
+        type: 'dropdown',
+        command: 'Edit',
+        items: [
+          {
+            label: '克隆',
+            command: 'Clone',
+          },
+          {
+            label: '删除',
+            command: 'Delete',
+          },
+        ],
+      },
+    ],
   },
 ];
 
