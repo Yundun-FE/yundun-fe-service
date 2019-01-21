@@ -9,7 +9,7 @@ class MenuVersionController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.TABLE = DATA.TABLE;
-    this.FORM = DATA.FORM;
+    this.FORM = DATA.FORM; 2;
     this.form = formatForm(DATA.FORM);
     this.Rules = formatRules(DATA.FORM);
     this.Model = ctx.model.MenuVersion;
