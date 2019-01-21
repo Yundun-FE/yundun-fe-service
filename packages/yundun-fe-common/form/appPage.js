@@ -118,6 +118,7 @@ const TABLE = {
       list: [{
         label: '编辑',
         command: 'Edit',
+        toPage: true,
         items: [{
           label: '克隆',
           command: 'Clone',
