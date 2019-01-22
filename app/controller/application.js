@@ -8,7 +8,6 @@ const DATA = require('../../packages/yundun-fe-common/form/application');
 class ApplicationController extends Controller {
   constructor(ctx) {
     super(ctx);
-    this.TABLE = DATA.TABLE;
     this.FORM = DATA.FORM;
     this.form = formatForm(DATA.FORM);
     this.Rules = formatRules(DATA.FORM);
@@ -43,17 +42,17 @@ class ApplicationController extends Controller {
   }
 
   async list() {
-    const list = await this.Model.findAll();
-    const total = await this.Model.count();
-    const { resources } = this.ctx.query;
+    const { resources, page = 1, pageSize = 10 } = this.ctx.query;
     if (resources === 'form') {
       this.ctx.body = this.FORM;
       return;
-    } else if (resources === 'table') {
-      this.ctx.body = this.TABLE;
-      return;
     }
 
+    const list = await this.Model.findAll({
+      limit: Number(pageSize),
+      offset: Number(pageSize * (page - 1)),
+    });
+    const total = await this.Model.count();
     list.forEach(item => {
       if (!item.menus) item.menus = [];
     });
