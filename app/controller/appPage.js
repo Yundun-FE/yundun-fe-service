@@ -4,6 +4,7 @@ const { Controller } = require('egg');
 const { formatForm, formatRules } = require('../utils/form');
 const DATA = require('../../packages/yundun-fe-common/form/appPage');
 const { mergeShare } = require('../utils/object');
+const fs = require('fs');
 
 class AppPageController extends Controller {
   constructor(ctx) {
@@ -21,6 +22,20 @@ class AppPageController extends Controller {
 
     await this.ctx.validate(this.Rules, create);
     this.ctx.body = await this.Model.create(create);
+  }
+
+  async deploy() {
+    const { id } = this.ctx.params;
+
+    const data = await this.Model.findOne({ where: { id } });
+
+
+    fs.writeFile(`./data/explorer/pages/${data.code}.json`, JSON.stringify(data), function(err) {
+      if (err) {
+        throw err;
+      }
+    });
+    this.ctx.body = data;
   }
 
   async delete() {
@@ -48,7 +63,6 @@ class AppPageController extends Controller {
   }
 
   async list() {
-
     const { resources, code, agent } = this.ctx.query;
     if (resources === 'form') {
       this.ctx.body = this.FORM;
@@ -57,7 +71,6 @@ class AppPageController extends Controller {
       this.ctx.body = this.TABLE;
       return;
     }
-
 
     if (code) {
       this.ctx.body = await this.ctx.service.appPage.getByCode(code, agent);

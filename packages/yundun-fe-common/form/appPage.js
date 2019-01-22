@@ -16,6 +16,10 @@ const FORM = [{
   },
 },
 {
+  prop: 'type',
+  default: 0,
+},
+{
   prop: 'remarks',
   default: '',
 },
@@ -24,11 +28,8 @@ const FORM = [{
   default: '',
 },
 {
-  prop: 'columns',
-  default: [{
-    label: '',
-    prop: '',
-  }],
+  prop: 'content',
+  default: {},
 },
 {
   prop: 'words',

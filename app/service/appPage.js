@@ -19,6 +19,7 @@ class AppPageService extends Service {
       name: data.name,
       words,
       settings,
+      content: data.content,
     };
   }
 }

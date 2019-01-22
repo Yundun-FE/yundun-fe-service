@@ -85,10 +85,14 @@ module.exports = app => {
   router.get('/applications/:id', controller.application.id);
 
   router.post('/appsPages', controller.appPage.create);
+  router.post('/appsPages/:id/deploy', controller.appPage.deploy);
   router.delete('/appsPages/:id', controller.appPage.delete);
   router.put('/appsPages/:id', controller.appPage.update);
   router.get('/appsPages', controller.appPage.list);
   router.get('/appsPages/:id', controller.appPage.id);
+
+  router.get('/explorer/pages/:code', controller.explorer.page);
+  // router.get('/explorer/assets/:code', controller.explorer.page);
 
   router.get('/upload/token', controller.upload.token);
 };

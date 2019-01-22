@@ -1,6 +1,33 @@
 'use strict';
 
-// 品牌表
+const APP_PAGE_TYPE = [
+  {
+    label: '通用',
+    value: 0,
+  },
+  {
+    label: '列表页',
+    value: 1,
+  },
+  {
+    label: '编辑页',
+    value: 2,
+  },
+  {
+    label: '弹框',
+    value: 3,
+  },
+  {
+    label: '控制台',
+    value: 4,
+  },
+  {
+    label: '配置页',
+    value: 5,
+  },
+];
+
+// 页面
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN, JSON } = app.Sequelize;
 
@@ -15,6 +42,11 @@ module.exports = app => {
       defaultValue: '',
     },
 
+    type: {
+      type: INTEGER,
+      defaultValue: 0,
+    },
+
     remarks: {
       type: STRING(255),
       defaultValue: '',
@@ -25,14 +57,9 @@ module.exports = app => {
       defaultValue: '',
     },
 
-    columns: {
+    content: {
       type: JSON,
-      defaultValue: [],
-    },
-
-    columnsAgents: {
-      type: JSON,
-      defaultValue: [],
+      defaultValue: {},
     },
 
     words: {
