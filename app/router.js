@@ -92,7 +92,7 @@ module.exports = app => {
   router.get('/appsPages/:id', controller.appPage.id);
 
   router.get('/explorer/pages/:code', controller.explorer.page);
-  // router.get('/explorer/assets/:code', controller.explorer.page);
+  router.get('/explorer/assets/:code', controller.explorer.assets);
 
   router.get('/upload/token', controller.upload.token);
 };

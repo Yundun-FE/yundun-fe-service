@@ -8,6 +8,11 @@ class ExplorerController extends Controller {
     const { agent } = this.ctx.query;
     this.ctx.body = await this.ctx.service.appPage.getByCode(code, agent);
   }
+
+  async assets() {
+    const { code } = this.ctx.params;
+    this.ctx.body = await this.ctx.service.agent.getByCode(code);
+  }
 }
 
 module.exports = ExplorerController;

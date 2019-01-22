@@ -67,9 +67,6 @@ class AppPageController extends Controller {
     if (resources === 'form') {
       this.ctx.body = this.FORM;
       return;
-    } else if (resources === 'table') {
-      this.ctx.body = this.TABLE;
-      return;
     }
 
     if (code) {
