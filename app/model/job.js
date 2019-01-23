@@ -8,29 +8,60 @@ module.exports = app => {
       type: STRING(255),
       allowNull: false,
     },
+
     url: {
       type: STRING(255),
       allowNull: false,
     },
+
     env: {
       type: STRING(255),
       defaultValue: 'default',
     },
+
     name: {
       type: STRING(255),
       defaultValue: '',
     },
+
     show: {
       type: BOOLEAN,
       defaultValue: true,
     },
-    setting: {
-      type: JSON,
-      defaultValue: '',
-    },
+
     index: {
       type: INTEGER,
       defaultValue: 0,
+    },
+
+    code: {
+      type: STRING(255),
+      allowNull: false,
+    },
+
+    tags: {
+      type: JSON,
+      defaultValue: [],
+    },
+
+    status: {
+      type: INTEGER,
+      default: 0,
+    },
+
+    menuId: {
+      type: INTEGER,
+      defaultValue: 0,
+    },
+
+    setting: {
+      type: JSON,
+      defaultValue: {},
+    },
+
+    assets: {
+      type: JSON,
+      defaultValue: {},
     },
   });
 

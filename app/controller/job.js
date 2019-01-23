@@ -7,10 +7,16 @@ const FORM_KEYS = [ 'title', 'name', 'url', 'env', 'show', 'index', 'setting' ];
 const {
   clearnDef,
 } = require('../utils');
+const { mergeShare } = require('../utils/object');
+const { formatForm, formatRules } = require('../utils/form');
+const DATA = require('../../packages/yundun-fe-common/form/job');
 
 class JobController extends Controller {
   constructor(ctx) {
     super(ctx);
+    this.FORM = DATA.FORM;
+    this.form = formatForm(DATA.FORM);
+    this.Rules = formatRules(DATA.FORM);
     this.Model = ctx.model.Job;
     this.Rule = {
       title: {
@@ -114,9 +120,16 @@ class JobController extends Controller {
   }
 
   async list() {
+    // const { resources } = this.ctx.query;
+    // if (resources === 'form') {
+    //   this.ctx.body = this.FORM;
+    //   return;
+    // }
+
     const {
       title,
     } = this.ctx.query;
+
 
     const where = clearnDef({
       title,

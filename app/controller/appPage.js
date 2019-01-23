@@ -63,19 +63,21 @@ class AppPageController extends Controller {
   }
 
   async list() {
-    const { resources, code, agent } = this.ctx.query;
+    const { resources, code, agent, appId } = this.ctx.query;
     if (resources === 'form') {
       this.ctx.body = this.FORM;
       return;
     }
 
+    const where = {};
+    if (appId) where.appId = appId;
     if (code) {
       this.ctx.body = await this.ctx.service.appPage.getByCode(code, agent);
       return;
     }
 
-    const list = await this.Model.findAll();
-    const total = await this.Model.count();
+    const list = await this.Model.findAll({ where });
+    const total = await this.Model.count({ where });
     this.ctx.body = {
       list,
       total,

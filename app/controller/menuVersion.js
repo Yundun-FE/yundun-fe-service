@@ -8,8 +8,7 @@ const DATA = require('../../packages/yundun-fe-common/form/menuVersion');
 class MenuVersionController extends Controller {
   constructor(ctx) {
     super(ctx);
-    this.TABLE = DATA.TABLE;
-    this.FORM = DATA.FORM; 2;
+    this.FORM = DATA.FORM;
     this.form = formatForm(DATA.FORM);
     this.Rules = formatRules(DATA.FORM);
     this.Model = ctx.model.MenuVersion;
@@ -73,9 +72,6 @@ class MenuVersionController extends Controller {
     const { resources } = this.ctx.query;
     if (resources === 'form') {
       this.ctx.body = this.FORM;
-      return;
-    } else if (resources === 'table') {
-      this.ctx.body = this.TABLE;
       return;
     }
 

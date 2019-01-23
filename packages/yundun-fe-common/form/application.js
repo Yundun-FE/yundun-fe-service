@@ -50,26 +50,7 @@ const LABEL = {
   },
 };
 
-const TABLE = [
-  {
-    prop: 'name',
-    label: '名称',
-    minWidth: 180,
-  },
-  {
-    prop: 'code',
-    label: 'CODE',
-    minWidth: 180,
-  },
-  {
-    prop: 'status',
-    label: '状态',
-    minWidth: 80,
-  },
-];
-
 module.exports = {
   FORM,
-  TABLE,
   LABEL,
 };
