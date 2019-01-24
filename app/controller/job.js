@@ -1,12 +1,8 @@
 'use strict';
 
-const {
-  Controller,
-} = require('egg');
+const { Controller } = require('egg');
 const FORM_KEYS = [ 'title', 'name', 'url', 'env', 'show', 'index', 'setting' ];
-const {
-  clearnDef,
-} = require('../utils');
+const { clearnDef } = require('../utils');
 const { mergeShare } = require('../utils/object');
 const { formatForm, formatRules } = require('../utils/form');
 const DATA = require('../../packages/yundun-fe-common/form/job');
@@ -67,15 +63,9 @@ class JobController extends Controller {
   }
 
   async create() {
-    const { ...FORM_KEYS
-    } = this.ctx.request.body;
-    const create = {
-      ...FORM_KEYS,
-    };
-
-    this.ctx.validate(this.Rule, create);
-    this.Model.create(create);
-    this.ctx.body = create;
+    const create = mergeShare(this.form, this.ctx.request.body);
+    await this.ctx.validate(this.Rules, create);
+    this.ctx.body = await this.Model.create(create);
   }
 
   async delete() {
@@ -120,22 +110,21 @@ class JobController extends Controller {
   }
 
   async list() {
-    // const { resources } = this.ctx.query;
-    // if (resources === 'form') {
-    //   this.ctx.body = this.FORM;
-    //   return;
-    // }
+    const { resources, page = 1, pageSize = 10 } = this.ctx.query;
+    if (resources === 'form') {
+      this.ctx.body = this.FORM;
+      return;
+    }
 
-    const {
-      title,
-    } = this.ctx.query;
-
-
+    const { title } = this.ctx.query;
     const where = clearnDef({
       title,
     });
 
     const list = await this.Model.findAll({
+      limit: Number(pageSize),
+      offset: Number(pageSize * (page - 1)),
+      order: [[ 'id', 'DESC' ]],
       where,
       include: [{
         model: this.ctx.model.Cmd,
@@ -147,16 +136,11 @@ class JobController extends Controller {
     });
     const total = await this.Model.count();
 
-    this.ctx.body = {
-      list,
-      total,
-    };
+    this.ctx.body = { list, total };
   }
 
   async id() {
-    const {
-      id,
-    } = this.ctx.params;
+    const { id } = this.ctx.params;
 
     const data = await this.Model.findOne({
       where: {

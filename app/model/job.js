@@ -11,7 +11,7 @@ module.exports = app => {
 
     url: {
       type: STRING(255),
-      allowNull: false,
+      defaultValue: '',
     },
 
     env: {
@@ -32,11 +32,6 @@ module.exports = app => {
     index: {
       type: INTEGER,
       defaultValue: 0,
-    },
-
-    code: {
-      type: STRING(255),
-      allowNull: false,
     },
 
     tags: {
