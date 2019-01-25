@@ -66,32 +66,19 @@ module.exports = app => {
   router.get('/brandsVersion', controller.brandVersion.list);
   router.get('/brandsVersion/:id', controller.brandVersion.id);
 
-  // router.post('/menus', controller.menu.create);
-  // router.delete('/menus/:id', controller.menu.delete);
-  // router.put('/menus/:id', controller.menu.update);
-  // router.get('/menus', controller.menu.list);
-  // router.get('/menus/:id', controller.menu.id);
-
   router.post('/menusVersion', controller.menuVersion.create);
   router.delete('/menusVersion/:id', controller.menuVersion.delete);
   router.put('/menusVersion/:id', controller.menuVersion.update);
   router.get('/menusVersion', controller.menuVersion.list);
   router.get('/menusVersion/:id', controller.menuVersion.id);
 
-
   router.resources('applications', '/applications', 'applications');
-  // router.post('/applications', controller.application.create);
-  // router.delete('/applications/:id', controller.application.delete);
-  // router.put('/applications/:id', controller.application.update);
-  // router.get('/applications', controller.application.list);
-  // router.get('/applications/:id', controller.application.id);
-
-  router.post('/appsPages', controller.appPage.create);
-  router.post('/appsPages/:id/deploy', controller.appPage.deploy);
-  router.delete('/appsPages/:id', controller.appPage.delete);
-  router.put('/appsPages/:id', controller.appPage.update);
-  router.get('/appsPages', controller.appPage.list);
-  router.get('/appsPages/:id', controller.appPage.id);
+  router.resources('applicationsPages', '/applicationsPages', 'applicationsPages');
+  // router.post('/appsPages', controller.appPage.create);
+  // router.delete('/appsPages/:id', controller.appPage.delete);
+  // router.put('/appsPages/:id', controller.appPage.update);
+  // router.get('/appsPages', controller.appPage.list);
+  // router.get('/appsPages/:id', controller.appPage.id);
 
   router.get('/explorer/pages/:code', controller.explorer.page);
   router.get('/explorer/assets/:code', controller.explorer.assets);

@@ -6,7 +6,7 @@ class ExplorerController extends Controller {
   async page() {
     const { code } = this.ctx.params;
     const { agent } = this.ctx.query;
-    this.ctx.body = await this.ctx.service.appPage.getByCode(code, agent);
+    this.ctx.body = await this.ctx.service.applicationsPages.getByCode(code, agent);
   }
 
   async assets() {

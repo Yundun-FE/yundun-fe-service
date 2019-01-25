@@ -3,9 +3,9 @@
 const Service = require('egg').Service;
 const { isDef } = require('../utils');
 
-class AppPageService extends Service {
+class applicationsPagesService extends Service {
   async getByCode(code, agent) {
-    const data = await this.ctx.model.AppPage.findOne({ where: { code } });
+    const data = await this.ctx.model.ApplicationsPages.findOne({ where: { code } });
     const words = {};
     data.words.forEach(item => {
       words[item.key] = agent && isDef(item.valueOem) ? item.valueOem : item.value;
@@ -24,4 +24,4 @@ class AppPageService extends Service {
   }
 }
 
-module.exports = AppPageService;
+module.exports = applicationsPagesService;

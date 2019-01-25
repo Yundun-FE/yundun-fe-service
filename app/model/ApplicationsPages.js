@@ -29,9 +29,9 @@ const APP_PAGE_TYPE = [
 
 // 页面
 module.exports = app => {
-  const { INTEGER, STRING, BOOLEAN, JSON } = app.Sequelize;
+  const { INTEGER, STRING, JSON } = app.Sequelize;
 
-  const Model = app.model.define('appsPages', {
+  const Model = app.model.define('applicationsPages', {
     name: {
       type: STRING(255),
       allowNull: false,

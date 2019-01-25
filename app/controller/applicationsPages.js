@@ -2,18 +2,18 @@
 
 const { Controller } = require('egg');
 const { formatForm, formatRules } = require('../utils/form');
-const DATA = require('../../packages/yundun-fe-common/form/appPage');
+const DATA = require('../../packages/yundun-fe-common/form/applicationsPages');
 const { mergeShare } = require('../utils/object');
 const fs = require('fs');
 
-class AppPageController extends Controller {
+class applicationsPagesController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.TABLE = DATA.TABLE;
     this.FORM = DATA.FORM;
     this.form = formatForm(DATA.FORM);
     this.Rules = formatRules(DATA.FORM);
-    this.Model = ctx.model.AppPage;
+    this.Model = ctx.model.ApplicationsPages;
   }
 
   async create() {
@@ -26,10 +26,7 @@ class AppPageController extends Controller {
 
   async deploy() {
     const { id } = this.ctx.params;
-
     const data = await this.Model.findOne({ where: { id } });
-
-
     fs.writeFile(`./data/explorer/pages/${data.code}.json`, JSON.stringify(data), function(err) {
       if (err) {
         throw err;
@@ -38,7 +35,7 @@ class AppPageController extends Controller {
     this.ctx.body = data;
   }
 
-  async delete() {
+  async destroy() {
     const { id } = this.ctx.params;
     await this.Model.destroy({
       where: {
@@ -62,7 +59,7 @@ class AppPageController extends Controller {
     this.ctx.body = result;
   }
 
-  async list() {
+  async index() {
     const { resources, code, agent, appId } = this.ctx.query;
     if (resources === 'form') {
       this.ctx.body = this.FORM;
@@ -71,10 +68,6 @@ class AppPageController extends Controller {
 
     const where = {};
     if (appId) where.appId = appId;
-    if (code) {
-      this.ctx.body = await this.ctx.service.appPage.getByCode(code, agent);
-      return;
-    }
 
     const list = await this.Model.findAll({ where });
     const total = await this.Model.count({ where });
@@ -84,12 +77,11 @@ class AppPageController extends Controller {
     };
   }
 
-  async id() {
+  async show() {
     const { id } = this.ctx.params;
-
     const data = await this.Model.findOne({ where: { id } });
     this.ctx.body = data;
   }
 }
 
-module.exports = AppPageController;
+module.exports = applicationsPagesController;

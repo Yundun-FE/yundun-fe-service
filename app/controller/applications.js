@@ -20,7 +20,7 @@ class ApplicationController extends Controller {
     this.ctx.body = await this.ctx.service.application.create(create);
   }
 
-  async delete() {
+  async destroy() {
     const { id } = this.ctx.params;
     if (!id) throw new Error('no id');
 
