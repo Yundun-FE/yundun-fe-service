@@ -154,7 +154,10 @@ class JobController extends Controller {
       },
       ],
     });
-    this.ctx.body = data;
+
+    const info = mergeShare(this.form, data);
+    info.settings = Object.assign(this.form.settings, info.settings);
+    this.ctx.body = info;
   }
 }
 

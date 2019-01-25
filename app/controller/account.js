@@ -1,13 +1,18 @@
 'use strict';
 
 const { Controller } = require('egg');
-
 const FROM_KEY = [ 'title', 'name', 'password', 'jid', 'show', 'index' ];
+const DATA = require('../../packages/yundun-fe-common/form/account');
+const { formatForm, formatRules } = require('../utils/form');
 
 class AccountController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.Model = ctx.model.Account;
+    this.FORM = DATA.FORM;
+    this.form = formatForm(DATA.FORM);
+    this.Rules = formatRules(DATA.FORM);
+
     this.Rule = {
       title: { type: 'string', required: true },
       name: { type: 'string', required: true },
@@ -17,10 +22,8 @@ class AccountController extends Controller {
   async create() {
     const { ...FROM_KEY } = this.ctx.request.body;
     const create = { ...FROM_KEY };
-
     this.ctx.validate(this.Rule, create);
-    this.Model.create(create);
-    this.ctx.body = create;
+    this.ctx.body = this.Model.create(create);
   }
 
   async delete() {
@@ -51,6 +54,12 @@ class AccountController extends Controller {
   }
 
   async list() {
+    const { resources, page = 1, pageSize = 10 } = this.ctx.query;
+    if (resources === 'form') {
+      this.ctx.body = this.FORM;
+      return;
+    }
+
     const list = await this.Model.findAll();
     const total = await this.Model.count();
 

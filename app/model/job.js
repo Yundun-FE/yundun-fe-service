@@ -44,12 +44,17 @@ module.exports = app => {
       default: 0,
     },
 
-    menuId: {
-      type: INTEGER,
-      defaultValue: 0,
+    menus: {
+      type: JSON,
+      defaultValue: [],
     },
 
     setting: {
+      type: JSON,
+      defaultValue: {},
+    },
+
+    settings: {
       type: JSON,
       defaultValue: {},
     },
