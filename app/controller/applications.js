@@ -56,7 +56,7 @@ class ApplicationController extends Controller {
     this.ctx.body = await this.ctx.service.application.updateId(id, update);
   }
 
-  async list() {
+  async index() {
     const { resources, page = 1, pageSize = 10 } = this.ctx.query;
     if (resources === 'form') {
       this.ctx.body = this.FORM;
@@ -79,7 +79,7 @@ class ApplicationController extends Controller {
     };
   }
 
-  async id() {
+  async show() {
     const { id } = this.ctx.params;
     const data = await this.Model.findOne({ where: { id } });
     this.ctx.body = data;

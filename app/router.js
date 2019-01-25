@@ -78,11 +78,13 @@ module.exports = app => {
   router.get('/menusVersion', controller.menuVersion.list);
   router.get('/menusVersion/:id', controller.menuVersion.id);
 
-  router.post('/applications', controller.application.create);
-  router.delete('/applications/:id', controller.application.delete);
-  router.put('/applications/:id', controller.application.update);
-  router.get('/applications', controller.application.list);
-  router.get('/applications/:id', controller.application.id);
+
+  router.resources('applications', '/applications', 'applications');
+  // router.post('/applications', controller.application.create);
+  // router.delete('/applications/:id', controller.application.delete);
+  // router.put('/applications/:id', controller.application.update);
+  // router.get('/applications', controller.application.list);
+  // router.get('/applications/:id', controller.application.id);
 
   router.post('/appsPages', controller.appPage.create);
   router.post('/appsPages/:id/deploy', controller.appPage.deploy);
