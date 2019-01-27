@@ -1,25 +1,32 @@
 'use strict';
 
 const { Controller } = require('egg');
-const { FORM, RULES } = require('../../packages/yundun-fe-common/form/brand');
-const { mergeShare } = require('../utils/object');
 
-class BrandController extends Controller {
+class websiteController extends Controller {
   constructor(ctx) {
     super(ctx);
-    this.Model = ctx.model.Brand;
-    this.Rules = RULES;
+    this.Model = ctx.model.Websites;
+    this.Rule = {
+      title: { type: 'string', required: true },
+      url: { type: 'string', required: true },
+    };
   }
 
   async create() {
-    const create = mergeShare(FORM, this.ctx.request.body);
-    await this.ctx.validate(this.Rules, create);
-    const result = await this.Model.create(create);
-    this.ctx.body = result;
+    const { title, url } = this.ctx.request.body;
+    const create = {
+      title,
+      url,
+    };
+
+    this.ctx.validate(this.Rule, create);
+    this.Model.create(create);
+    this.ctx.body = create;
   }
 
-  async delete() {
+  async destroy() {
     const { id } = this.ctx.params;
+
     await this.Model.destroy({
       where: {
         id,
@@ -30,8 +37,13 @@ class BrandController extends Controller {
 
   async update() {
     const { id } = this.ctx.params;
-    const update = mergeShare(FORM, this.ctx.request.body);
-    await this.ctx.validate(this.Rules, update);
+    const { title, url } = this.ctx.request.body;
+    const update = {
+      title,
+      url,
+    };
+
+    this.ctx.validate(this.Rule, update);
 
     const data = await this.Model.findOne({ where: { id } });
     if (!data) throw new Error('Not Found');
@@ -42,17 +54,9 @@ class BrandController extends Controller {
     this.ctx.body = update;
   }
 
-  async list() {
+  async index() {
     const list = await this.Model.findAll();
     const total = await this.Model.count();
-    const { resources } = this.ctx.query;
-    if (resources === 'rules') {
-      this.ctx.body = {
-        form: FORM,
-        rules: RULES,
-      };
-      return;
-    }
 
     this.ctx.body = {
       list,
@@ -60,11 +64,12 @@ class BrandController extends Controller {
     };
   }
 
-  async id() {
+  async show() {
     const { id } = this.ctx.params;
+
     const data = await this.Model.findOne({ where: { id } });
     this.ctx.body = data;
   }
 }
 
-module.exports = BrandController;
+module.exports = websiteController;

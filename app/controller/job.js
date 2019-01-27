@@ -130,7 +130,7 @@ class JobController extends Controller {
         model: this.ctx.model.Cmd,
       },
       {
-        model: this.ctx.model.Account,
+        model: this.ctx.model.Accounts,
       },
       ],
     });
@@ -150,7 +150,7 @@ class JobController extends Controller {
         model: this.ctx.model.Cmd,
       },
       {
-        model: this.ctx.model.Account,
+        model: this.ctx.model.Accounts,
       },
       ],
     });

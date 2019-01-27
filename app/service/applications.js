@@ -1,51 +1,36 @@
 'use strict';
 
 const Service = require('egg').Service;
-const DATA = require('../../packages/yundun-fe-common/form/application');
+const DATA = require('../../packages/yundun-fe-common/form/applications');
 const { mergeShare } = require('../utils/object');
 const { formatForm, formatRules } = require('../utils/form');
 
-const MENUS_ROW = {
-  name: '',
-  childrens: [],
-};
-
-
-const MENUS_CHILDREN_ROW = {
-  id: 0,
-  code: '',
-  name: '',
-  alias: '',
-};
-
+const MENUS_CHILDREN_ROW = [
+  {
+    id: 0,
+    code: '',
+    name: '',
+    alias: '',
+  },
+];
 
 function formatMenus(data) {
   const list = [];
   data.forEach(item => {
-    list.push(mergeShare(MENUS_ROW, item));
+    list.push(mergeShare(MENUS_CHILDREN_ROW, item));
   });
-  console.log(list);
-
-  list.forEach(item => {
-    const childrens = [];
-    item.childrens.forEach(_ => {
-      childrens.push(mergeShare(MENUS_CHILDREN_ROW, _));
-    });
-    item.childrens = childrens;
-  });
-
-  console.log(list);
+  console.log(data);
   return list;
 }
 
-class MenuService extends Service {
+class ApplicationService extends Service {
   constructor(ctx) {
     super(ctx);
     this.TABLE = DATA.TABLE;
     this.FORM = DATA.FORM;
     this.form = formatForm(DATA.FORM);
     this.Rules = formatRules(DATA.FORM);
-    this.Model = ctx.model.MenuVersion;
+    this.Model = ctx.model.Application;
   }
 
   async create(data) {
@@ -55,7 +40,7 @@ class MenuService extends Service {
   }
 
   async updateId(id, data) {
-    data.menus = formatMenus(data.menus);
+    // data.menus = formatMenus(data.menus);
     const result = await this.Model.update(data, {
       where: { id },
     });
@@ -63,4 +48,4 @@ class MenuService extends Service {
   }
 }
 
-module.exports = MenuService;
+module.exports = ApplicationService;

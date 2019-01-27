@@ -69,7 +69,7 @@ module.exports = app => {
     Model.hasMany(app.model.Cmd, {
       foreignKey: 'jid',
     });
-    Model.hasMany(app.model.Account, {
+    Model.hasMany(app.model.Accounts, {
       foreignKey: 'jid',
     });
   };

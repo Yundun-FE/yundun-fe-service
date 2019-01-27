@@ -12,12 +12,6 @@ module.exports = app => {
   router.post('/jenkins/jobs/:name/start', controller.jenkins.jobsStart);
   router.get('/jenkins/jobs/:name', controller.jenkins.jobName);
 
-  router.post('/products', controller.product.create);
-  router.delete('/products', controller.product.delete);
-  router.put('/products/:id', controller.product.update);
-  router.get('/products', controller.product.list);
-  // router.get('/products/:id', controller.product.index)
-
   router.post('/jobs', controller.job.create);
   router.delete('/jobs', controller.job.delete);
   router.put('/jobs/:id', controller.job.update);
@@ -26,62 +20,17 @@ module.exports = app => {
   router.get('/jobs/executor/:name/:number', controller.job.jobExecutorNumber);
   router.get('/jobs/executor/:name', controller.job.jobExecutor);
 
-  router.post('/accounts', controller.account.create);
-  router.delete('/accounts/:id', controller.account.delete);
-  router.put('/accounts/:id', controller.account.update);
-  router.get('/accounts', controller.account.list);
-
-  router.post('/cmds', controller.cmd.create);
-  router.delete('/cmds', controller.cmd.delete);
-  router.put('/cmds/:id', controller.cmd.update);
-  router.get('/cmds', controller.cmd.list);
-
-  router.post('/websites', controller.website.create);
-  router.delete('/websites/:id', controller.website.delete);
-  router.put('/websites/:id', controller.website.update);
-  router.get('/websites', controller.website.list);
-
   router.get('/progresses', controller.progress.list);
   router.get('/progresses/:name', controller.progress.name);
-
-  // router.get('/jobs-executor', controller.job.executor)
-
   router.get('/notices', controller.notice.list);
 
-  router.post('/agents', controller.agent.create);
-  router.delete('/agents/:id', controller.agent.delete);
-  router.put('/agents/:id', controller.agent.update);
-  router.get('/agents', controller.agent.list);
-  router.get('/agents/:id', controller.agent.id);
-
-  router.post('/brands', controller.brand.create);
-  router.delete('/brands/:id', controller.brand.delete);
-  router.put('/brands/:id', controller.brand.update);
-  router.get('/brands', controller.brand.list);
-  router.get('/brands/:id', controller.brand.id);
-
-  router.post('/brandsVersion', controller.brandVersion.create);
-  router.delete('/brandsVersion/:id', controller.brandVersion.delete);
-  router.put('/brandsVersion/:id', controller.brandVersion.update);
-  router.get('/brandsVersion', controller.brandVersion.list);
-  router.get('/brandsVersion/:id', controller.brandVersion.id);
-
-  router.post('/menusVersion', controller.menuVersion.create);
-  router.delete('/menusVersion/:id', controller.menuVersion.delete);
-  router.put('/menusVersion/:id', controller.menuVersion.update);
-  router.get('/menusVersion', controller.menuVersion.list);
-  router.get('/menusVersion/:id', controller.menuVersion.id);
-
+  router.resources('products', '/products', 'products');
+  router.resources('accounts', '/accounts', 'accounts');
+  router.resources('websites', '/websites', 'websites');
   router.resources('applications', '/applications', 'applications');
   router.resources('applicationsPages', '/applicationsPages', 'applicationsPages');
-  // router.post('/appsPages', controller.appPage.create);
-  // router.delete('/appsPages/:id', controller.appPage.delete);
-  // router.put('/appsPages/:id', controller.appPage.update);
-  // router.get('/appsPages', controller.appPage.list);
-  // router.get('/appsPages/:id', controller.appPage.id);
 
   router.get('/explorer/pages/:code', controller.explorer.page);
   router.get('/explorer/assets/:code', controller.explorer.assets);
-
   router.get('/upload/token', controller.upload.token);
 };

@@ -3,7 +3,7 @@
 const { Controller } = require('egg');
 const { mergeShare } = require('../utils/object');
 const { formatForm, formatRules } = require('../utils/form');
-const DATA = require('../../packages/yundun-fe-common/form/application');
+const DATA = require('../../packages/yundun-fe-common/form/applications');
 
 class ApplicationController extends Controller {
   constructor(ctx) {
@@ -11,13 +11,13 @@ class ApplicationController extends Controller {
     this.FORM = DATA.FORM;
     this.form = formatForm(DATA.FORM);
     this.Rules = formatRules(DATA.FORM);
-    this.Model = ctx.model.Application;
+    this.Model = ctx.model.Applications;
   }
 
   async create() {
     const create = mergeShare(this.form, this.ctx.request.body);
     await this.ctx.validate(this.Rules, create);
-    this.ctx.body = await this.ctx.service.application.create(create);
+    this.ctx.body = await this.ctx.service.applications.create(create);
   }
 
   async destroy() {
@@ -53,7 +53,7 @@ class ApplicationController extends Controller {
     const data = await this.Model.findOne({ where: { id } });
     if (!data) throw new Error('Not Found');
 
-    this.ctx.body = await this.ctx.service.application.updateId(id, update);
+    this.ctx.body = await this.ctx.service.applications.updateId(id, update);
   }
 
   async index() {
