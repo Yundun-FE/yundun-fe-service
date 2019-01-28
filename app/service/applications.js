@@ -19,7 +19,6 @@ function formatMenus(data) {
   data.forEach(item => {
     list.push(mergeShare(MENUS_CHILDREN_ROW, item));
   });
-  console.log(data);
   return list;
 }
 
@@ -30,7 +29,7 @@ class ApplicationService extends Service {
     this.FORM = DATA.FORM;
     this.form = formatForm(DATA.FORM);
     this.Rules = formatRules(DATA.FORM);
-    this.Model = ctx.model.Application;
+    this.Model = ctx.model.Applications;
   }
 
   async create(data) {

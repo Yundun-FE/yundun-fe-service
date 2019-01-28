@@ -1,11 +1,10 @@
 'use strict';
 
 const { Controller } = require('egg');
-const FORM_KEYS = [ 'title', 'name', 'url', 'env', 'show', 'index', 'setting' ];
 const { clearnDef } = require('../utils');
 const { mergeShare } = require('../utils/object');
 const { formatForm, formatRules } = require('../utils/form');
-const DATA = require('../../packages/yundun-fe-common/form/job');
+const DATA = require('../../packages/yundun-fe-common/form/jobs');
 
 class JobController extends Controller {
   constructor(ctx) {
@@ -14,16 +13,6 @@ class JobController extends Controller {
     this.form = formatForm(DATA.FORM);
     this.Rules = formatRules(DATA.FORM);
     this.Model = ctx.model.Job;
-    this.Rule = {
-      title: {
-        type: 'string',
-        required: true,
-      },
-      url: {
-        type: 'string',
-        required: true,
-      },
-    };
   }
 
   async executor() {
@@ -109,7 +98,7 @@ class JobController extends Controller {
     this.ctx.body = update;
   }
 
-  async list() {
+  async index() {
     const { resources, page = 1, pageSize = 10 } = this.ctx.query;
     if (resources === 'form') {
       this.ctx.body = this.FORM;
@@ -126,22 +115,14 @@ class JobController extends Controller {
       offset: Number(pageSize * (page - 1)),
       order: [[ 'id', 'DESC' ]],
       where,
-      include: [{
-        model: this.ctx.model.Cmd,
-      },
-      {
-        model: this.ctx.model.Accounts,
-      },
-      ],
     });
-    const total = await this.Model.count();
+    const total = await this.Model.count({ where });
 
     this.ctx.body = { list, total };
   }
 
-  async id() {
+  async show() {
     const { id } = this.ctx.params;
-
     const data = await this.Model.findOne({
       where: {
         id,

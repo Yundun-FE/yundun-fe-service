@@ -47,6 +47,11 @@ const FORM = [{
 {
   prop: 'settings',
   default: {
+    commands: [{
+      name: '',
+      remark: '',
+      content: '',
+    }],
     assets: [
       {
         width: 100,
@@ -71,13 +76,6 @@ const FORM = [{
 
 ];
 
-const LABEL = {
-  status: {
-
-  },
-};
-
 module.exports = {
   FORM,
-  LABEL,
 };
