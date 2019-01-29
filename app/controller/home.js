@@ -18,15 +18,11 @@ class HomeController extends Controller {
     ctx.body = { name, version };
   }
 
-  async push() {
-    console.log(this.ctx.request.body);
-    this.ctx.body = 'ok';
-  }
 
   async install() {
     const { ctx } = this;
-    await ctx.model.Jobs.sync({ alter: true });
-    // await ctx.model.JobExecutor.sync({ alter: true })
+    // await ctx.model.Jobs.sync({ alter: true });
+    await ctx.model.JobExecutor.sync({ alter: true });
     // await ctx.model.Products.sync({ alter: true })
     // await ctx.model.Websites.sync({ alter: true })
     // await ctx.model.Progress.sync({ alter: true })

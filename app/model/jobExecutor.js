@@ -20,6 +20,18 @@ module.exports = app => {
       type: INTEGER,
       defaultValue: 0,
     },
+    userName: {
+      type: STRING(255),
+      defaultValue: '',
+    },
+    userEmail: {
+      type: STRING(255),
+      defaultValue: '',
+    },
+    commits: {
+      type: JSON,
+      defaultValue: '[]',
+    },
     name: {
       type: STRING(255),
       allowNull: false,
