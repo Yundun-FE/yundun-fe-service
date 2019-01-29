@@ -17,7 +17,7 @@ module.exports = () => {
     }
 
     if (ctx.status === 404 && !ctx.body) {
-      ctx.body = { message: 'Not Api', code: 404 };
+      ctx.body = { message: '没有此接口', code: 404 };
     }
   };
 };

@@ -6,13 +6,13 @@ const { mergeShare } = require('../utils/object');
 const { formatForm, formatRules } = require('../utils/form');
 const DATA = require('../../packages/yundun-fe-common/form/jobs');
 
-class JobController extends Controller {
+class JobsController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.FORM = DATA.FORM;
     this.form = formatForm(DATA.FORM);
     this.Rules = formatRules(DATA.FORM);
-    this.Model = ctx.model.Job;
+    this.Model = ctx.model.Jobs;
   }
 
   async executor() {
@@ -57,7 +57,7 @@ class JobController extends Controller {
     this.ctx.body = await this.Model.create(create);
   }
 
-  async delete() {
+  async destroy() {
     const {
       id,
     } = this.ctx.params;
@@ -142,4 +142,4 @@ class JobController extends Controller {
   }
 }
 
-module.exports = JobController;
+module.exports = JobsController;

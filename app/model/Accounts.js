@@ -27,7 +27,7 @@ module.exports = app => {
   });
 
   Model.associate = () => {
-    Model.belongsTo(app.model.Job, {
+    Model.belongsTo(app.model.Jobs, {
       as: 'job',
       foreignKey: 'jid',
     });

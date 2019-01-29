@@ -3,12 +3,9 @@
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN } = app.Sequelize;
 
-  const Model = app.model.define('cmds', {
+  const Product = app.model.define('products', {
     title: {
-      type: STRING(255),
-    },
-    content: {
-      type: STRING(255),
+      type: STRING(32),
       allowNull: false,
     },
     show: {
@@ -21,12 +18,5 @@ module.exports = app => {
     },
   });
 
-  Model.associate = () => {
-    Model.belongsTo(app.model.Jobs, {
-      as: 'job',
-      foreignKey: 'jid',
-    });
-  };
-
-  return Model;
+  return Product;
 };

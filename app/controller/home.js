@@ -2,6 +2,14 @@
 
 const Controller = require('egg').Controller;
 const PKG = require('../../package.json');
+const fs = require('fs');
+const path = require('path');
+
+function readDirSync(path) {
+  const pa = fs.readdirSync(path);
+
+  console.log(pa);
+}
 
 class HomeController extends Controller {
   async index() {
@@ -10,9 +18,14 @@ class HomeController extends Controller {
     ctx.body = { name, version };
   }
 
+  async push() {
+    console.log(this.ctx.request.body);
+    this.ctx.body = 'ok';
+  }
+
   async install() {
     const { ctx } = this;
-    await ctx.model.Job.sync({ alter: true });
+    await ctx.model.Jobs.sync({ alter: true });
     // await ctx.model.JobExecutor.sync({ alter: true })
     // await ctx.model.Products.sync({ alter: true })
     // await ctx.model.Websites.sync({ alter: true })
@@ -23,6 +36,10 @@ class HomeController extends Controller {
     // await ctx.model.ApplicationsPages.sync({ alter: true });
     const { name, version } = PKG;
     ctx.body = { name, version };
+  }
+
+  async update() {
+    readDirSync('../');
   }
 }
 
