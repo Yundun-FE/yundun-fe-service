@@ -21,6 +21,7 @@ module.exports = app => {
   router.get('/notices', controller.notice.list);
 
   router.resources('jobs', '/jobs', 'jobs');
+  router.resources('blocks', '/blocks', 'blocks');
   router.resources('products', '/products', 'products');
   router.resources('accounts', '/accounts', 'accounts');
   router.resources('websites', '/websites', 'websites');
