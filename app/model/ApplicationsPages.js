@@ -42,6 +42,11 @@ module.exports = app => {
       defaultValue: '',
     },
 
+    env: {
+      type: STRING(255),
+      defaultValue: 'root',
+    },
+
     type: {
       type: INTEGER,
       defaultValue: 0,
@@ -59,32 +64,17 @@ module.exports = app => {
 
     content: {
       type: JSON,
-      defaultValue: {},
-    },
-
-    words: {
-      type: JSON,
-      defaultValue: [],
-    },
-
-    wordsAgents: {
-      type: JSON,
-      defaultValue: [],
+      allowNull: false,
     },
 
     settings: {
       type: JSON,
-      defaultValue: [],
+      allowNull: false,
     },
 
-    settingsAgents: {
+    translations: {
       type: JSON,
-      defaultValue: [],
-    },
-
-    translate: {
-      type: JSON,
-      defaultValue: {},
+      allowNull: false,
     },
 
     appId: {
