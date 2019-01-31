@@ -16,12 +16,22 @@ module.exports = app => {
 
     env: {
       type: STRING(255),
-      defaultValue: 'root',
+      defaultValue: 'default',
     },
 
     name: {
       type: STRING(255),
       defaultValue: '',
+    },
+
+    show: {
+      type: BOOLEAN,
+      defaultValue: true,
+    },
+
+    index: {
+      type: INTEGER,
+      defaultValue: 0,
     },
 
     tags: {
@@ -31,7 +41,7 @@ module.exports = app => {
 
     status: {
       type: INTEGER,
-      defaultValue: 0,
+      default: 0,
     },
 
     menus: {
@@ -54,12 +64,6 @@ module.exports = app => {
       defaultValue: {},
     },
   });
-
-  Model.associate = function() {
-    Model.hasMany(app.model.Accounts, {
-      foreignKey: 'jid',
-    });
-  };
 
   return Model;
 };

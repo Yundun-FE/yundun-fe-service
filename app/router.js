@@ -20,6 +20,7 @@ module.exports = app => {
   router.get('/progresses/:name', controller.progress.name);
   router.get('/notices', controller.notice.list);
 
+  router.resources('forms', '/forms', 'forms');
   router.resources('jobs', '/jobs', 'jobs');
   router.resources('blocks', '/blocks', 'blocks');
   router.resources('products', '/products', 'products');
@@ -29,6 +30,7 @@ module.exports = app => {
   router.resources('applicationsPages', '/applicationsPages', 'applicationsPages');
 
   router.get('/explorer/pages/:code', controller.explorer.page);
+  router.get('/explorer/jobs/:name', controller.jobs.showName);
   router.get('/explorer/assets/:code', controller.explorer.assets);
   router.get('/upload/token', controller.upload.token);
 };

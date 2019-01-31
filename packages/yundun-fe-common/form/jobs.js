@@ -47,26 +47,10 @@ const FORM = [{
 {
   prop: 'settings',
   default: {
-    commands: [{
-      name: '',
-      remark: '',
-      content: '',
-    }],
-    assets: [
-      {
-        width: 100,
-        height: 100,
-        key: '',
-        remarks: '',
-      },
-    ],
-    builds: [
-      {
-        name: '',
-        title: '',
-        symbol: '',
-      },
-    ],
+    commands: [],
+    assets: [],
+    apps: [],
+    builds: [],
   },
 },
 {

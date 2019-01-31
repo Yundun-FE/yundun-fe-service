@@ -13,6 +13,7 @@ class JobsController extends Controller {
     this.form = formatForm(DATA.FORM);
     this.Rules = formatRules(DATA.FORM);
     this.Model = ctx.model.Jobs;
+    this.Service = ctx.service.jobs;
   }
 
   async executor() {
@@ -48,6 +49,7 @@ class JobsController extends Controller {
         number,
       },
     });
+
     this.ctx.body = data;
   }
 
@@ -73,15 +75,8 @@ class JobsController extends Controller {
   }
 
   async update() {
-    const {
-      id,
-    } = this.ctx.params;
-    const { ...FORM_KEYS
-    } = this.ctx.request.body;
-    const update = { ...FORM_KEYS,
-    };
-
-    this.ctx.validate(this.Rule, update);
+    let { id } = this.ctx.params;
+    const { env = 'root' } = this.ctx.query;
 
     const data = await this.Model.findOne({
       where: {
@@ -90,16 +85,25 @@ class JobsController extends Controller {
     });
     if (!data) throw new Error('Not Found');
 
-    this.Model.update(update, {
-      where: {
-        id,
-      },
-    });
-    this.ctx.body = update;
+    id = env === 'root' ? id : await this.Service.findNameEnvToId(data.name, env);
+    // const update = mergeShare(this.form, this.ctx.request.body);
+    const body = this.ctx.request.body;
+
+    const update = {
+      title: body.title,
+      url: body.url,
+      assets: body.assets,
+    };
+
+    if (env === 'root') {
+      update.settings = body.settings;
+    }
+
+    this.ctx.body = await this.ctx.service.jobs.updateById(id, update);
   }
 
   async index() {
-    const { resources, page = 1, pageSize = 10 } = this.ctx.query;
+    const { resources, page = 1, pageSize = 10, env = 'root' } = this.ctx.query;
     if (resources === 'form') {
       this.ctx.body = this.FORM;
       return;
@@ -107,6 +111,7 @@ class JobsController extends Controller {
 
     const { title } = this.ctx.query;
     const where = clearnDef({
+      env,
       title,
     });
 
@@ -121,24 +126,22 @@ class JobsController extends Controller {
     this.ctx.body = { list, total };
   }
 
+  async showName() {
+    const { name } = this.ctx.params;
+    const { env } = this.ctx.query;
+
+    const data = await this.Model.findAll({
+      where: {
+        name,
+      },
+    });
+    this.ctx.body = data;
+  }
+
   async show() {
     const { id } = this.ctx.params;
-    const data = await this.Model.findOne({
-      where: {
-        id,
-      },
-      include: [{
-        model: this.ctx.model.Cmd,
-      },
-      {
-        model: this.ctx.model.Accounts,
-      },
-      ],
-    });
-
-    const info = mergeShare(this.form, data);
-    info.settings = Object.assign(this.form.settings, info.settings);
-    this.ctx.body = info;
+    const { env } = this.ctx.query;
+    this.ctx.body = await this.Service.findByIdEnv(id, env);
   }
 }
 
