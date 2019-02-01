@@ -62,6 +62,11 @@ module.exports = app => {
       defaultValue: '',
     },
 
+    blocks: {
+      type: JSON,
+      allowNull: false,
+    },
+
     content: {
       type: JSON,
       allowNull: false,
@@ -84,7 +89,6 @@ module.exports = app => {
   }, {
     indexes: [
       {
-        unique: true,
         fields: [ 'code' ],
       },
     ],

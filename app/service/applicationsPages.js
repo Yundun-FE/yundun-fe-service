@@ -7,9 +7,14 @@ class applicationsPagesService extends Service {
   async getByCode(code, agent) {
     const data = await this.ctx.model.ApplicationsPages.findOne({ where: { code } });
 
+    const blocks = {};
+    data.blocks.forEach(item => {
+      blocks[item.name] = item;
+    });
+
     return {
       name: data.name,
-      content: data.content,
+      blocks,
     };
   }
 }

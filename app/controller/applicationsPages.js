@@ -80,6 +80,12 @@ class applicationsPagesController extends Controller {
   async show() {
     const { id } = this.ctx.params;
     const data = await this.Model.findOne({ where: { id } });
+
+    // const { blocks } = data;
+    // data.blocks = Object.keys(blocks).map(name => {
+    //   blocks.name = name;
+    //   return blocks;
+    // });
     this.ctx.body = data;
   }
 }

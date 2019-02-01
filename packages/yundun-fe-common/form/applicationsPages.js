@@ -16,6 +16,10 @@ const FORM = [{
   },
 },
 {
+  prop: 'blocks',
+  default: [],
+},
+{
   prop: 'type',
   default: 0,
 },
@@ -41,12 +45,11 @@ const FORM = [{
 },
 {
   prop: 'settings',
-  default: [{
-    label: '',
-    value: '',
-    valueOem: '',
-    remarks: '',
-  }],
+  default: {},
+},
+{
+  prop: 'translations',
+  default: {},
 },
 {
   prop: 'appId',
