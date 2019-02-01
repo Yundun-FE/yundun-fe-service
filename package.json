@@ -1,8 +1,10 @@
 {
   "name": "yundun-fe-service",
+  "title": "云盾前端服务",
   "version": "0.5.0",
   "description": "",
   "private": true,
+  "keywords": ["ice-scaffold"],
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "crypto": "^1.0.1",
