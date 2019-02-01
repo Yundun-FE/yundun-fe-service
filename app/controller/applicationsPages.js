@@ -14,6 +14,7 @@ class applicationsPagesController extends Controller {
     this.form = formatForm(DATA.FORM);
     this.Rules = formatRules(DATA.FORM);
     this.Model = ctx.model.ApplicationsPages;
+    this.Service = ctx.service.applicationsPages;
   }
 
   async create() {
@@ -66,7 +67,7 @@ class applicationsPagesController extends Controller {
       return;
     }
 
-    const where = {};
+    const where = { code };
     if (appId) where.appId = appId;
 
     const list = await this.Model.findAll({ where });
@@ -79,7 +80,8 @@ class applicationsPagesController extends Controller {
 
   async show() {
     const { id } = this.ctx.params;
-    const data = await this.Model.findOne({ where: { id } });
+    const { env } = this.ctx.query;
+    const data = await this.Service.findByIdEnv(id, env);
 
     // const { blocks } = data;
     // data.blocks = Object.keys(blocks).map(name => {
