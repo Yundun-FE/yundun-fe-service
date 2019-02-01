@@ -8,8 +8,22 @@ class applicationsPagesService extends Service {
     super(ctx);
     this.Model = ctx.model.ApplicationsPages;
   }
-
-  async getByCode(code, agent) {
+  // 保存配置
+  async saveByIdEnv(id, env, data) {
+    const dataRoot = await this.Model.findOne({ where: { id, env: 'root' } });
+    const code = dataRoot.code;
+    if (!dataRoot) throw new Error('Not found root');
+    this.saveByCodeEnv(code, env, data);
+  }
+  // 按 CODE 保存
+  async saveByCodeEnv(code, env, data) {
+    const dataCheck = await this.Model.findOne({ where: { code, env } });
+    // formatBlock
+    // formatEdit
+    //
+  }
+  // 按 CODE 读取所有环境
+  async getByCode(code) {
     const data = await this.ctx.model.ApplicationsPages.findOne({ where: { code } });
 
     const blocks = {};
@@ -21,6 +35,10 @@ class applicationsPagesService extends Service {
       name: data.name,
       blocks,
     };
+  }
+
+  async getByCodeEnv(code, env) {
+    //
   }
 
   async findByIdEnv(id, env = 'root') {
