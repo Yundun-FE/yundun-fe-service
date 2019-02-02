@@ -48,16 +48,10 @@ class applicationsPagesController extends Controller {
 
   async update() {
     const { id } = this.ctx.params;
+    const { env = 'root' } = this.ctx.query;
     const update = mergeShare(this.form, this.ctx.request.body);
     await this.ctx.validate(this.Rules, update);
-
-    const data = await this.Model.findOne({ where: { id } });
-    if (!data) throw new Error('Not Found');
-
-    const result = await this.Model.update(update, {
-      where: { id },
-    });
-    this.ctx.body = result;
+    this.ctx.body = await this.Service.saveByIdEnv(id, env, update);
   }
 
   async index() {
@@ -67,7 +61,8 @@ class applicationsPagesController extends Controller {
       return;
     }
 
-    const where = { code };
+    const where = { };
+    if (code) where.code = code;
     if (appId) where.appId = appId;
 
     const list = await this.Model.findAll({ where });

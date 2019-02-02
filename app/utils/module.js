@@ -41,5 +41,4 @@ function searchCache(moduleName, callback) {
 }
 
 exports.purgeCache = purgeCache;
-exports.searchCache = searchCache
-;
+exports.searchCache = searchCache;

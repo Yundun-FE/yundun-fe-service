@@ -1,7 +1,34 @@
 'use strict';
 
 const Service = require('egg').Service;
-const { isDef } = require('../utils');
+const { formatDmConsole, exportDmConsole } = require('../utils/blocks/DmConsole');
+
+function formatBlocks(data) {
+  const blocks = {};
+  const settings = {};
+  const translations = {};
+
+  const exportBlocks = [];
+  data.forEach(item => {
+    const { name, blockName } = item;
+    if (blockName === 'DmConsole') {
+      const { block: _block, settings: _settings, translations: _translations } = formatDmConsole(item);
+      blocks[name] = _block;
+      settings[name] = _settings;
+      translations[name] = _translations;
+
+      exportBlocks.push(exportDmConsole(_block, _settings, _translations));
+    }
+  });
+
+  return {
+    blocks,
+    settings,
+    translations,
+    exportBlocks,
+  };
+}
+
 
 class applicationsPagesService extends Service {
   constructor(ctx) {
@@ -11,13 +38,33 @@ class applicationsPagesService extends Service {
   // 保存配置
   async saveByIdEnv(id, env, data) {
     const dataRoot = await this.Model.findOne({ where: { id, env: 'root' } });
+
+    const { blocks, settings, translations, exportBlocks } = formatBlocks(data.blocks);
+    data.blocks = blocks;
+    data.settings = settings;
+    data.translations = translations;
+
+    return {
+      blocks,
+      settings,
+      translations: {
+        'zh-CN': {
+          blocks: translations,
+        },
+      },
+      exportBlocks,
+    };
+
+
     const code = dataRoot.code;
     if (!dataRoot) throw new Error('Not found root');
-    this.saveByCodeEnv(code, env, data);
+    await this.saveByCodeEnv(code, env, data);
   }
   // 按 CODE 保存
   async saveByCodeEnv(code, env, data) {
-    const dataCheck = await this.Model.findOne({ where: { code, env } });
+    console.log(code, env);
+    return { code, env };
+    // const dataCheck = await this.Model.findOne({ where: { code, env } });
     // formatBlock
     // formatEdit
     //
