@@ -109,15 +109,26 @@ function formatDmConsole(data) {
   };
 }
 
+function sortByOrder(data, order) {
+  const list = [];
+  order.forEach(key => {
+    list.push(data[key]);
+  });
+  return list;
+}
+
 function exportFormat(data) {
   Object.keys(data).forEach(key => {
     const _data = data[key];
-    if (typeof _data === 'object') exportFormat(_data);
-    // TODO
-    if (_data.$order) {
-      //
+
+    if (typeof _data === 'object') {
+      if (_data.$order) {
+        data[key] = sortByOrder(_data, _data.$order);
+      }
+      return exportFormat(_data);
     }
   });
+  return data;
 }
 
 function exportDmConsole(block, settings, translations) {

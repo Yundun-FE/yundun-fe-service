@@ -38,49 +38,40 @@ class applicationsPagesService extends Service {
   // 保存配置
   async saveByIdEnv(id, env, data) {
     const dataRoot = await this.Model.findOne({ where: { id, env: 'root' } });
+    if (!dataRoot) throw new Error('没有找到 root');
 
+    const code = dataRoot.code;
     const { blocks, settings, translations, exportBlocks } = formatBlocks(data.blocks);
     data.blocks = blocks;
     data.settings = settings;
-    data.translations = translations;
-
-    return {
-      blocks,
-      settings,
-      translations: {
-        'zh-CN': {
-          blocks: translations,
-        },
+    data.translations = {
+      'zh-CN': {
+        blocks: translations,
       },
-      exportBlocks,
     };
 
-
-    const code = dataRoot.code;
-    if (!dataRoot) throw new Error('Not found root');
-    await this.saveByCodeEnv(code, env, data);
+    return await this.saveByCodeEnv(code, env, data);
   }
   // 按 CODE 保存
   async saveByCodeEnv(code, env, data) {
-    console.log(code, env);
-    return { code, env };
-    // const dataCheck = await this.Model.findOne({ where: { code, env } });
-    // formatBlock
-    // formatEdit
-    //
+    const dataCheck = await this.Model.findOne({ where: { code, env } });
+    if (!dataCheck) throw new Error('没有找到该 ENV');
+    const result = await this.Model.update(data, {
+      where: { code, env },
+    });
+    return result;
   }
   // 按 CODE 读取所有环境
   async getByCode(code) {
     const data = await this.ctx.model.ApplicationsPages.findOne({ where: { code } });
 
-    const blocks = {};
-    data.blocks.forEach(item => {
-      blocks[item.name] = item;
-    });
+    const { blocks, settings, translations } = data;
+    const blocksTranslations = translations['zh-CN'].blocks;
+    data.blocks = data.blocks.DmConsole(blocks, settings, blocksTranslations);
 
     return {
       name: data.name,
-      blocks,
+      blocks: data.blocks,
     };
   }
 
