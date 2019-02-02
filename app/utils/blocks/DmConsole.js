@@ -79,7 +79,7 @@ function formatDmConsole(data) {
   const { actionsData: actionsRowData, actionsSettings: actionsRowSettings, actionsTranslations: actionsRowTranslations } = formatActions(props.actionsRow);
   const { actionsData: actionsToolbarData, actionsSettings: actionsToolbarSettings, actionsTranslations: actionsToolbarTranslations } = formatActions(props.actionsToolbar);
 
-  const block = {
+  const blocks = {
     props: {
       columns: columnsData,
       actionsRow: actionsRowData,
@@ -103,7 +103,7 @@ function formatDmConsole(data) {
   };
 
   return {
-    block,
+    blocks,
     settings,
     translations,
   };
@@ -131,8 +131,8 @@ function exportFormat(data) {
   return data;
 }
 
-function exportDmConsole(block, settings, translations) {
-  const data = merge(block, settings, translations);
+function exportDmConsole(blocks, settings, translations) {
+  const data = merge(blocks, settings, translations);
   return exportFormat(data);
 }
 

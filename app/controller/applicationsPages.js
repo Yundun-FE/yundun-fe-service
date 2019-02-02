@@ -77,12 +77,6 @@ class applicationsPagesController extends Controller {
     const { id } = this.ctx.params;
     const { env } = this.ctx.query;
     const data = await this.Service.findByIdEnv(id, env);
-
-    // const { blocks } = data;
-    // data.blocks = Object.keys(blocks).map(name => {
-    //   blocks.name = name;
-    //   return blocks;
-    // });
     this.ctx.body = data;
   }
 }

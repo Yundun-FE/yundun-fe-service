@@ -34,7 +34,7 @@ module.exports = app => {
   const Model = app.model.define('applicationsPages', {
     name: {
       type: STRING(255),
-      allowNull: false,
+      defaultValue: '',
     },
 
     code: {
