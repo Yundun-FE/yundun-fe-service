@@ -11,6 +11,7 @@ function formatColumns(data) {
 
     columnsData[name] = {
       componentName: item.componentName,
+      show: !!item.show,
       props: {
         prop: item.props.prop,
       },
