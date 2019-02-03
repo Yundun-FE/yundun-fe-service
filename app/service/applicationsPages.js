@@ -7,12 +7,13 @@ function formatBlocks(data) {
   const blocks = {};
   const settings = {};
   const translations = {};
-
   const exportBlocks = [];
+
   data.forEach(item => {
     const { name, blockName } = item;
     if (blockName === 'DmConsole') {
       const { blocks: _blocks, settings: _settings, translations: _translations } = formatDmConsole(item);
+      _blocks.show = !!item.show;
       blocks[name] = _blocks;
       settings[name] = _settings;
       translations[name] = _translations;
