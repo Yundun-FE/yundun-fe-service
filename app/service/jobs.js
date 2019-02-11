@@ -49,27 +49,58 @@ class JobsService extends Service {
   }
 
   async getByIdEnv(id, env = 'root') {
-    const data = await this.Model.findOne({
+    const dataRoot = await this.Model.findOne({
       where: {
         id,
       },
     });
-    data.settings = Object.assign(this.form.settings, data.settings);
-    if (env === 'root') return data;
+    dataRoot.settings = Object.assign(this.form.settings, dataRoot.settings);
+    if (env === 'root') return dataRoot;
     // 合并子环境
     const dataEnv = await this.Model.findOne({
       where: {
-        name: data.name,
+        name: dataRoot.name,
         env,
       },
     });
 
-    data.env = env;
-    data.rootTitle = data.title;
-    data.title = dataEnv.title;
-    data.menus = dataEnv.menus;
-    Object.assign(data.assets, dataEnv.assets);
+    const data = {
+      env,
+      rootTitle: dataRoot.title,
+      title: dataEnv.title,
+      menus: dataEnv.menus,
+      name: dataEnv.name,
+      assets: Object.assign(dataEnv.assets, dataEnv.assets),
+    };
     return data;
+  }
+
+  async getByCode(name) {
+    const data = await this.Model.findAll({
+      where: {
+        name,
+      },
+    });
+    return data;
+  }
+
+  async getByCodeEnv(name, env = 'root') {
+    const dataRoot = await this.Model.findOne({
+      where: {
+        name,
+        env: 'root',
+      },
+    });
+    if (env === 'root') return dataRoot;
+
+    const dataEnv = await this.Model.findOne({
+      where: {
+        name,
+        env,
+      },
+    });
+    dataEnv.assets = Object.assign(dataRoot.assets, dataEnv.assets);
+    return dataEnv;
   }
 }
 

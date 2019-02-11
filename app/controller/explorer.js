@@ -3,10 +3,15 @@
 const Controller = require('egg').Controller;
 
 class ExplorerController extends Controller {
+  async job() {
+    const { name } = this.ctx.params;
+    const { env } = this.ctx.query;
+    this.ctx.body = await this.ctx.service.jobs.getByCodeEnv(name, env);
+  }
+
   async page() {
     const { code } = this.ctx.params;
     const { env } = this.ctx.query;
-    console.log(code);
     this.ctx.body = await this.ctx.service.applicationsPages.getByCodeEnv(code, env);
   }
 

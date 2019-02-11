@@ -109,8 +109,13 @@ class JobsController extends Controller {
       this.ctx.body = this.FORM;
       return;
     }
+    const { title, code } = this.ctx.query;
 
-    const { title } = this.ctx.query;
+    if (code) {
+      this.ctx.body = await this.Service.getByCode(code);
+      return;
+    }
+
     const where = clearnDef({
       env,
       title,

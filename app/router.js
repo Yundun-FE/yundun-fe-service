@@ -30,7 +30,7 @@ module.exports = app => {
   router.resources('applicationsPages', '/applicationsPages', 'applicationsPages');
 
   router.get('/explorer/pages/:code', controller.explorer.page);
-  router.get('/explorer/jobs/:name', controller.jobs.showName);
+  router.get('/explorer/jobs/:name', controller.explorer.job);
   router.get('/explorer/assets/:code', controller.explorer.assets);
   router.get('/upload/token', controller.upload.token);
 };
