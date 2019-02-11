@@ -61,8 +61,13 @@ class applicationsPagesController extends Controller {
       return;
     }
 
-    const where = { };
-    if (code) where.code = code;
+    const where = {
+      env: 'root',
+    };
+    if (code) {
+      where.code = code;
+      delete where.env;
+    }
     if (appId) where.appId = appId;
 
     const list = await this.Model.findAll({ where });
@@ -76,7 +81,7 @@ class applicationsPagesController extends Controller {
   async show() {
     const { id } = this.ctx.params;
     const { env } = this.ctx.query;
-    const data = await this.Service.findByIdEnv(id, env);
+    const data = await this.Service.getByIdEnv(id, env);
     this.ctx.body = data;
   }
 }

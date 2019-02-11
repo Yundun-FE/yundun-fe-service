@@ -16,8 +16,8 @@ const FORM = [{
   },
 },
 {
-  prop: 'blocks',
-  default: [],
+  prop: 'env',
+  default: '',
 },
 {
   prop: 'type',

@@ -27,17 +27,30 @@ function formatBlocks(data) {
   };
 }
 
+function exportBlocks(blocks, settings, translations) {
+  const data = exportDmConsole(blocks, settings, translations);
+  const content = [];
+
+  Object.keys(data).forEach(key => {
+    const item = data[key];
+    item.name = key;
+    item.blockName = key;
+    content.push(item);
+  });
+  return content;
+}
+
 class applicationsPagesService extends Service {
   constructor(ctx) {
     super(ctx);
     this.Model = ctx.model.ApplicationsPages;
   }
-  // 保存配置
+  // ID + ENV 保存
   async saveByIdEnv(id, env, data) {
     const dataRoot = await this.Model.findOne({ where: { id, env: 'root' } });
     if (!dataRoot) throw new Error('没有找到 root');
 
-    const code = data.code;
+    const code = dataRoot.code;
     const { blocks, settings, translations } = formatBlocks(data.content);
     data.blocks = blocks;
     data.settings = settings;
@@ -47,9 +60,13 @@ class applicationsPagesService extends Service {
       },
     };
 
-    return await this.saveByCodeEnv(code, env, data);
+    const result = await this.Model.update(data, {
+      where: { code, env },
+    });
+    return result;
+    // return await this.saveByCodeEnv(code, env, data);
   }
-  // 按 CODE 保存
+  // CODE + ENV 保存
   async saveByCodeEnv(code, env, data) {
     const dataRoot = await this.Model.findOne({ where: { code, env: 'root' } });
     if (!dataRoot) throw new Error('没有找到该 Root');
@@ -100,8 +117,8 @@ class applicationsPagesService extends Service {
   async getByCodeEnv(code, env) {
     //
   }
-
-  async findByIdEnv(id, env = 'root') {
+  // ID + ENV 读取
+  async getByIdEnv(id, env = 'root') {
     const dataRoot = await this.Model.findOne({
       where: {
         id,
@@ -130,7 +147,14 @@ class applicationsPagesService extends Service {
 
     data.env = env;
     if (dataEnv) {
-      data.content = dataEnv.content;
+      data.rootName = dataRoot.name;
+      data.name = dataEnv.name;
+
+      const blocks = Object.assign(dataRoot.blocks, dataEnv.blocks);
+      const settings = Object.assign(dataRoot.settings, dataEnv.settings);
+      const translations = dataRoot.translations['zh-CN'].blocks;
+
+      data.content = exportBlocks(blocks, settings, translations);
     }
 
     return data;
