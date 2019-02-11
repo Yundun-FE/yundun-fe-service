@@ -64,7 +64,6 @@ class applicationsPagesService extends Service {
       where: { code, env },
     });
     return result;
-    // return await this.saveByCodeEnv(code, env, data);
   }
   // CODE + ENV 保存
   async saveByCodeEnv(code, env, data) {
@@ -103,19 +102,29 @@ class applicationsPagesService extends Service {
   // 按 CODE 读取所有环境
   async getByCode(code) {
     const data = await this.ctx.model.ApplicationsPages.findOne({ where: { code } });
-
-    // const { blocks, settings, translations } = data;
-    // const blocksTranslations = translations['zh-CN'].blocks;
-    // data.blocks = data.blocks.DmConsole(blocks, settings, blocksTranslations);
-
     return {
       name: data.name,
       content: data.content,
     };
   }
-
-  async getByCodeEnv(code, env) {
-    //
+  // CODE + ENV 读取
+  async getByCodeEnv(code, env = 'root') {
+    let data = await this.Model.findOne({
+      where: {
+        code,
+        env,
+      },
+    });
+    if (!data) {
+      data = await this.Model.findOne({
+        where: {
+          code,
+          env: 'root',
+        },
+      });
+    }
+    if (!data) throw new Error('没有此页面');
+    return data;
   }
   // ID + ENV 读取
   async getByIdEnv(id, env = 'root') {

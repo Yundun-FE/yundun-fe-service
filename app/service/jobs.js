@@ -31,7 +31,24 @@ class JobsService extends Service {
     return { id };
   }
 
-  async findByIdEnv(id, env = 'root') {
+  async saveByIdEnv(id, env = 'root', data) {
+    const dataRoot = await this.Model.findOne({ where: { id, env: 'root' } });
+    if (!dataRoot) throw new Error('没有找到 root');
+
+    const name = dataRoot.name;
+    const update = {
+      title: data.title,
+      url: data.url,
+      assets: data.assets,
+      menus: data.menus,
+    };
+    const result = await this.Model.update(update, {
+      where: { name, env },
+    });
+    return result;
+  }
+
+  async getByIdEnv(id, env = 'root') {
     const data = await this.Model.findOne({
       where: {
         id,
@@ -48,6 +65,9 @@ class JobsService extends Service {
     });
 
     data.env = env;
+    data.rootTitle = data.title;
+    data.title = dataEnv.title;
+    data.menus = dataEnv.menus;
     Object.assign(data.assets, dataEnv.assets);
     return data;
   }

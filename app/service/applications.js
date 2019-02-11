@@ -45,6 +45,27 @@ class ApplicationService extends Service {
     });
     return result;
   }
+
+  async getByIdEnv(id, env) {
+    console.log(id, env);
+    const dataRoot = await this.Model.findOne({
+      where: {
+        id,
+      },
+    });
+
+    const name = dataRoot.name;
+    const dataEnv = await this.Model.findOne({
+      where: {
+        name,
+        env,
+      },
+    });
+    console.log(dataEnv);
+
+    const data = Object.assign(dataRoot, dataEnv);
+    return data;
+  }
 }
 
 module.exports = ApplicationService;
