@@ -40,6 +40,7 @@ class JobsService extends Service {
       title: data.title,
       url: data.url,
       assets: data.assets,
+      settings: data.settings,
       menus: data.menus,
     };
     const result = await this.Model.update(update, {
