@@ -6,7 +6,15 @@ class ExplorerController extends Controller {
   async job() {
     const { name } = this.ctx.params;
     const { env } = this.ctx.query;
-    this.ctx.body = await this.ctx.service.jobs.getByCodeEnv(name, env);
+
+    const res = await this.ctx.service.jobs.getByCodeEnv(name, env);
+    const data = {
+      title: res.title,
+      menus: res.menus,
+      assets: res.assets,
+    };
+
+    this.ctx.body = data;
   }
 
   async page() {
