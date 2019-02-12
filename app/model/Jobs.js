@@ -36,7 +36,7 @@ module.exports = app => {
 
     menus: {
       type: JSON,
-      defaultValue: [],
+      allowNull: false,
     },
 
     setting: {
@@ -46,12 +46,22 @@ module.exports = app => {
 
     settings: {
       type: JSON,
-      defaultValue: {},
+      allowNull: false,
     },
 
     assets: {
       type: JSON,
-      defaultValue: {},
+      allowNull: false,
+    },
+
+    proxys: {
+      type: JSON,
+      allowNull: false,
+    },
+
+    options: {
+      type: JSON,
+      allowNull: false,
     },
   });
 
