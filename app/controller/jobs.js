@@ -82,12 +82,12 @@ class JobsController extends Controller {
   }
 
   async index() {
-    const { resources, page = 1, pageSize = 10, env = 'root' } = this.ctx.query;
+    const { resources, page = 1, pageSize = 10, env = 'root', title, code } = this.ctx.query;
+
     if (resources === 'form') {
       this.ctx.body = this.FORM;
       return;
     }
-    const { title, code } = this.ctx.query;
 
     if (code) {
       this.ctx.body = await this.Service.getByCode(code);
@@ -106,13 +106,11 @@ class JobsController extends Controller {
       where,
     });
     const total = await this.Model.count({ where });
-
     this.ctx.body = { list, total };
   }
 
   async showName() {
     const { name } = this.ctx.params;
-    const { env } = this.ctx.query;
 
     const data = await this.Model.findAll({
       where: {

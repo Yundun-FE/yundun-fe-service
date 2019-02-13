@@ -8,7 +8,6 @@ const FORM = [{
     message: '请填写名称',
   },
 },
-
 {
   prop: 'title',
   label: '标题',
@@ -37,12 +36,10 @@ const FORM = [{
 },
 {
   prop: 'menus',
-  default: [
-    {
-      name: '',
-      childrens: [],
-    },
-  ],
+  default: [{
+    name: '',
+    childrens: [],
+  }],
 },
 {
   prop: 'settings',
@@ -51,13 +48,30 @@ const FORM = [{
     assets: [],
     apps: [],
     builds: [],
+    options: [],
+    proxy: [],
   },
+},
+{
+  prop: 'commands',
+  default: {},
 },
 {
   prop: 'assets',
   default: {},
 },
-
+{
+  prop: 'commands',
+  default: {},
+},
+{
+  prop: 'options',
+  default: {},
+},
+{
+  prop: 'proxy',
+  default: {},
+},
 ];
 
 module.exports = {

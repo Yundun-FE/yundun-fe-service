@@ -1,8 +1,30 @@
 'use strict';
 
 const Service = require('egg').Service;
-const { formatForm, formatRules } = require('../utils/form');
+const { isDef } = require('../utils');
+const { formatForm } = require('../utils/form');
 const DATA = require('../../packages/yundun-fe-common/form/jobs');
+
+function exportSettings(data) {
+  const settings = {};
+  data.forEach(item => {
+    const name = item.name;
+    delete item.name;
+    settings[name] = item;
+  });
+  return settings;
+}
+
+function formatSettings(rootSettings, envData) {
+  rootSettings.forEach(item => {
+    const envItem = envData[item.name];
+    if (!envItem) return;
+    Object.keys(item).forEach(key => {
+      if (isDef(envItem[item.name])) item[key] = envItem[item.name];
+    });
+  });
+  return rootSettings;
+}
 
 class JobsService extends Service {
   constructor(ctx) {
@@ -30,41 +52,49 @@ class JobsService extends Service {
     });
     return { id };
   }
-
+  // ID + ENV 保存
   async saveByIdEnv(id, env = 'root', data) {
     const dataRoot = await this.Model.findOne({ where: { id, env: 'root' } });
     if (!dataRoot) throw new Error('没有找到 root');
 
     const name = dataRoot.name;
-    // Assets 过滤
-    const { assets: assetsSettings } = data.settings;
+    // Assets 提取
+    const { assets: assetsSettings, proxy: proxySettings, options: optionsSettings } = data.settings;
     const assets = {};
     assetsSettings.forEach(item => {
       assets[item.key] = data.assets[item.key];
     });
+    // 提取
+    const proxy = exportSettings(proxySettings);
+    const options = exportSettings(optionsSettings);
 
     const update = {
       title: data.title,
       url: data.url,
-      assets,
-      settings: data.settings,
       menus: data.menus,
+      assets,
+      options,
+      proxy,
     };
+
+    if (env === 'root') {
+      update.settings = data.settings;
+    }
     const result = await this.Model.update(update, {
       where: { name, env },
     });
     return result;
   }
-
+  // ID + ENV 读取
   async getByIdEnv(id, env = 'root') {
     const dataRoot = await this.Model.findOne({
       where: {
         id,
       },
     });
-    dataRoot.settings = Object.assign(this.form.settings, dataRoot.settings);
+    const settings = Object.assign(this.form.settings, dataRoot.settings);
     if (env === 'root') return dataRoot;
-    // 合并子环境
+    // 合并环境
     const dataEnv = await this.Model.findOne({
       where: {
         name: dataRoot.name,
@@ -72,12 +102,16 @@ class JobsService extends Service {
       },
     });
 
+    const { assets: assetsSettings, proxy: proxySettings, options: optionsSettings } = settings;
+    settings.proxy = formatSettings(proxySettings, dataEnv.proxy);
+
     const data = {
       env,
       rootTitle: dataRoot.title,
       title: dataEnv.title,
       menus: dataEnv.menus,
       name: dataEnv.name,
+      settings,
       assets: Object.assign(dataEnv.assets, dataEnv.assets),
     };
     return data;
