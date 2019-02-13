@@ -1,13 +1,14 @@
 'use strict';
 
 const Service = require('egg').Service;
-const { isDef } = require('../utils');
+const { isDef, deepClone } = require('../utils');
 const { formatForm } = require('../utils/form');
 const DATA = require('../../packages/yundun-fe-common/form/jobs');
 
 function exportSettings(data) {
   const settings = {};
   data.forEach(item => {
+    item = deepClone(item);
     const name = item.name;
     delete item.name;
     settings[name] = item;
@@ -20,7 +21,7 @@ function formatSettings(rootSettings, envData) {
     const envItem = envData[item.name];
     if (!envItem) return;
     Object.keys(item).forEach(key => {
-      if (isDef(envItem[item.name])) item[key] = envItem[item.name];
+      if (isDef(envItem[key])) item[key] = envItem[key];
     });
   });
   return rootSettings;
