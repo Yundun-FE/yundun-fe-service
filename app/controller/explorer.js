@@ -4,14 +4,17 @@ const Controller = require('egg').Controller;
 
 class ExplorerController extends Controller {
   async job() {
-    const { name } = this.ctx.params;
-    const { env } = this.ctx.query;
+    const { name, env: envParams } = this.ctx.params;
+    const { env: envQuery } = this.ctx.query;
+    const env = envParams || envQuery;
 
     const res = await this.ctx.service.jobs.getByCodeEnv(name, env);
     const data = {
       title: res.title,
       menus: res.menus,
       assets: res.assets,
+      proxy: res.proxy,
+      options: res.options,
     };
 
     this.ctx.body = data;

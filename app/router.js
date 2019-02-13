@@ -31,6 +31,7 @@ module.exports = app => {
 
   router.get('/explorer/pages/:code', controller.explorer.page);
   router.get('/explorer/jobs/:name', controller.explorer.job);
+  router.get('/explorer/jobs/:name/env/:env', controller.explorer.job);
   router.get('/explorer/assets/:code', controller.explorer.assets);
   router.get('/upload/token', controller.upload.token);
 };

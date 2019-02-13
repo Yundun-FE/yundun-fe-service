@@ -54,6 +54,11 @@ module.exports = app => {
       allowNull: false,
     },
 
+    commands: {
+      type: JSON,
+      allowNull: false,
+    },
+
     proxy: {
       type: JSON,
       allowNull: false,

@@ -53,10 +53,6 @@ const FORM = [{
   },
 },
 {
-  prop: 'commands',
-  default: {},
-},
-{
   prop: 'assets',
   default: {},
 },
