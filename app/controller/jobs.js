@@ -77,29 +77,7 @@ class JobsController extends Controller {
   async update() {
     const { id } = this.ctx.params;
     const { env } = this.ctx.query;
-
-    // const data = await this.Model.findOne({
-    //   where: {
-    //     id,
-    //   },
-    // });
-    // if (!data) throw new Error('Not Found');
-
-    // id = env === 'root' ? id : await this.Service.findNameEnvToId(data.name, env);
-    // const update = mergeShare(this.form, this.ctx.request.body);
     const body = this.ctx.request.body;
-
-    // const update = {
-    //   title: body.title,
-    //   url: body.url,
-    //   assets: body.assets,
-    // };
-
-    // if (env === 'root') {
-    //   update.settings = body.settings;
-    // }
-
-    // this.ctx.body = await this.ctx.service.jobs.updateById(id, update);
     this.ctx.body = await this.Service.saveByIdEnv(id, env, body);
   }
 

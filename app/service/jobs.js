@@ -36,10 +36,17 @@ class JobsService extends Service {
     if (!dataRoot) throw new Error('没有找到 root');
 
     const name = dataRoot.name;
+    // Assets 过滤
+    const { assets: assetsSettings } = data.settings;
+    const assets = {};
+    assetsSettings.forEach(item => {
+      assets[item.key] = data.assets[item.key];
+    });
+
     const update = {
       title: data.title,
       url: data.url,
-      assets: data.assets,
+      assets,
       settings: data.settings,
       menus: data.menus,
     };
