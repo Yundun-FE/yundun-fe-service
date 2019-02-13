@@ -39,7 +39,7 @@
   "scripts": {
     "start": "egg-bin dev",
     "build": "egg-bin dev",
-    "start:docer": "egg-scripts start --port=80 --title=egg-server-yundun-fe-service",
+    "start:docker": "egg-scripts start --port=80 --title=egg-server-yundun-fe-service",
     "stop": "egg-scripts stop --title=egg-server-yundun-fe-service",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
