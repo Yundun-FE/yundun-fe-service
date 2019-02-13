@@ -105,6 +105,7 @@ class JobsService extends Service {
 
     const { assets: assetsSettings, proxy: proxySettings, options: optionsSettings } = settings;
     settings.proxy = formatSettings(proxySettings, dataEnv.proxy);
+    settings.options = formatSettings(optionsSettings, dataEnv.options);
 
     const data = {
       env,
