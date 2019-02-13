@@ -20,10 +20,10 @@
     "mysql2": "^1.6.1",
     "qiniu": "^7.2.1",
     "superagent": "^3.8.3",
-    "superagent-charset": "^1.2.0",
-    "egg-bin": "^4.3.5"
+    "superagent-charset": "^1.2.0"
   },
   "devDependencies": {
+    "egg-bin": "^4.3.5",
     "autod": "^3.0.1",
     "autod-egg": "^1.0.0",
     "egg-ci": "^1.8.0",
