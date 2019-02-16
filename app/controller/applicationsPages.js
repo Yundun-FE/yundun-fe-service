@@ -19,7 +19,7 @@ class applicationsPagesController extends Controller {
 
   async create() {
     const create = mergeShare(this.form, this.ctx.request.body);
-    create.words = create.words.filter(_ => _.code);
+    // create.words = create.words.filter(_ => _.code);
 
     await this.ctx.validate(this.Rules, create);
     this.ctx.body = await this.Model.create(create);

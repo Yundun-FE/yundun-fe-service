@@ -17,7 +17,7 @@ const FORM = [{
 },
 {
   prop: 'env',
-  default: '',
+  default: 'root',
 },
 {
   prop: 'type',
@@ -36,15 +36,11 @@ const FORM = [{
   default: {},
 },
 {
-  prop: 'words',
-  default: [{
-    label: '',
-    value: '',
-    valueOem: '',
-  }],
+  prop: 'settings',
+  default: {},
 },
 {
-  prop: 'settings',
+  prop: 'blocks',
   default: {},
 },
 {
