@@ -19,8 +19,6 @@ class applicationsPagesController extends Controller {
 
   async create() {
     const create = mergeShare(this.form, this.ctx.request.body);
-    // create.words = create.words.filter(_ => _.code);
-
     await this.ctx.validate(this.Rules, create);
     this.ctx.body = await this.Model.create(create);
   }
@@ -70,7 +68,7 @@ class applicationsPagesController extends Controller {
     }
     if (appId) where.appId = appId;
 
-    const list = await this.Model.findAll({ where });
+    const list = await this.Model.findAll({ where, order: [[ 'id', 'DESC' ]] });
     const total = await this.Model.count({ where });
     this.ctx.body = {
       list,

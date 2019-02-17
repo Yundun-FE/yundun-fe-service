@@ -33,7 +33,7 @@ const FORM = [{
 },
 {
   prop: 'content',
-  default: {},
+  default: [],
 },
 {
   prop: 'settings',

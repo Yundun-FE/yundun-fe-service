@@ -1,4 +1,5 @@
 'use strict';
+const moment = require('moment');
 
 const APP_PAGE_TYPE = [
   {
@@ -29,7 +30,7 @@ const APP_PAGE_TYPE = [
 
 // 页面
 module.exports = app => {
-  const { INTEGER, STRING, JSON } = app.Sequelize;
+  const { INTEGER, STRING, JSON, DATE } = app.Sequelize;
 
   const Model = app.model.define('applicationsPages', {
     name: {
@@ -85,6 +86,13 @@ module.exports = app => {
     appId: {
       type: INTEGER,
       defaultValue: 0,
+    },
+
+    created_at: {
+      type: DATE,
+      get() {
+        return moment(this.getDataValue('created_at')).format('YYYY-MM-DD HH:mm:ss');
+      },
     },
   }, {
     indexes: [

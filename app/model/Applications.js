@@ -1,4 +1,5 @@
 'use strict';
+const moment = require('moment');
 
 // 应用表
 module.exports = app => {
@@ -7,6 +8,7 @@ module.exports = app => {
     STRING,
     BOOLEAN,
     JSON,
+    DATE,
   } = app.Sequelize;
 
   const Model = app.model.define('applications', {
@@ -48,6 +50,13 @@ module.exports = app => {
     translate: {
       type: JSON,
       defaultValue: {},
+    },
+
+    created_at: {
+      type: DATE,
+      get() {
+        return moment(this.getDataValue('created_at')).format('YYYY-MM-DD HH:mm:ss');
+      },
     },
   });
 
