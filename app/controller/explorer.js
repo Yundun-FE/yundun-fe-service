@@ -15,6 +15,7 @@ class ExplorerController extends Controller {
       assets: res.assets,
       proxy: res.proxy,
       options: res.options,
+      url: res.url,
     };
 
     this.ctx.body = data;
