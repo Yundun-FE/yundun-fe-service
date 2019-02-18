@@ -20,6 +20,10 @@ module.exports = app => {
       type: STRING(255),
       defaultValue: '',
     },
+    avatar: {
+      type: STRING(255),
+      defaultValue: '',
+    },
   });
 
   return Model;

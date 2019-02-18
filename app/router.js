@@ -20,6 +20,7 @@ module.exports = app => {
   router.get('/progresses/:name', controller.progress.name);
   router.get('/notices', controller.notice.list);
 
+  router.resources('users', 'api/users', controller.users);
   router.resources('forms', '/forms', 'forms');
   router.resources('jobs', '/jobs', 'jobs');
   router.resources('blocks', '/blocks', 'blocks');
