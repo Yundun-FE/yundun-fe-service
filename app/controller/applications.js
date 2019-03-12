@@ -74,7 +74,7 @@ class ApplicationController extends Controller {
     });
 
     this.ctx.body = {
-      list,
+      data: list,
       total,
     };
   }

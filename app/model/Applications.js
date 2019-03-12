@@ -58,6 +58,15 @@ module.exports = app => {
         return moment(this.getDataValue('created_at')).format('YYYY-MM-DD HH:mm:ss');
       },
     },
+  }, {
+    getterMethods: {
+      createdAt() {
+        return moment(this.getDataValue('created_at')).format('YYYY-MM-DD HH:mm:ss');
+      },
+      updatedAt() {
+        return moment(this.getDataValue('updated_at')).format('YYYY-MM-DD HH:mm:ss');
+      },
+    },
   });
 
   return Model;
