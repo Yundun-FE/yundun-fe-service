@@ -51,13 +51,6 @@ module.exports = app => {
       type: JSON,
       defaultValue: {},
     },
-
-    created_at: {
-      type: DATE,
-      get() {
-        return moment(this.getDataValue('created_at')).format('YYYY-MM-DD HH:mm:ss');
-      },
-    },
   }, {
     getterMethods: {
       createdAt() {
