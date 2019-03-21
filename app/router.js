@@ -29,6 +29,7 @@ module.exports = app => {
   router.resources('websites', '/websites', 'websites');
   router.resources('applications', '/applications', 'applications');
   router.resources('applicationsPages', '/applicationsPages', 'applicationsPages');
+  router.resources('applicationsVersions', '/applicationsVersions', 'applicationsVersions');
 
   router.get('/explorer/pages/:code', controller.explorer.page);
   router.get('/explorer/jobs/:name', controller.explorer.job);
