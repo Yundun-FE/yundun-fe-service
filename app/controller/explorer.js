@@ -10,6 +10,7 @@ class ExplorerController extends Controller {
 
     const res = await this.ctx.service.jobs.getByCodeEnv(name, env);
     const data = {
+      env,
       title: res.title,
       menus: res.menus,
       assets: res.assets,
