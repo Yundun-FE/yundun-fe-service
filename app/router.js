@@ -36,4 +36,6 @@ module.exports = app => {
   router.get('/explorer/jobs/:name/env/:env', controller.explorer.job);
   router.get('/explorer/assets/:code', controller.explorer.assets);
   router.get('/upload/token', controller.upload.token);
+
+  router.get('/api/v1/:env/explorer/jobs/:name', controller.explorer.job);
 };
