@@ -22,3 +22,8 @@ exports.i18n = {
   enable: true,
   package: 'egg-i18n',
 };
+
+exports.redis = {
+  enable: true,
+  package: 'egg-redis',
+};
