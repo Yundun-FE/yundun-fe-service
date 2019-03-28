@@ -37,5 +37,6 @@ module.exports = app => {
   router.get('/explorer/assets/:code', controller.explorer.assets);
   router.get('/upload/token', controller.upload.token);
 
+  router.post('/api/v1/register', controller.users.register);
   router.get('/api/v1/:env/explorer/jobs/:name', controller.explorer.job);
 };

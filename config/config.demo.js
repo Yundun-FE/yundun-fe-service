@@ -16,6 +16,15 @@ module.exports = appInfo => {
     timezone: '+08:00',
   };
 
+  config.redis = {
+    client: {
+      port: 6379,
+      host: 'localhost',
+      password: 'auth',
+      db: 0,
+    },
+  };
+
   config.jenkins = {
     url: '',
     interval: '10s',
