@@ -21,7 +21,7 @@ class HomeController extends Controller {
 
   async install() {
     const { ctx } = this;
-    // await ctx.model.Jobs.sync({ alter: true });
+    await ctx.model.Jobs.sync({ alter: true });
     // await ctx.model.Forms.sync({ alter: true });
     // await ctx.model.Blocks.sync({ alter: true });
     // await ctx.model.JobExecutor.sync({ alter: true });
@@ -32,7 +32,7 @@ class HomeController extends Controller {
     // await ctx.model.Notice.sync({ alter: truef })
     // await ctx.model.Applications.sync({ alter: true });
     // await ctx.model.ApplicationsPages.sync({ alter: true });
-    await ctx.model.ApplicationsVersions.sync({ alter: true });
+    // await ctx.model.ApplicationsVersions.sync({ alter: true });
     const { name, version } = PKG;
     ctx.body = { name, version };
   }
@@ -41,7 +41,6 @@ class HomeController extends Controller {
     const path = '../../../yundun-fe-web/src/pages/Products/config.json';
     purgeCache(path);
     const data = require(path);
-    console.log(data);
   }
 }
 

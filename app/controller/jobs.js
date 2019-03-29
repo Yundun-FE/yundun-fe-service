@@ -82,24 +82,21 @@ class JobsController extends Controller {
   }
 
   async index() {
-    const { resources, page = 1, pageSize = 10, env = 'root', title, code } = this.ctx.query;
+    const { resources, page = 1, pageSize = 10, env, title, name } = this.ctx.query;
 
     if (resources === 'form') {
       this.ctx.body = this.FORM;
       return;
     }
 
-    if (code) {
-      this.ctx.body = await this.Service.getByCode(code);
-      return;
-    }
-
     const where = clearnDef({
       env,
       title,
+      name,
     });
 
     const list = await this.Model.findAll({
+      attributes: [ 'id', 'title', 'name', 'env', 'assets', 'created_at', 'updated_at' ],
       limit: Number(pageSize),
       offset: Number(pageSize * (page - 1)),
       order: [[ 'id', 'DESC' ]],

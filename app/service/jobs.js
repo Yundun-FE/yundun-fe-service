@@ -121,11 +121,14 @@ class JobsService extends Service {
 
   async getByCode(name) {
     const data = await this.Model.findAll({
+      attributes: [ 'id', 'title', 'name', 'env', 'assets', 'created_at', 'updated_at' ],
       where: {
         name,
       },
     });
-    return data;
+    return {
+      data,
+    };
   }
 
   async getByCodeEnv(name, env = 'root') {

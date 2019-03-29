@@ -10,9 +10,9 @@ module.exports = app => {
   router.get('/update', controller.home.update);
   router.post('/events', controller.events.create);
 
-  router.get('/jenkins/jobs', controller.jenkins.jobs);
-  router.post('/jenkins/jobs/:name/start', controller.jenkins.jobsStart);
-  router.get('/jenkins/jobs/:name', controller.jenkins.jobName);
+  router.get('/api/v1/jenkins/jobs', controller.jenkins.jobs);
+  router.post('/api/v1/jenkins/jobs/:name/start', controller.jenkins.jobsStart);
+  router.get('/api/v1/jenkins/jobs/:name', controller.jenkins.jobName);
 
   router.get('/jobs/executor/:name/:number', controller.jobs.jobExecutorNumber);
   router.get('/jobs/executor/:name', controller.jobs.jobExecutor);
@@ -23,6 +23,7 @@ module.exports = app => {
   router.resources('users', 'api/users', controller.users);
   router.resources('forms', '/forms', 'forms');
   router.resources('jobs', '/jobs', 'jobs');
+  router.resources('jobs', '/api/v1/jobs', controller.jobs);
   router.resources('blocks', '/blocks', 'blocks');
   router.resources('products', '/products', 'products');
   router.resources('accounts', '/accounts', 'accounts');

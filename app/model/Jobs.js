@@ -25,6 +25,11 @@ module.exports = app => {
       defaultValue: '',
     },
 
+    jenkinsName: {
+      type: STRING(255),
+      defaultValue: '',
+    },
+
     tags: {
       type: JSON,
       defaultValue: [],
