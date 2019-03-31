@@ -76,9 +76,9 @@ class JobsController extends Controller {
 
   async update() {
     const { id } = this.ctx.params;
-    const { env } = this.ctx.query;
+    // const { env } = this.ctx.query;
     const body = this.ctx.request.body;
-    this.ctx.body = await this.Service.saveByIdEnv(id, env, body);
+    this.ctx.body = await this.Service.saveById(id, body);
   }
 
   async index() {
@@ -96,7 +96,7 @@ class JobsController extends Controller {
     });
 
     const list = await this.Model.findAll({
-      attributes: [ 'id', 'title', 'name', 'env', 'assets', 'created_at', 'updated_at' ],
+      attributes: [ 'id', 'title', 'name', 'env', 'assets', 'jenkinsName', 'created_at', 'updated_at' ],
       limit: Number(pageSize),
       offset: Number(pageSize * (page - 1)),
       order: [[ 'id', 'DESC' ]],

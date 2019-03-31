@@ -54,35 +54,35 @@ class JobsService extends Service {
     return { id };
   }
   // ID + ENV 保存
-  async saveByIdEnv(id, env = 'root', data) {
-    const dataRoot = await this.Model.findOne({ where: { id, env: 'root' } });
-    if (!dataRoot) throw new Error('没有找到 root');
+  async saveById(id, data) {
+    // const dataRoot = await this.Model.findOne({ where: { name, env: 'root' } });
+    // if (!dataRoot) throw new Error('没有找到 root');
 
-    const name = dataRoot.name;
+    // const name = dataRoot.name;
     // Assets 提取
-    const { assets: assetsSettings, proxy: proxySettings, options: optionsSettings } = data.settings;
-    const assets = {};
-    assetsSettings.forEach(item => {
-      assets[item.key] = data.assets[item.key];
-    });
+    // const { assets: assetsSettings, proxy: proxySettings, options: optionsSettings } = data.settings;
+    // const assets = {};
+    // assetsSettings.forEach(item => {
+    //   assets[item.key] = data.assets[item.key];
+    // });
     // 提取
-    const proxy = exportSettings(proxySettings);
-    const options = exportSettings(optionsSettings);
+    // const proxy = exportSettings(proxySettings);
+    // const options = exportSettings(optionsSettings);
 
-    const update = {
-      title: data.title,
-      url: data.url,
-      menus: data.menus,
-      assets,
-      options,
-      proxy,
-    };
+    // const update = {
+    //   title: data.title,
+    //   url: data.url,
+    //   menus: data.menus,
+    //   assets,
+    //   options,
+    //   proxy,
+    // };
 
-    if (env === 'root') {
-      update.settings = data.settings;
-    }
-    const result = await this.Model.update(update, {
-      where: { name, env },
+    // if (env === 'root') {
+    //   update.settings = data.settings;
+    // }
+    const result = await this.Model.update(data, {
+      where: { id },
     });
     return result;
   }
