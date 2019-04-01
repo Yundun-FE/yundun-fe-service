@@ -81,10 +81,50 @@ class JobsService extends Service {
     // if (env === 'root') {
     //   update.settings = data.settings;
     // }
+
+    const find = await this.Model.findOne({ where: { id } });
+    if (!find) throw new Error('NotFound');
+
     const result = await this.Model.update(data, {
       where: { id },
     });
-    return result;
+
+    if (result[0] === 1) return data;
+    throw new Error('SaveError');
+  }
+
+  async getById(id) {
+    // 合并环境
+    const dataEnv = await this.Model.findOne({
+      where: {
+        id,
+      },
+    });
+    const { env } = dataEnv;
+    if (env === 'root') return dataEnv;
+
+    const dataRoot = await this.Model.findOne({
+      where: {
+        name: dataEnv.name,
+        env: 'root',
+      },
+    });
+
+    const settings = Object.assign(this.form.settings, dataRoot.settings);
+
+    const { proxy: proxySettings, options: optionsSettings } = settings;
+    settings.proxy = formatSettings(proxySettings, dataEnv.proxy);
+    settings.options = formatSettings(optionsSettings, dataEnv.options);
+
+    const data = {
+      rootTitle: dataRoot.title,
+      title: dataEnv.title,
+      menus: dataEnv.menus,
+      name: dataEnv.name,
+      settings,
+      assets: Object.assign(dataEnv.assets, dataEnv.assets),
+    };
+    return data;
   }
   // ID + ENV 读取
   async getByIdEnv(id, env = 'root') {
@@ -117,6 +157,18 @@ class JobsService extends Service {
       assets: Object.assign(dataEnv.assets, dataEnv.assets),
     };
     return data;
+  }
+
+  async getByNameAtttr(name, attr) {
+    const data = await this.Model.findAll({
+      attributes: [ attr ],
+      where: {
+        name,
+      },
+    });
+    return {
+      data,
+    };
   }
 
   async getByCode(name) {

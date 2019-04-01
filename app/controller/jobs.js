@@ -76,30 +76,31 @@ class JobsController extends Controller {
 
   async update() {
     const { id } = this.ctx.params;
-    // const { env } = this.ctx.query;
     const body = this.ctx.request.body;
     this.ctx.body = await this.Service.saveById(id, body);
   }
 
   async index() {
-    const { resources, page = 1, pageSize = 10, env, title, name } = this.ctx.query;
+    const { resources, page = 1, pageSize = 10, title, name, attr } = this.ctx.query;
 
     if (resources === 'form') {
       this.ctx.body = this.FORM;
       return;
     }
 
+    const attributes = [ 'id', 'title', 'name', 'env', 'assets', 'jenkinsName', 'created_at', 'updated_at' ];
+    if (attr) attributes.push(attr);
+
     const where = clearnDef({
-      env,
       title,
       name,
     });
 
     const list = await this.Model.findAll({
-      attributes: [ 'id', 'title', 'name', 'env', 'assets', 'jenkinsName', 'created_at', 'updated_at' ],
+      attributes,
       limit: Number(pageSize),
       offset: Number(pageSize * (page - 1)),
-      order: [[ 'id', 'DESC' ]],
+      order: [[ 'id', 'ASC' ]],
       where,
     });
     const total = await this.Model.count({ where });
@@ -119,8 +120,8 @@ class JobsController extends Controller {
 
   async show() {
     const { id } = this.ctx.params;
-    const { env } = this.ctx.query;
-    this.ctx.body = await this.Service.getByIdEnv(id, env);
+    // const { env } = this.ctx.query;
+    this.ctx.body = await this.Service.getById(id);
   }
 }
 
