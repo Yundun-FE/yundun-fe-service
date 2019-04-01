@@ -16,14 +16,15 @@ const rules = {
   },
 };
 
-class UsersController extends Controller {
+class AccountsController extends Controller {
   async register() {
     const form = this.ctx.request.body;
     await this.ctx.validate(rules, form);
+
+    const { code, phoneNumber } = form;
+    await this.service.accounts.captchas.checkByUsername({ username: phoneNumber, code });
     const password = crypto.createHmac('sha256', this.app.config.keys).update(form.password).digest('hex');
-
-
   }
 }
 
-module.exports = UsersController;
+module.exports = AccountsController;

@@ -10,6 +10,9 @@ module.exports = app => {
   router.get('/update', controller.home.update);
   router.post('/events', controller.events.create);
 
+  router.post('/api/v1/accounts/captchas/sms', controller.accounts.captchas.sms);
+  router.post('/api/v1/register', controller.accounts.users.register);
+
   router.get('/api/v1/jenkins/jobs', controller.jenkins.jobs);
   router.post('/api/v1/jenkins/jobs/:name/start', controller.jenkins.jobsStart);
   router.get('/api/v1/jenkins/jobs/:name', controller.jenkins.jobName);
@@ -20,13 +23,12 @@ module.exports = app => {
   router.get('/progresses/:name', controller.progress.name);
   router.get('/notices', controller.notice.list);
 
-  router.resources('users', 'api/users', controller.users);
   router.resources('forms', '/forms', 'forms');
   router.resources('jobs', '/jobs', 'jobs');
   router.resources('jobs', '/api/v1/jobs', controller.jobs);
   router.resources('blocks', '/blocks', 'blocks');
   router.resources('products', '/products', 'products');
-  router.resources('accounts', '/accounts', 'accounts');
+  // router.resources('accounts', '/accounts', 'accounts');
   router.resources('websites', '/websites', 'websites');
   router.resources('applications', '/applications', 'applications');
   router.resources('applicationsPages', '/applicationsPages', 'applicationsPages');
@@ -38,6 +40,5 @@ module.exports = app => {
   router.get('/explorer/assets/:code', controller.explorer.assets);
   router.get('/upload/token', controller.upload.token);
 
-  router.post('/api/v1/register', controller.users.register);
   router.get('/api/v1/:env/explorer/jobs/:name', controller.explorer.job);
 };

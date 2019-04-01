@@ -3,22 +3,22 @@
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN } = app.Sequelize;
 
-  const Model = app.model.define('usersCaptchas', {
+  const Model = app.model.define('accountsCaptchas', {
     userId: {
       type: STRING(255),
-      allowNull: false,
+      defaultValue: '',
     },
-    auth: {
+    username: {
       type: STRING(255),
       allowNull: false,
     },
-    type: {
-      type: INTEGER,
+    code: {
+      type: STRING(8),
       allowNull: false,
     },
-    captcha: {
-      type: STRING(255),
-      allowNull: false,
+    used: {
+      type: BOOLEAN,
+      defaultValue: false,
     },
   });
 
