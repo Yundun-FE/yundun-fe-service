@@ -49,8 +49,8 @@ module.exports = app => {
       defaultValue: '',
     },
     disabled: {
-      type: INTEGER,
-      defaultValue: '',
+      type: BOOLEAN,
+      defaultValue: false,
     },
   });
 

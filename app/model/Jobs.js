@@ -83,11 +83,5 @@ module.exports = app => {
     },
   });
 
-  Model.associate = function() {
-    Model.hasMany(app.model.Accounts, {
-      foreignKey: 'jid',
-    });
-  };
-
   return Model;
 };

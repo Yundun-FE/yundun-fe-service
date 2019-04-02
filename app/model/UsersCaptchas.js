@@ -3,7 +3,7 @@
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN } = app.Sequelize;
 
-  const Model = app.model.define('accountsCaptchas', {
+  const Model = app.model.define('usersCaptchas', {
     userId: {
       type: STRING(255),
       defaultValue: '',

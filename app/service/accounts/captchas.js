@@ -15,7 +15,7 @@ module.exports = app => {
   class Service extends app.Service {
     constructor(ctx) {
       super(ctx);
-      this.Model = ctx.model.AccountsCaptchas;
+      this.Model = ctx.model.UsersCaptchas;
     }
 
     createByEmail(email) {}

@@ -21,9 +21,16 @@ class AccountsController extends Controller {
     const form = this.ctx.request.body;
     await this.ctx.validate(rules, form);
 
-    const { code, phoneNumber } = form;
+    const { code, phoneNumber, email } = form;
     await this.service.accounts.captchas.checkByUsername({ username: phoneNumber, code });
     const password = crypto.createHmac('sha256', this.app.config.keys).update(form.password).digest('hex');
+
+    const data = {
+      phoneNumber,
+      email,
+      password,
+    };
+    await this.service.accounts.users.register(data);
   }
 }
 

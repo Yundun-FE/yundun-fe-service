@@ -28,26 +28,22 @@ module.exports = app => {
       type: STRING(255),
       defaultValue: '',
     },
-    assetsGroups: {
-      type: JSON,
-      allowNull: false,
-    },
+    // assetsGroups: {
+    //   type: JSON,
+    //   allowNull: false,
+    // },
     settingsGroups: {
       type: JSON,
       allowNull: false,
     },
-    themesGroups: {
-      type: JSON,
-      allowNull: false,
-    },
-    proxysGroups: {
-      type: JSON,
-      allowNull: false,
-    },
-    applicationsIds: {
-      type: JSON,
-      allowNull: false,
-    },
+    // themesGroups: {
+    //   type: JSON,
+    //   allowNull: false,
+    // },
+    // proxysGroups: {
+    //   type: JSON,
+    //   allowNull: false,
+    // },
   });
 
   return Product;

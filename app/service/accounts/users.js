@@ -18,7 +18,7 @@ class UsersService extends Service {
   async register(data) {
     const { email } = data;
     const where = { email };
-    const userData = await this.Model.findOne(where);
+    const userData = await this.Model.findOne({ where });
     if (userData) throw new Error('UserAlreadyExist');
     try {
       await this.Model.create(data);
@@ -28,7 +28,7 @@ class UsersService extends Service {
   }
 
   async findById(userId) {
-    const data = await this.Model.findOne({ userId });
+    const data = await this.Model.findOne({ where: userId });
     if (!data) throw new Error('NotFoundUser');
     return data;
   }
