@@ -5,26 +5,28 @@ const { Controller } = require('egg');
 class ProductController extends Controller {
   constructor(ctx) {
     super(ctx);
-    this.Model = ctx.model.Product;
+    this.Model = ctx.model.Products;
+    this.Service = ctx.service.products;
     this.Rule = {
-      title: { type: 'string', required: true },
+      name: { type: 'string', required: true },
     };
   }
 
   async create() {
-    const { title, show, index } = this.ctx.request.body;
+    const { title, name, description } = this.ctx.request.body;
     const create = {
       title,
-      show,
-      index,
+      name,
+      description,
+      settings: {},
     };
 
     this.ctx.validate(this.Rule, create);
-    this.Model.create(create);
+    await this.Model.create(create);
     this.ctx.body = create;
   }
 
-  async delete() {
+  async destroy() {
     const { id } = this.ctx.params;
 
     await this.Model.destroy({
@@ -37,11 +39,10 @@ class ProductController extends Controller {
 
   async update() {
     const { id } = this.ctx.params;
-    const { title, show, index } = this.ctx.request.body;
+    const { title, description } = this.ctx.request.body;
     const update = {
       title,
-      show,
-      index,
+      description,
     };
 
     this.ctx.validate(this.Rule, update);
@@ -55,7 +56,7 @@ class ProductController extends Controller {
     this.ctx.body = update;
   }
 
-  async list() {
+  async index() {
     const list = await this.Model.findAll();
     const total = await this.Model.count();
 
@@ -65,10 +66,9 @@ class ProductController extends Controller {
     };
   }
 
-  async id() {
+  async show() {
     const { id } = this.ctx.params;
-
-    const data = await this.Model.findOne({ where: { id } });
+    const data = await this.Service.getById(id);
     this.ctx.body = data;
   }
 }

@@ -4,7 +4,7 @@ const moment = require('moment');
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN, JSON, DATE } = app.Sequelize;
 
-  const Model = app.model.define('products', {
+  const Model = app.model.define('jobsV2', {
     name: {
       type: STRING(255),
       allowNull: false,
@@ -15,22 +15,17 @@ module.exports = app => {
       defaultValue: '',
     },
 
-    avatar: {
-      type: STRING(255),
-      defaultValue: '',
+    productId: {
+      type: INTEGER,
+      allowNull: false,
     },
 
-    url: {
+    productName: {
       type: STRING(255),
-      defaultValue: '',
+      allowNull: false,
     },
 
-    version: {
-      type: STRING(255),
-      defaultValue: '0.0.1',
-    },
-
-    description: {
+    jenkinsUrl: {
       type: STRING(255),
       defaultValue: '',
     },
@@ -46,21 +41,13 @@ module.exports = app => {
         return moment(this.getDataValue('created_at')).format('YYYY-MM-DD HH:mm:ss');
       },
     },
-
-    updated_at: {
-      type: DATE,
-      get() {
-        return moment(this.getDataValue('updated_at')).format('YYYY-MM-DD HH:mm:ss');
-      },
-    },
   }, {
+    freezeTableName: true,
+
     indexes: [
       {
         unique: true,
         fields: [ 'name' ],
-      },
-      {
-        fields: [ 'title' ],
       },
     ],
   });

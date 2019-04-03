@@ -1,9 +1,9 @@
 'use strict';
 
 const Service = require('egg').Service;
-const { isDef, deepClone } = require('../utils');
-const { formatForm } = require('../utils/form');
-const DATA = require('../../packages/yundun-fe-common/form/jobs');
+const { isDef, deepClone } = require('../../utils');
+const { formatForm } = require('../../utils/form');
+const DATA = require('../../../packages/yundun-fe-common/form/jobs');
 
 function exportSettings(data) {
   const settings = {};

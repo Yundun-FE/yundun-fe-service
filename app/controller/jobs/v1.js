@@ -1,10 +1,10 @@
 'use strict';
 
 const { Controller } = require('egg');
-const { clearnDef } = require('../utils');
-const { mergeShare } = require('../utils/object');
-const { formatForm, formatRules } = require('../utils/form');
-const DATA = require('../../packages/yundun-fe-common/form/jobs');
+const { clearnDef } = require('../../utils');
+const { mergeShare } = require('../../utils/object');
+const { formatForm, formatRules } = require('../../utils/form');
+const DATA = require('../../../packages/yundun-fe-common/form/jobs');
 
 class JobsController extends Controller {
   constructor(ctx) {
@@ -13,7 +13,7 @@ class JobsController extends Controller {
     this.form = formatForm(DATA.FORM);
     this.Rules = formatRules(DATA.FORM);
     this.Model = ctx.model.Jobs;
-    this.Service = ctx.service.jobs;
+    this.Service = ctx.service.jobs.v1;
   }
 
   async executor() {

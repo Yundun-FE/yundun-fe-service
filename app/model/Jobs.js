@@ -7,7 +7,7 @@ module.exports = app => {
   const Model = app.model.define('jobs', {
     title: {
       type: STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
 
     url: {
@@ -25,7 +25,17 @@ module.exports = app => {
       defaultValue: '',
     },
 
-    jenkinsName: {
+    productId: {
+      type: STRING(255),
+      defaultValue: '',
+    },
+
+    productName: {
+      type: STRING(255),
+      defaultValue: '',
+    },
+
+    jenkinsUrl: {
       type: STRING(255),
       defaultValue: '',
     },
@@ -42,7 +52,7 @@ module.exports = app => {
 
     menus: {
       type: JSON,
-      allowNull: false,
+      allowNull: true,
     },
 
     setting: {
@@ -57,22 +67,22 @@ module.exports = app => {
 
     assets: {
       type: JSON,
-      allowNull: false,
+      allowNull: true,
     },
 
     commands: {
       type: JSON,
-      allowNull: false,
+      allowNull: true,
     },
 
     proxy: {
       type: JSON,
-      allowNull: false,
+      allowNull: true,
     },
 
     options: {
       type: JSON,
-      allowNull: false,
+      allowNull: true,
     },
 
     created_at: {
@@ -81,6 +91,13 @@ module.exports = app => {
         return moment(this.getDataValue('created_at')).format('YYYY-MM-DD HH:mm:ss');
       },
     },
+  }, {
+    indexes: [
+      {
+        unique: true,
+        fields: [ 'name' ],
+      },
+    ],
   });
 
   return Model;
