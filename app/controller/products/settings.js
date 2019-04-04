@@ -3,8 +3,8 @@
 const Controller = require('egg').Controller;
 
 class SettingsController extends Controller {
-  async echo() {
-
+  async index() {
+    this.ctx.body = 1;
   }
 }
 
