@@ -40,6 +40,10 @@ module.exports = app => {
       allowNull: false,
     },
 
+    settingsOrder: {
+      type: JSON,
+    },
+
     created_at: {
       type: DATE,
       get() {

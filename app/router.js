@@ -17,7 +17,7 @@ module.exports = app => {
 
   router.get('/api/v1/:env/explorer/jobs/:name', controller.explorer.job);
   router.resources('products', '/api/v1/products', controller.products.index);
-  router.resources('products/settings', '/api/v1/products/:id/settings', controller.products.settings);
+  router.resources('products/settings', '/api/v1/products/:productId/settings', controller.products.settings);
   router.resources('jobs', '/api/v1/jobs', controller.jobs.v1);
   router.resources('jobs', '/api/v2/jobs', controller.jobs.v2);
   // router.post('/api/v2/products/:id/release', controller.products.release);

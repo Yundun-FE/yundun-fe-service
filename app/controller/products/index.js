@@ -6,7 +6,7 @@ class ProductController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.Model = ctx.model.Products;
-    this.Service = ctx.service.products;
+    this.Service = ctx.service.products.index;
     this.Rule = {
       name: { type: 'string', required: true },
     };

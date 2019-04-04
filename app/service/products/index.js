@@ -13,6 +13,14 @@ class ProductsService extends Service {
     if (!data) throw new Error('NotFoundProduct');
     return data;
   }
+
+  async saveById(update, id) {
+    await this.getById(id);
+    await this.Model.update(update, {
+      where: { id },
+    });
+    return update;
+  }
 }
 
 module.exports = ProductsService;

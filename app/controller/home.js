@@ -26,9 +26,9 @@ class HomeController extends Controller {
     // await ctx.model.Forms.sync({ alter: true });
     // await ctx.model.Blocks.sync({ alter: true });
     // await ctx.model.JobExecutor.sync({ alter: true });
-    // await ctx.model.Products.sync({ alter: true });
+    await ctx.model.Products.sync({ alter: true });
     // await ctx.model.Websites.sync({ alter: true })
-    // await ctx.model.Progress.sync({ alter: true })
+    // await ctx.model.Progress.sync({ alter: true });
     // await ctx.model.Accounts.sync({ alter: true })
     // await ctx.model.Notice.sync({ alter: truef })
     // await ctx.model.Applications.sync({ alter: true });
