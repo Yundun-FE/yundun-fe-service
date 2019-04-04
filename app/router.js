@@ -20,6 +20,7 @@ module.exports = app => {
   router.resources('products/settings', '/api/v1/products/:productId/settings', controller.products.settings);
   router.resources('jobs', '/api/v1/jobs', controller.jobs.v1);
   router.resources('jobs', '/api/v2/jobs', controller.jobs.v2);
+  router.resources('jobs/settings', '/api/v2/jobs/:jobId/settings', controller.jobs.settings);
   // router.post('/api/v2/products/:id/release', controller.products.release);
 
   // STAGE

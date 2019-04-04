@@ -7,10 +7,6 @@ class ProductsSettingsController extends Controller {
     super(ctx);
     this.Model = ctx.model.Products;
     this.Service = ctx.service.products.settings;
-    this.Rules = {
-      id: { type: 'string', required: true },
-      name: { type: 'string', required: true },
-    };
   }
 
   async create() {
@@ -50,9 +46,9 @@ class ProductsSettingsController extends Controller {
     await this.ctx.validate(paramsRules, this.ctx.params);
     const { productId, id } = this.ctx.params;
 
-    const { title } = this.ctx.request.body;
+    const { title, content } = this.ctx.request.body;
     const update = {
-      title,
+      title, content,
     };
     this.ctx.body = await this.Service.saveByName(update, id, productId);
   }

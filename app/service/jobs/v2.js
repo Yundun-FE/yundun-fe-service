@@ -25,6 +25,19 @@ class V2Service extends Service {
 
   async getById(id) {
     const data = await this.Model.findOne({ where: { id } });
+    if (!data) throw new Error('NotFound');
+
+    const { productId } = data;
+    const productData = await this.ctx.service.products.index.getById(productId);
+    const { settingsOrder, settings: productSettings } = productData;
+
+    const jobSettings = [];
+    settingsOrder.forEach(name => {
+      const setting = productSettings[name];
+      setting.name = name;
+      jobSettings.push(setting);
+    });
+    data.settings = jobSettings;
     return data;
   }
 }
