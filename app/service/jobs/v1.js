@@ -54,77 +54,37 @@ class JobsService extends Service {
     return { id };
   }
   // ID + ENV 保存
-  async saveById(id, data) {
-    // const dataRoot = await this.Model.findOne({ where: { name, env: 'root' } });
-    // if (!dataRoot) throw new Error('没有找到 root');
+  async saveByIdEnv(id, env = 'root', data) {
+    const dataRoot = await this.Model.findOne({ where: { id, env: 'root' } });
+    if (!dataRoot) throw new Error('没有找到 root');
 
-    // const name = dataRoot.name;
+    const name = dataRoot.name;
     // Assets 提取
-    // const { assets: assetsSettings, proxy: proxySettings, options: optionsSettings } = data.settings;
-    // const assets = {};
-    // assetsSettings.forEach(item => {
-    //   assets[item.key] = data.assets[item.key];
-    // });
+    const { assets: assetsSettings, proxy: proxySettings, options: optionsSettings } = data.settings;
+    const assets = {};
+    assetsSettings.forEach(item => {
+      assets[item.key] = data.assets[item.key];
+    });
     // 提取
-    // const proxy = exportSettings(proxySettings);
-    // const options = exportSettings(optionsSettings);
+    const proxy = exportSettings(proxySettings);
+    const options = exportSettings(optionsSettings);
 
-    // const update = {
-    //   title: data.title,
-    //   url: data.url,
-    //   menus: data.menus,
-    //   assets,
-    //   options,
-    //   proxy,
-    // };
-
-    // if (env === 'root') {
-    //   update.settings = data.settings;
-    // }
-
-    const find = await this.Model.findOne({ where: { id } });
-    if (!find) throw new Error('NotFound');
-
-    const result = await this.Model.update(data, {
-      where: { id },
-    });
-
-    if (result[0] === 1) return data;
-    throw new Error('SaveError');
-  }
-
-  async getById(id) {
-    // 合并环境
-    const dataEnv = await this.Model.findOne({
-      where: {
-        id,
-      },
-    });
-    const { env } = dataEnv;
-    if (env === 'root') return dataEnv;
-
-    const dataRoot = await this.Model.findOne({
-      where: {
-        name: dataEnv.name,
-        env: 'root',
-      },
-    });
-
-    const settings = Object.assign(this.form.settings, dataRoot.settings);
-
-    const { proxy: proxySettings, options: optionsSettings } = settings;
-    settings.proxy = formatSettings(proxySettings, dataEnv.proxy);
-    settings.options = formatSettings(optionsSettings, dataEnv.options);
-
-    const data = {
-      rootTitle: dataRoot.title,
-      title: dataEnv.title,
-      menus: dataEnv.menus,
-      name: dataEnv.name,
-      settings,
-      assets: Object.assign(dataEnv.assets, dataEnv.assets),
+    const update = {
+      title: data.title,
+      url: data.url,
+      menus: data.menus,
+      assets,
+      options,
+      proxy,
     };
-    return data;
+
+    if (env === 'root') {
+      update.settings = data.settings;
+    }
+    const result = await this.Model.update(update, {
+      where: { name, env },
+    });
+    return result;
   }
   // ID + ENV 读取
   async getByIdEnv(id, env = 'root') {
@@ -157,18 +117,6 @@ class JobsService extends Service {
       assets: Object.assign(dataEnv.assets, dataEnv.assets),
     };
     return data;
-  }
-
-  async getByNameAtttr(name, attr) {
-    const data = await this.Model.findAll({
-      attributes: [ attr ],
-      where: {
-        name,
-      },
-    });
-    return {
-      data,
-    };
   }
 
   async getByCode(name) {

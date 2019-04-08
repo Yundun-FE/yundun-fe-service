@@ -33,17 +33,17 @@ module.exports = app => {
   // router.get('/notices', controller.notice.list);
 
   // router.resources('forms', '/forms', 'forms');
-  // router.resources('jobs', '/jobs', 'jobs');
+  router.resources('jobs', '/api/jobs', 'jobs.v1');
   // router.resources('blocks', '/blocks', 'blocks');
   // router.resources('websites', '/websites', 'websites');
   // router.resources('applications', '/applications', 'applications');
   // router.resources('applicationsPages', '/applicationsPages', 'applicationsPages');
   // router.resources('applicationsVersions', '/applicationsVersions', 'applicationsVersions');
 
-  // router.get('/explorer/pages/:code', controller.explorer.page);
+  router.get('/explorer/pages/:code', controller.explorer.page);
   // router.get('/explorer/jobs/:name', controller.explorer.job);
   router.get('/explorer/jobs/:name/env/:env', controller.explorer.job);
   // router.get('/explorer/assets/:code', controller.explorer.assets);
-  router.get('/upload/token', controller.upload.token);
+  router.get('/api/upload/token', controller.upload.token);
 
 };

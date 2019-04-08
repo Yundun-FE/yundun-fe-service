@@ -23,6 +23,17 @@ class SettingsController extends Controller {
 
     if ([ 'CONFIG', 'ASSETS' ].includes(type)) {
       content.forEach(item => {
+        /*
+        [
+          {
+            name: '',
+            value: '',
+            defaultValue: '',
+
+
+          }
+        ]
+        */
         const { name, title, enable, valueType, defaultValue, defaultI18n, value, i18n } = item;
         if (value !== defaultValue) {
           jobSettings[item.name] = {

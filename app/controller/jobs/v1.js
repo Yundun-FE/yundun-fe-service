@@ -76,12 +76,13 @@ class JobsController extends Controller {
 
   async update() {
     const { id } = this.ctx.params;
+    const { env } = this.ctx.request.query;
     const body = this.ctx.request.body;
-    this.ctx.body = await this.Service.saveById(id, body);
+    this.ctx.body = await this.Service.saveByIdEnv(id, env, body);
   }
 
   async index() {
-    const { resources, page = 1, pageSize = 10, title, name, attr } = this.ctx.query;
+    const { resources, page = 1, pageSize = 10, title, name, attr, code } = this.ctx.query;
 
     if (resources === 'form') {
       this.ctx.body = this.FORM;
@@ -93,7 +94,7 @@ class JobsController extends Controller {
 
     const where = clearnDef({
       title,
-      name,
+      name: name || code,
     });
 
     const list = await this.Model.findAll({
@@ -104,7 +105,12 @@ class JobsController extends Controller {
       where,
     });
     const total = await this.Model.count({ where });
-    this.ctx.body = { list, total };
+
+    if (code) {
+      this.ctx.body = list;
+    } else {
+      this.ctx.body = { list, total };
+    }
   }
 
   async showName() {
@@ -120,8 +126,8 @@ class JobsController extends Controller {
 
   async show() {
     const { id } = this.ctx.params;
-    // const { env } = this.ctx.query;
-    this.ctx.body = await this.Service.getById(id);
+    const { env } = this.ctx.query;
+    this.ctx.body = await this.Service.getByIdEnv(id, env);
   }
 }
 
