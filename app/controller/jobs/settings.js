@@ -27,10 +27,13 @@ class SettingsController extends Controller {
         [
           {
             name: '',
+            title: '',
+            valueType: 'String | Select | Checkbox | Boolean',
+            valueList: [{}]
             value: '',
             defaultValue: '',
-
-
+            defaultI18n: {},
+            i18n: {}
           }
         ]
         */
