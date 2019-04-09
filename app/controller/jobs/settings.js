@@ -18,13 +18,13 @@ class JobsSettingsController extends Controller {
     await this.ctx.validate(paramsRules, this.ctx.params);
     const { jobId, id } = this.ctx.params;
 
-    const { title, columnsOptions: _columnsOptions } = this.ctx.request.body;
+    const { title, settings: _settings } = this.ctx.request.body;
     const jobSettings = {};
-    const columnsOptions = [];
+    const settings = [];
 
-    _columnsOptions.forEach(item => {
+    _settings.forEach(item => {
       const { name, title, valueType, defaultValue, value } = item;
-      columnsOptions.push({
+      settings.push({
         name, title, valueType, defaultValue, defaultI18n: {},
       });
       jobSettings[name] = {
@@ -35,7 +35,7 @@ class JobsSettingsController extends Controller {
 
     const productSettings = {
       title,
-      columnsOptions,
+      settings,
     };
     const data = await this.ctx.service.jobs.v2.getById(jobId);
     const { productId } = data;
