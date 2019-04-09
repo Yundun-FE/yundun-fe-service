@@ -2,7 +2,7 @@
 
 const Controller = require('egg').Controller;
 
-class SettingsController extends Controller {
+class JobsSettingsController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.Model = ctx.model.Jobs;
@@ -10,54 +10,39 @@ class SettingsController extends Controller {
   }
 
   async update() {
+    console.log(this.ctx.params);
     const paramsRules = {
       jobId: { type: 'string', required: true },
       id: { type: 'string', required: true },
     };
     await this.ctx.validate(paramsRules, this.ctx.params);
     const { jobId, id } = this.ctx.params;
-    const { content, type } = this.ctx.request.body;
 
+    const { title, columnsOptions: _columnsOptions } = this.ctx.request.body;
     const jobSettings = {};
-    const productSettings = [];
+    const columnsOptions = [];
 
-    if ([ 'CONFIG', 'ASSETS' ].includes(type)) {
-      content.forEach(item => {
-        /*
-        [
-          {
-            name: '',
-            title: '',
-            valueType: 'String | Select | Checkbox | Boolean',
-            valueList: [{}]
-            value: '',
-            defaultValue: '',
-            defaultI18n: {},
-            i18n: {}
-          }
-        ]
-        */
-        const { name, title, enable, valueType, defaultValue, defaultI18n, value, i18n } = item;
-        if (value !== defaultValue) {
-          jobSettings[item.name] = {
-            value,
-            i18n,
-          };
-        }
-        productSettings.push({
-          name, title, enable, valueType, defaultValue, defaultI18n,
-        });
+    _columnsOptions.forEach(item => {
+      const { name, title, valueType, defaultValue, value } = item;
+      columnsOptions.push({
+        name, title, valueType, defaultValue, defaultI18n: {},
       });
-    } else {
-      jobSettings.content = content;
-    }
+      jobSettings[name] = {
+        value,
+        i18n: {},
+      };
+    });
 
-    const data = await this.ctx.service.jobs.getById(jobId);
+    const productSettings = {
+      title,
+      columnsOptions,
+    };
+    const data = await this.ctx.service.jobs.v2.getById(jobId);
     const { productId } = data;
 
     await this.ctx.service.products.settings.saveByName(productSettings, id, productId);
-    this.ctx.body = await this.ctx.Service.saveByName(jobSettings, id, jobId);
+    this.ctx.body = await this.Service.saveByName(jobSettings, id, jobId);
   }
 }
 
-module.exports = SettingsController;
+module.exports = JobsSettingsController;

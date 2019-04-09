@@ -5,6 +5,7 @@ module.exports = () => {
     try {
       await next();
     } catch (err) {
+      console.log(err);
       const { message, code = 1, errors } = err;
       const data = {
         message,

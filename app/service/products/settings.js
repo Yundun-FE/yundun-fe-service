@@ -3,7 +3,7 @@
 const Service = require('egg').Service;
 const { arrRemove } = require('../../utils/array');
 
-class SettingsService extends Service {
+class ProductsSettingsService extends Service {
   async create(settingData, id) {
     const data = await this.ctx.service.products.index.getById(id);
     const { settings, settingsOrder } = data;
@@ -47,4 +47,4 @@ class SettingsService extends Service {
   }
 }
 
-module.exports = SettingsService;
+module.exports = ProductsSettingsService;
