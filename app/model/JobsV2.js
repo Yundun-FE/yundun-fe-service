@@ -35,6 +35,11 @@ module.exports = app => {
       allowNull: false,
     },
 
+    menus: {
+      type: JSON,
+      allowNull: false,
+    },
+
     created_at: {
       type: DATE,
       get() {
