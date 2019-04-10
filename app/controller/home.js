@@ -35,7 +35,7 @@ class HomeController extends Controller {
     // await ctx.model.ApplicationsPages.sync({ alter: true });
     // await ctx.model.ApplicationsVersions.sync({ alter: true });
     // await ctx.model.Users.sync({ alter: true });
-    // await ctx.model.AccountsCaptchas.sync({ alter: true });
+    await ctx.model.UsersCaptchas.sync({ alter: true });
     const { name, version } = PKG;
     ctx.body = { name, version };
   }
