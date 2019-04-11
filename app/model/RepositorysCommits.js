@@ -1,52 +1,48 @@
 'use strict';
 const moment = require('moment');
 
+// git commit
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN, JSON, DATE } = app.Sequelize;
 
-  const Model = app.model.define('products', {
-    name: {
-      type: STRING(255),
-      allowNull: false,
-    },
-
-    title: {
+  const Model = app.model.define('repositorysCommits', {
+    sha: {
       type: STRING(255),
       defaultValue: '',
     },
 
-    avatar: {
+    sshUrl: {
       type: STRING(255),
       defaultValue: '',
     },
 
-    url: {
+    author: {
       type: STRING(255),
       defaultValue: '',
     },
 
-    version: {
-      type: STRING(255),
-      defaultValue: '0.0.1',
-    },
-
-    description: {
+    email: {
       type: STRING(255),
       defaultValue: '',
     },
 
-    settings: {
+    avatarUrl: {
+      type: STRING(255),
+      defaultValue: '',
+    },
+
+    message: {
+      type: STRING(255),
+      defaultValue: '',
+    },
+
+    commit: {
       type: JSON,
       allowNull: false,
     },
 
-    pages: {
-      type: JSON,
-      allowNull: false,
-    },
-
-    settingsOrder: {
-      type: JSON,
+    commitDate: {
+      type: DATE,
     },
 
     created_at: {
@@ -65,11 +61,13 @@ module.exports = app => {
   }, {
     indexes: [
       {
-        unique: true,
-        fields: [ 'name' ],
+        fields: [ 'author' ],
       },
       {
-        fields: [ 'title' ],
+        fields: [ 'email' ],
+      },
+      {
+        fields: [ 'sshUrl' ],
       },
     ],
   });

@@ -22,8 +22,13 @@ module.exports = app => {
   router.resources('jobs', '/api/v1/jobs', controller.jobs.v1);
   router.resources('jobs', '/api/v2/jobs', controller.jobs.v2);
   router.resources('jobs/settings', '/api/v2/jobs/:jobId/settings', controller.jobs.settings);
+
   // other
   router.get('/api/upload/token', controller.upload.token);
+
+  // devops
+  router.post('/api/devops/git/hook', controller.devops.git.hook);
+
   // STAGE
   router.resources('jobs', '/api/jobs', 'jobs.v1');
   // router.get('/update', controller.home.update);

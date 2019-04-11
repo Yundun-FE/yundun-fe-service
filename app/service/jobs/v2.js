@@ -40,6 +40,13 @@ class V2Service extends Service {
     data.settings = jobSettings;
     return data;
   }
+
+  async saveById(update, id) {
+    await this.Model.update(update, {
+      where: { id },
+    });
+    return update;
+  }
 }
 
 module.exports = V2Service;

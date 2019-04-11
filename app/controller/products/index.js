@@ -39,13 +39,13 @@ class ProductController extends Controller {
 
   async update() {
     const { id } = this.ctx.params;
-    const { title, description } = this.ctx.request.body;
+    const { title, description, pages } = this.ctx.request.body;
     const update = {
       title,
       description,
+      pages,
     };
 
-    this.ctx.validate(this.Rule, update);
 
     const data = await this.Model.findOne({ where: { id } });
     if (!data) throw new Error('Not Found');
