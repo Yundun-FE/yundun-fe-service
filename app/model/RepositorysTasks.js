@@ -5,8 +5,8 @@ const moment = require('moment');
 module.exports = app => {
   const { INTEGER, STRING, BOOLEAN, JSON, DATE } = app.Sequelize;
 
-  const Model = app.model.define('repository', {
-    title: {
+  const Model = app.model.define('repositorysTasks', {
+    sha: {
       type: STRING(255),
       defaultValue: '',
     },
@@ -16,8 +16,12 @@ module.exports = app => {
       allowNull: false,
     },
 
+    productName: {
+      type: STRING(255),
+      allowNull: false,
+    },
 
-    tasks: {
+    contents: {
       type: JSON,
       allowNull: false,
     },
