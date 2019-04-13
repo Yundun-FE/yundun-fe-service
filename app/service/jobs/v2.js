@@ -2,6 +2,11 @@
 
 const Service = require('egg').Service;
 
+const ENV_MAP = {
+  test: '测试',
+  pre: '预发布',
+  prod: '线上',
+};
 class V2Service extends Service {
   constructor(ctx) {
     super(ctx);
@@ -9,16 +14,27 @@ class V2Service extends Service {
   }
 
   async create(data) {
-    const { productId } = data;
-    const productData = await this.ctx.service.products.getById(productId);
+    const { name: _name, title, envs, productId } = data;
+    const productData = await this.ctx.service.products.index.getById(productId);
 
     const { name: productName } = productData;
-    const createData = {
-      ...data,
-      productName,
-      productData,
-    };
-    const result = await this.Model.create(createData);
+    const name = `${productName}/${_name}`;
+    const nameList = [ name ];
+
+    if (envs && envs.length > 0) nameList.push(...envs.map(item => `${name}--${item}`));
+
+    const createList = nameList.map(name => {
+      return {
+        name,
+        title,
+        productId,
+        productName,
+        settings: {},
+        menus: [],
+      };
+    });
+
+    const result = await this.Model.bulkCreate(createList);
     const { id } = result;
     return { id };
   }

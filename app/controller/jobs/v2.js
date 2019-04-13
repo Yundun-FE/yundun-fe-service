@@ -2,20 +2,18 @@
 
 const { Controller } = require('egg');
 const { clearnDef } = require('../../utils');
-const { mergeShare } = require('../../utils/object');
 
 class JobsController extends Controller {
   constructor(ctx) {
     super(ctx);
-    // this.Rules = formatRules(DATA.FORM);
     this.Model = ctx.model.JobsV2;
     this.Service = ctx.service.jobs.v2;
   }
 
   async create() {
-    const { name, title, productId } = this.ctx.request.body;
+    const { name, title, productId, envs } = this.ctx.request.body;
     const createData = {
-      name, title, productId, settings: {},
+      name, title, productId, envs,
     };
 
     const createResult = await this.Service.create(createData);
