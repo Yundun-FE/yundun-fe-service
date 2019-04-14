@@ -10,7 +10,6 @@ class JobsSettingsController extends Controller {
   }
 
   async update() {
-    console.log(this.ctx.params);
     const paramsRules = {
       jobId: { type: 'string', required: true },
       id: { type: 'string', required: true },
@@ -27,10 +26,12 @@ class JobsSettingsController extends Controller {
       settings.push({
         name, title, valueType, defaultValue, defaultI18n: {},
       });
-      jobSettings[name] = {
-        value,
-        i18n: {},
-      };
+      if (value) {
+        jobSettings[name] = {
+          value,
+          i18n: {},
+        };
+      }
     });
 
     const productSettings = {
