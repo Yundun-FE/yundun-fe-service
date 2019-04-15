@@ -14,12 +14,20 @@ class JobsSettingsService extends Service {
     return data.settings;
   }
 
+  async deleteByName(name, id) {
+    const data = await this.Model.findOne({ where: { id } });
+    if (!data) throw new Error('NotFound');
+    const { settings } = data;
+    delete (settings[name]);
+    const updateData = {
+      settings,
+    };
+    return await this.ctx.service.jobs.v2.saveById(updateData, id);
+  }
+
   async saveByName(settingsData, name, id) {
-    console.log(settingsData);
-    // return;
     const settings = await this.getById(id);
     settings[name] = settingsData;
-    console.log(settings);
     const updateData = {
       settings,
     };

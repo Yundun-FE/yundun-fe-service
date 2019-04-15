@@ -1,6 +1,7 @@
 'use strict';
 
 const Controller = require('egg').Controller;
+const { isDef } = require('../../utils');
 
 class JobsSettingsController extends Controller {
   constructor(ctx) {
@@ -26,7 +27,7 @@ class JobsSettingsController extends Controller {
       settings.push({
         name, title, valueType, defaultValue, defaultI18n: {},
       });
-      if (value) {
+      if (isDef(value)) {
         jobSettings[name] = {
           value,
           i18n: {},
@@ -43,6 +44,16 @@ class JobsSettingsController extends Controller {
 
     await this.ctx.service.products.settings.saveByName(productSettings, id, productId);
     this.ctx.body = await this.Service.saveByName(jobSettings, id, jobId);
+  }
+
+  async destroy() {
+    const paramsRules = {
+      jobId: { type: 'string', required: true },
+      id: { type: 'string', required: true },
+    };
+    await this.ctx.validate(paramsRules, this.ctx.params);
+    const { jobId, id } = this.ctx.params;
+    this.ctx.body = await this.Service.deleteByName(id, jobId);
   }
 }
 

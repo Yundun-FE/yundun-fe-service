@@ -23,6 +23,7 @@ class HomeController extends Controller {
     const { ctx } = this;
     // await ctx.model.Jobs.sync({ alter: true });
     await ctx.model.JobsV2.sync({ alter: true });
+    await ctx.model.JobsDeploys.sync({ alter: true });
     // await ctx.model.Forms.sync({ alter: true });
     // await ctx.model.Blocks.sync({ alter: true });
     // await ctx.model.JobExecutor.sync({ alter: true });

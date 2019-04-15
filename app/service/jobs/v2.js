@@ -1,12 +1,17 @@
 'use strict';
 
 const Service = require('egg').Service;
+const { isDef } = require('../../utils');
 
-const ENV_MAP = {
-  test: '测试',
-  pre: '预发布',
-  prod: '线上',
-};
+function mergeSettings(data = {}, setting) {
+  setting.settings.forEach(item => {
+
+    item.value = isDef(data[item.name]) ? data[item.name].value : '';
+    item.valueView = (isDef(item.value) && item.value !== '') ? item.value : item.defaultValue;
+  });
+}
+
+
 class V2Service extends Service {
   constructor(ctx) {
     super(ctx);
@@ -42,18 +47,43 @@ class V2Service extends Service {
   async getById(id) {
     const data = await this.Model.findOne({ where: { id } });
     if (!data) throw new Error('NotFound');
+    const { settings: jobSettings, name } = data;
+
+    let rootSettings = {};
+    let rootName;
+    if (name.includes('--')) {
+      rootName = name.split('--')[0];
+      const rootData = await this.Model.findOne({ where: { name: rootName } });
+      rootSettings = rootData.settings;
+    }
 
     const { productId } = data;
     const productData = await this.ctx.service.products.index.getById(productId);
     const { settingsOrder, settings: productSettings } = productData;
 
-    const jobSettings = [];
+    const exportSettings = [];
+    // 按顺序组合
     settingsOrder.forEach(name => {
       const setting = productSettings[name];
       setting.name = name;
-      jobSettings.push(setting);
+      setting.useParent = false;
+      const data = jobSettings[name];
+
+      if (data) {
+        mergeSettings(data, setting);
+      } else {
+        // 与父配置合并
+        if (rootSettings[name]) {
+          setting.useParent = true;
+          mergeSettings(rootSettings[name], setting);
+        } else {
+          mergeSettings({}, setting);
+        }
+      }
+
+      exportSettings.push(setting);
     });
-    data.settings = jobSettings;
+    data.settings = exportSettings;
     return data;
   }
 

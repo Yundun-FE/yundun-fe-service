@@ -14,7 +14,7 @@ module.exports = app => {
   router.get('/api/v1/jenkins/jobs', controller.jenkins.jobs);
   router.post('/api/v1/jenkins/jobs/:name/start', controller.jenkins.jobsStart);
   router.get('/api/v1/jenkins/jobs/:name', controller.jenkins.jobName);
-
+  // explorer
   router.get('/api/v1/:env/explorer/jobs/:name', controller.explorer.job);
   // products
   router.resources('products', '/api/v1/products', controller.products.index);
@@ -22,7 +22,7 @@ module.exports = app => {
   router.resources('jobs', '/api/v1/jobs', controller.jobs.v1);
   router.resources('jobs', '/api/v2/jobs', controller.jobs.v2);
   router.resources('jobs/settings', '/api/v2/jobs/:jobId/settings', controller.jobs.settings);
-
+  router.resources('jobs/deploys', '/api/v2/jobs/:jobId/deploys', controller.jobs.deploys);
   // other
   router.get('/api/upload/token', controller.upload.token);
 

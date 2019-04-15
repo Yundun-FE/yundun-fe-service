@@ -1,23 +1,54 @@
 'use strict';
 
 module.exports = app => {
-  const { INTEGER, STRING, BOOLEAN, JSON } = app.Sequelize;
+  const { INTEGER, STRING, JSON } = app.Sequelize;
 
   const Model = app.model.define('jobsDeploys', {
-    jobId: {
+    jobName: {
       type: STRING(255),
-      defaultValue: '',
+      allowNull: false,
     },
 
-    version: {
+    jobId: {
       type: STRING(255),
-      defaultValue: '0.0.1',
+      allowNull: false,
+    },
+
+    productId: {
+      type: STRING(255),
+      allowNull: false,
+    },
+
+    productName: {
+      type: STRING(255),
+      allowNull: false,
+    },
+
+    number: {
+      type: INTEGER,
+      defaultValue: 1,
     },
 
     content: {
       type: JSON,
-      defaultValue: [],
+      allowNull: false,
     },
+
+    settings: {
+      type: JSON,
+      allowNull: false,
+    },
+  }, {
+    indexes: [
+      {
+        unique: true,
+        fields: [ 'jobName', 'number' ],
+      },
+      {
+        unique: true,
+        fields: [ 'jobId', 'number' ],
+      },
+    ],
   });
   return Model;
 };
