@@ -24,6 +24,8 @@ class HomeController extends Controller {
     // await ctx.model.Jobs.sync({ alter: true });
     await ctx.model.JobsV2.sync({ alter: true });
     await ctx.model.JobsDeploys.sync({ alter: true });
+    await ctx.model.DevopsTasks.sync({ alter: true });
+    await ctx.model.Devops.sync({ alter: true });
     // await ctx.model.Forms.sync({ alter: true });
     // await ctx.model.Blocks.sync({ alter: true });
     // await ctx.model.JobExecutor.sync({ alter: true });

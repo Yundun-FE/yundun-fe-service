@@ -18,7 +18,10 @@ class GitController extends Controller {
 
     const create = {
       userinfo,
+      repository,
     };
+
+    this.ctx.body = create;
   }
 }
 

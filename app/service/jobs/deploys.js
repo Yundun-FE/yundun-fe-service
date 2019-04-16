@@ -72,10 +72,7 @@ class DeploysService extends Service {
     } catch (e) {
       number = 1;
     }
-
-    number = oData.number + 1;
-    console.log(number);
-    create.number = number;
+    create.number = oData ? (oData.number + 1) : number;
     return await this.Model.create(create);
   }
 }

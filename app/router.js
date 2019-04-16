@@ -1,19 +1,23 @@
 'use strict';
 
-/**
- * @param {Egg.Application} app - egg application
- */
 module.exports = app => {
   const { router, controller, service } = app;
   router.get('/', controller.home.index);
   router.get('/install', controller.home.install);
   // users
   router.post('/api/account/sms', controller.accounts.captchas.sms);
-  router.post('/api/v1/register', controller.accounts.users.register);
+  router.post('/api/register', controller.accounts.users.register);
   // jenkins
   router.get('/api/v1/jenkins/jobs', controller.jenkins.jobs);
   router.post('/api/v1/jenkins/jobs/:name/start', controller.jenkins.jobsStart);
   router.get('/api/v1/jenkins/jobs/:name', controller.jenkins.jobName);
+  // devops
+  router.post('/api/hook/:gitType/:token', controller.devops.git.hook);
+
+  router.resources('devops', '/api/v1/devops', controller.devops.index);
+  router.resources('devops/tasks', '/api/v1/devops/tasks', controller.devops.tasks);
+  // router.get('/api/v1/devops/products/:name/number/:number', controller.devops.products.number);
+
   // explorer
   router.get('/api/v1/:env/explorer/jobs/:name', controller.explorers.v1.job);
   router.get('/api/v2/:env/explorer/jobs/:productName', controller.explorers.v2.job);
@@ -28,9 +32,6 @@ module.exports = app => {
   router.resources('jobs/deploys', '/api/v2/jobs/:jobId/deploys', controller.jobs.deploys);
   // other
   router.get('/api/upload/token', controller.upload.token);
-
-  // devops
-  router.post('/api/devops/git/hook', controller.devops.git.hook);
 
   // STAGE
   router.resources('jobs', '/api/jobs', 'jobs.v1');
@@ -50,5 +51,4 @@ module.exports = app => {
   // router.get('/explorer/jobs/:name', controller.explorer.job);
   router.get('/explorer/jobs/:name/env/:env', controller.explorers.v1.job);
   // router.get('/explorer/assets/:code', controller.explorer.assets);
-
 };
