@@ -39,10 +39,7 @@ module.exports = app => {
   // router.post('/events', controller.events.create);
   // router.get('/jobs/executor/:name/:number', controller.jobs.jobExecutorNumber);
   // router.get('/jobs/executor/:name', controller.jobs.jobExecutor);
-  // router.get('/progresses/:name', controller.progress.name);
-  // router.get('/notices', controller.notice.list);
   // router.resources('blocks', '/blocks', 'blocks');
-  // router.resources('websites', '/websites', 'websites');
   // router.resources('applications', '/applications', 'applications');
   // router.resources('applicationsPages', '/applicationsPages', 'applicationsPages');
   // router.resources('applicationsVersions', '/applicationsVersions', 'applicationsVersions');
