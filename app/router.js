@@ -15,7 +15,10 @@ module.exports = app => {
   router.post('/api/v1/jenkins/jobs/:name/start', controller.jenkins.jobsStart);
   router.get('/api/v1/jenkins/jobs/:name', controller.jenkins.jobName);
   // explorer
-  router.get('/api/v1/:env/explorer/jobs/:name', controller.explorer.job);
+  router.get('/api/v1/:env/explorer/jobs/:name', controller.explorers.v1.job);
+  router.get('/api/v2/:env/explorer/jobs/:productName', controller.explorers.v2.job);
+  router.get('/api/v2/:env/explorer/jobs/:productName/hash/:hash', controller.explorers.v2.jobHash);
+  router.get('/api/v2/:env/explorer/jobs/:productName/number/:number', controller.explorers.v2.jobNumber);
   // products
   router.resources('products', '/api/v1/products', controller.products.index);
   router.resources('products/settings', '/api/v1/products/:productId/settings', controller.products.settings);
@@ -43,9 +46,9 @@ module.exports = app => {
   // router.resources('applicationsPages', '/applicationsPages', 'applicationsPages');
   // router.resources('applicationsVersions', '/applicationsVersions', 'applicationsVersions');
 
-  router.get('/explorer/pages/:code', controller.explorer.page);
+  // router.get('/explorer/pages/:code', controller.explorer.page);
   // router.get('/explorer/jobs/:name', controller.explorer.job);
-  router.get('/explorer/jobs/:name/env/:env', controller.explorer.job);
+  router.get('/explorer/jobs/:name/env/:env', controller.explorers.v1.job);
   // router.get('/explorer/assets/:code', controller.explorer.assets);
 
 };

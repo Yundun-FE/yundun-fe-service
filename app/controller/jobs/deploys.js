@@ -2,6 +2,7 @@
 
 const Controller = require('egg').Controller;
 
+
 class DeploysController extends Controller {
   constructor(ctx) {
     super(ctx);

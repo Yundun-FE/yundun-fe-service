@@ -4,6 +4,11 @@ module.exports = app => {
   const { INTEGER, STRING, JSON } = app.Sequelize;
 
   const Model = app.model.define('jobsDeploys', {
+    hash: {
+      type: STRING(255),
+      allowNull: false,
+    },
+
     jobName: {
       type: STRING(255),
       allowNull: false,
@@ -40,6 +45,10 @@ module.exports = app => {
     },
   }, {
     indexes: [
+      {
+        unique: true,
+        fields: [ 'hash' ],
+      },
       {
         unique: true,
         fields: [ 'jobName', 'number' ],
