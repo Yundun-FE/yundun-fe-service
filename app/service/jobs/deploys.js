@@ -37,7 +37,7 @@ class DeploysService extends Service {
 
   async findByName(jobName) {
     const attributes = [ 'hash', 'jobName', 'jobId', 'productId', 'productName', 'content', 'number', 'created_at', 'updated_at' ];
-    const data = await this.Model.findOne({ attributes, where: { jobName } });
+    const data = await this.Model.findOne({ attributes, where: { jobName }, order: [[ 'number', 'DESC' ]] });
     if (!data) throw new Error('NotFound');
     return data;
   }
@@ -64,6 +64,7 @@ class DeploysService extends Service {
       content,
     };
     if (isRepeat) return create;
+
     let number;
     let oData;
     try {
@@ -73,6 +74,7 @@ class DeploysService extends Service {
     }
 
     number = oData.number + 1;
+    console.log(number);
     create.number = number;
     return await this.Model.create(create);
   }

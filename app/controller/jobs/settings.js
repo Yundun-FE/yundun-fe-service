@@ -21,18 +21,24 @@ class JobsSettingsController extends Controller {
     const { title, settings: _settings } = this.ctx.request.body;
     const jobSettings = {};
     const settings = [];
-
+    // export valueData and settingsData
     _settings.forEach(item => {
-      const { name, title, valueType, defaultValue, value } = item;
-      settings.push({
+      const { name, title, valueType, defaultValue, value, enable } = item;
+      const row = {
         name, title, valueType, defaultValue, defaultI18n: {},
-      });
-      if (isDef(value)) {
-        jobSettings[name] = {
+      };
+      settings.push(row);
+
+      if (isDef(value) || enable === false) {
+        const valueRow = {
           value,
           i18n: {},
         };
+        if (enable === false) valueRow.enable = false;
+        jobSettings[name] = valueRow;
       }
+
+
     });
 
     const productSettings = {

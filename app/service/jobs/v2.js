@@ -3,14 +3,21 @@
 const Service = require('egg').Service;
 const { isDef } = require('../../utils');
 
+// 合并配置输出
 function mergeSettings(data = {}, setting) {
   setting.settings.forEach(item => {
-
-    item.value = isDef(data[item.name]) ? data[item.name].value : '';
+    const _data = data[item.name];
+    if (_data && _data.enable === false) {
+      item.enable = false;
+      return;
+    }
+    item.enable = true;
+    // write value
+    item.value = _data ? _data.value : '';
+    // use default value
     item.valueView = (isDef(item.value) && item.value !== '') ? item.value : item.defaultValue;
   });
 }
-
 
 class V2Service extends Service {
   constructor(ctx) {
