@@ -4,22 +4,17 @@ module.exports = app => {
   const { INTEGER, STRING, JSON } = app.Sequelize;
 
   const Model = app.model.define('flowsTasks', {
-    sshUrl: {
+    flowId: {
       type: STRING(255),
       allowNull: false,
     },
 
-    productName: {
-      type: STRING(255),
-      allowNull: false,
+    jenkinsNumber: {
+      type: INTEGER,
+      defaultValue: 0,
     },
 
-    productId: {
-      type: STRING(255),
-      allowNull: false,
-    },
-
-    number: {
+    buildNumber: {
       type: INTEGER,
       allowNull: false,
     },
