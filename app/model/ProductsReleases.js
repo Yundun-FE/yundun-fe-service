@@ -2,17 +2,12 @@
 const moment = require('moment');
 
 module.exports = app => {
-  const { INTEGER, STRING, BOOLEAN, DATE } = app.Sequelize;
+  const { INTEGER, STRING, BOOLEAN, DATE, JSON } = app.Sequelize;
 
-  const Model = app.model.define('productsFlows', {
-    sshUrl: {
-      type: STRING(255),
-      allowNull: false,
-    },
-
+  const Model = app.model.define('productsReleases', {
     productId: {
       type: STRING(255),
-      allowNull: false,
+      defaultValue: '',
     },
 
     productName: {
@@ -20,8 +15,23 @@ module.exports = app => {
       allowNull: false,
     },
 
-    flows: {
+    buildHost: {
       type: STRING(255),
+      allowNull: false,
+    },
+
+    number: {
+      type: INTEGER,
+      allowNull: false,
+    },
+
+    pages: {
+      type: JSON,
+      allowNull: false,
+    },
+
+    content: {
+      type: JSON,
       allowNull: false,
     },
 

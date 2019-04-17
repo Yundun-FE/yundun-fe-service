@@ -24,12 +24,13 @@ class HomeController extends Controller {
     // await ctx.model.Jobs.sync({ alter: true });
     await ctx.model.JobsV2.sync({ alter: true });
     await ctx.model.JobsDeploys.sync({ alter: true });
-    await ctx.model.DevopsTasks.sync({ alter: true });
-    await ctx.model.Devops.sync({ alter: true });
+    // await ctx.model.DevopsTasks.sync({ alter: true });
+    // await ctx.model.Devops.sync({ alter: true });
     // await ctx.model.Forms.sync({ alter: true });
     // await ctx.model.Blocks.sync({ alter: true });
     // await ctx.model.JobExecutor.sync({ alter: true });
     await ctx.model.Products.sync({ alter: true });
+    await ctx.model.ProductsReleases.sync({ alter: true });
     // await ctx.model.Websites.sync({ alter: true })
     // await ctx.model.Progress.sync({ alter: true });
     // await ctx.model.Accounts.sync({ alter: true })
@@ -39,9 +40,6 @@ class HomeController extends Controller {
     // await ctx.model.ApplicationsVersions.sync({ alter: true });
     // await ctx.model.Users.sync({ alter: true });
     await ctx.model.UsersCaptchas.sync({ alter: true });
-    await ctx.model.Repositorys.sync({ alter: true });
-    await ctx.model.RepositorysCommits.sync({ alter: true });
-    await ctx.model.RepositorysTasks.sync({ alter: true });
     const { name, version } = PKG;
     ctx.body = { name, version };
   }

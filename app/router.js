@@ -13,6 +13,7 @@ module.exports = app => {
   router.get('/api/v1/jenkins/jobs/:name', controller.jenkins.jobName);
   // devops
   router.post('/api/hook/:gitType/:token', controller.devops.git.hook);
+  router.post('/api/build/release/:productName', controller.build.releases.create);
 
   router.resources('devops', '/api/v1/devops', controller.devops.index);
   router.resources('devops/tasks', '/api/v1/devops/tasks', controller.devops.tasks);
