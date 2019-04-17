@@ -15,7 +15,11 @@ class ProductsController extends Controller {
   }
 
   async saveHash() {
-    const { productName, hash } = this.ctx.params;
+    const { hash } = this.ctx.params;
+    const dataRules = {
+      pages: { type: 'array', required: true },
+    };
+    await this.ctx.validate(dataRules, this.ctx.request.body);
     const { pages } = this.ctx.request.body;
     const updateData = {
       pages,

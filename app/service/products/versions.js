@@ -15,8 +15,7 @@ class VersionService extends Service {
 
   async saveByHash(data, hash) {
     await this.getByHash(hash);
-
-    return await this.ctx.model.update(data, { where: { hash } });
+    return await this.Model.update(data, { where: { hash } });
   }
 
   async createByName(productName) {
