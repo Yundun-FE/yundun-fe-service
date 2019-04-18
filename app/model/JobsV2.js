@@ -40,6 +40,11 @@ module.exports = app => {
       allowNull: false,
     },
 
+    pages: {
+      type: JSON,
+      allowNull: false,
+    },
+
     created_at: {
       type: DATE,
       get() {
@@ -48,7 +53,6 @@ module.exports = app => {
     },
   }, {
     freezeTableName: true,
-
     indexes: [
       {
         unique: true,

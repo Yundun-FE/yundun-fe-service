@@ -37,8 +37,6 @@ class JobsSettingsController extends Controller {
         if (enable === false) valueRow.enable = false;
         jobSettings[name] = valueRow;
       }
-
-
     });
 
     const productSettings = {

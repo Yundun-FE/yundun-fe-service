@@ -21,10 +21,22 @@ class ProductsController extends Controller {
     };
     await this.ctx.validate(dataRules, this.ctx.request.body);
     const { pages } = this.ctx.request.body;
+
+    if (!pages || pages.length === 0) {
+      throw new Error('NoData');
+    }
+
     const updateData = {
       pages,
       status: 1,
     };
+
+    const updateJob = {
+      pages,
+    };
+    const name = 'console-v6-web/yundun--test';
+    await this.Model.update(updateJob, { where: { name } });
+
     this.ctx.body = await this.ctx.service.products.versions.saveByHash(updateData, hash);
   }
 }

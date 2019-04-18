@@ -87,16 +87,38 @@ class V2Service extends Service {
           mergeSettings({}, setting);
         }
       }
-
       exportSettings.push(setting);
     });
-    data.settings = exportSettings;
-    return data;
+
+    const env = data.name.split('/')[1];
+
+    const nData = {
+      id: data.id,
+      name: data.name,
+      env,
+      title: data.title,
+      productId: data.productId,
+      productName: data.productName,
+      settings: exportSettings,
+      menus: data.menus,
+      pages: data.pages,
+      created_at: data.created_at,
+      updated_at: data.updated_at,
+      rootName,
+    };
+    return nData;
   }
 
   async saveById(update, id) {
     await this.Model.update(update, {
       where: { id },
+    });
+    return update;
+  }
+
+  async saveByName(update, name) {
+    await this.Model.update(update, {
+      where: { name },
     });
     return update;
   }
