@@ -44,7 +44,7 @@ class DeploysService extends Service {
 
   async saveById(id) {
     const data = await this.ctx.service.jobs.v2.getById(id);
-    const { id: jobId, name: jobName, productId, productName, settings } = data;
+    const { id: jobId, name: jobName, productId, productName, settings, menus } = data;
     const content = exportSettings(settings);
     const hash = crypto.createHash('md5').update(JSON.stringify(content)).digest('hex');
     let isRepeat = true;
@@ -62,6 +62,7 @@ class DeploysService extends Service {
       productName,
       settings,
       content,
+      menus,
     };
     if (isRepeat) return create;
 

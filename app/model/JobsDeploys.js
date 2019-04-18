@@ -39,6 +39,11 @@ module.exports = app => {
       allowNull: false,
     },
 
+    menus: {
+      type: JSON,
+      allowNull: false,
+    },
+
     settings: {
       type: JSON,
       allowNull: false,
