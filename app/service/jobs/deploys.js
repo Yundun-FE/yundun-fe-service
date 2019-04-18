@@ -29,14 +29,14 @@ class DeploysService extends Service {
   }
 
   async findByNumber(jobName, number) {
-    const attributes = [ 'hash', 'jobName', 'jobId', 'productId', 'productName', 'content', 'number', 'created_at', 'updated_at' ];
+    const attributes = [ 'hash', 'jobName', 'jobId', 'productId', 'productName', 'content', 'menus', 'number', 'created_at', 'updated_at' ];
     const data = await this.Model.findOne({ attributes, where: { jobName, number } });
     if (!data) throw new Error('NotFound');
     return data;
   }
 
   async findByName(jobName) {
-    const attributes = [ 'hash', 'jobName', 'jobId', 'productId', 'productName', 'content', 'number', 'created_at', 'updated_at' ];
+    const attributes = [ 'hash', 'jobName', 'jobId', 'productId', 'productName', 'content', 'menus', 'number', 'created_at', 'updated_at' ];
     const data = await this.Model.findOne({ attributes, where: { jobName }, order: [[ 'number', 'DESC' ]] });
     if (!data) throw new Error('NotFound');
     return data;
