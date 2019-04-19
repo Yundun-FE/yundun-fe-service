@@ -5,8 +5,8 @@ module.exports = app => {
   router.get('/', controller.home.index);
   router.get('/install', controller.home.install);
   // users
-  router.post('/api/account/sms', controller.accounts.captchas.sms);
-  router.post('/api/register', controller.accounts.users.register);
+  router.post('/api/v1/account/sms', controller.accounts.captchas.sms);
+  router.post('/api/v1/register', controller.accounts.users.register);
   // jenkins
   router.get('/api/v1/jenkins/jobs', controller.jenkins.jobs);
   router.post('/api/v1/jenkins/jobs/:name/start', controller.jenkins.jobsStart);

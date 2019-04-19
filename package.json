@@ -25,7 +25,8 @@
     "mysql2": "^1.6.1",
     "qiniu": "^7.2.1",
     "superagent": "^3.8.3",
-    "superagent-charset": "^1.2.0"
+    "superagent-charset": "^1.2.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "autod": "^3.0.1",
