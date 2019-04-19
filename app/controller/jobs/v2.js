@@ -35,10 +35,15 @@ class JobsController extends Controller {
 
   async update() {
     const { id } = this.ctx.params;
-    const { title, jenkinsUrl, menus, menusSync = [] } = this.ctx.request.body;
+    const { title, jenkinsUrl, menus, menusAsync = [] } = this.ctx.request.body;
     const saveData = {
       title, jenkinsUrl, menus,
     };
+
+    if (menusAsync.length > 0) {
+      await this.Service.saveByIds({ menus }, menusAsync);
+    }
+
     this.ctx.body = await this.Service.saveById(saveData, id);
   }
 

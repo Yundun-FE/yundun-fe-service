@@ -113,7 +113,21 @@ class V2Service extends Service {
     await this.Model.update(update, {
       where: { id },
     });
-    return update;
+    return await this.ctx.service.jobs.deploys.saveById(id);
+  }
+
+  async saveByIds(update, ids) {
+    await this.Model.update(update, {
+      where: { id: { $in: ids } },
+    });
+    return await this.ctx.service.jobs.deploys.saveByIds(ids);
+  }
+
+  async saveByJobs(update, jobs) {
+    await this.Model.update(update, {
+      where: { jobs: { $in: jobs } },
+    });
+    return await this.ctx.service.jobs.deploys.saveByJobs(jobs);
   }
 
   async saveByName(update, name) {

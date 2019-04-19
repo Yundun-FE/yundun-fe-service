@@ -31,8 +31,7 @@ class JobsSettingsService extends Service {
     const updateData = {
       settings,
     };
-    await this.ctx.service.jobs.v2.saveById(updateData, id);
-    return await this.ctx.service.jobs.deploys.saveById(id);
+    return await this.ctx.service.jobs.v2.saveById(updateData, id);
   }
 }
 

@@ -42,10 +42,28 @@ class DeploysService extends Service {
     return data;
   }
 
+  async saveByJobs(jobs) {
+    const dataList = await this.ctx.Model.jobs.findAll({ where: { jobs: { $in: jobs } } });
+    const ids = dataList.map(_ => _.id);
+    ids.forEach(id => {
+      console.log(id);
+      // this.saveById(id);
+    });
+    return {};
+  }
+
+  async saveByIds(ids) {
+    ids.forEach(id => {
+      this.saveById(id);
+    });
+    return {};
+  }
+
   async saveById(id) {
     const data = await this.ctx.service.jobs.v2.getById(id);
     const { id: jobId, name: jobName, productId, productName, settings, menus } = data;
     const content = exportSettings(settings);
+    content.menus = menus;
     const hash = crypto.createHash('md5').update(JSON.stringify(content)).digest('hex');
     let isRepeat = true;
     try {
@@ -62,7 +80,7 @@ class DeploysService extends Service {
       productName,
       settings,
       content,
-      menus,
+      menus: [],
     };
     if (isRepeat) return create;
 
