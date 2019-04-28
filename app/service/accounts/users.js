@@ -2,6 +2,7 @@
 
 const Service = require('egg').Service;
 const crypto = require('crypto');
+const Rule = require('../../utils/rule');
 
 class UsersService extends Service {
   constructor(ctx) {
@@ -10,16 +11,21 @@ class UsersService extends Service {
   }
 
   async login(data) {
-    const { password } = data;
-    const userData = await this.findByUsername(data);
-    if (password !== userData.password) throw new Error('PasswordError');
+    const { password, username } = data;
+    const userData = await this.findByUsername(username);
+    const _password = crypto.createHmac('sha256', this.app.config.keys).update(password).digest('hex');
+    if (_password !== userData.password) throw new Error('PasswordError');
+    return userData;
   }
 
   async register(data) {
-    const { email } = data;
-    const userData = await this.Model.findOne({ where: { email } });
+    let userData;
+    try {
+      userData = await this.findByUsername(data);
+    } catch (e) {
+      //
+    }
     if (userData) throw new Error('UserAlreadyExist');
-
     return await this.Model.create(data);
   }
 
@@ -29,14 +35,17 @@ class UsersService extends Service {
     return data;
   }
 
-  async findByUsername({ email, phoneNumber }) {
+  async findByUsername(username) {
     const where = {};
-    if (email) {
-      where.email = email;
-    } else if (phoneNumber) {
-      where.phoneNumber = phoneNumber;
+    if (Rule.EmailReg.test(username)) {
+      where.email = username;
+    } else if (Rule.mobile.test(username)) {
+      where.phoneNumber = username;
+    } else {
+      throw new Error('UsernameError');
     }
-    const data = await this.Model.findOne(where);
+
+    const data = await this.Model.findOne({ where });
     if (!data) throw new Error('NotFoundUser');
     return data;
   }

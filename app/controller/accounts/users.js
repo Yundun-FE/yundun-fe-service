@@ -18,6 +18,29 @@ const rules = {
 };
 
 class AccountsController extends Controller {
+  async login() {
+    const rule = {
+      username: {
+        type: 'string',
+        required: true,
+        message: '请填写用户名',
+      },
+      password: {
+        type: 'string',
+        required: true,
+        message: '请填写密码',
+      },
+    };
+    await this.ctx.validate(rule, this.ctx.request.body);
+
+    const { username, password } = this.ctx.request.body;
+    const form = {
+      username,
+      password,
+    };
+    this.ctx.body = await this.service.accounts.users.login(form);
+  }
+
   async register() {
     const form = this.ctx.request.body;
     await this.ctx.validate(rules, form);
