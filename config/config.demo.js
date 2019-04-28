@@ -30,6 +30,10 @@ module.exports = appInfo => {
     interval: '10s',
   };
 
+  config.jwt = {
+    secret: '_1535530696448_9519',
+  };
+
   // add your config here
   config.middleware = [ 'errorHandler' ];
 

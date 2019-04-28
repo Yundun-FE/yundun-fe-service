@@ -12,11 +12,29 @@ class UsersService extends Service {
 
   async login(data) {
     const { password, username } = data;
-    const uid = this.createUid(data);
-    const userData = await this.findByUid(username);
+    const uid = this.createUid(this.formatUsername(username));
+
+    const userData = await this.findByUid(uid);
     const _password = crypto.createHmac('sha256', this.app.config.keys).update(password).digest('hex');
     if (_password !== userData.password) throw new Error('PasswordError');
-    return userData;
+
+    const uData = {
+      uid,
+      userId: userData.userId,
+    };
+    const token = this.app.jwt.sign(uData, this.app.config.jwt.secret);
+    const result = {
+      userId: userData.userId,
+      username: userData.username,
+      email: userData.email,
+      phoneNumber: userData.phoneNumber,
+      message: userData.message,
+      tz: userData.tz,
+      language: userData.language,
+      token,
+    };
+
+    return result;
   }
 
   async register(data) {
@@ -55,8 +73,18 @@ class UsersService extends Service {
   }
 
   createUid(data) {
-    const { username, email, phoneNumber } = data;
-    return crypto.createHash('md5').update(`${username}${email}${phoneNumber}`).digest('hex');
+    const { username = '-', email = '-', phoneNumber = '-' } = data;
+    const line = `${username}.${email}.${phoneNumber}`;
+    return crypto.createHash('md5').update(line).digest('hex');
+  }
+
+  formatUsername(username) {
+    if (Rule.EmailReg.test(username)) {
+      return { email: username };
+    } else if (Rule.mobile.test(username)) {
+      return { phoneNumber: username };
+    }
+    return { username };
   }
 
   async findById(userId) {

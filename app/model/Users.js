@@ -62,6 +62,9 @@ module.exports = app => {
         fields: [ 'uid' ],
       },
       {
+        fields: [ 'username' ],
+      },
+      {
         fields: [ 'phoneNumber' ],
       },
       {
