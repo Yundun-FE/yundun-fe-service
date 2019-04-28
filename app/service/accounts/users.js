@@ -12,7 +12,8 @@ class UsersService extends Service {
 
   async login(data) {
     const { password, username } = data;
-    const userData = await this.findByUsername(username);
+    const uid = this.createUid(data);
+    const userData = await this.findByUid(username);
     const _password = crypto.createHmac('sha256', this.app.config.keys).update(password).digest('hex');
     if (_password !== userData.password) throw new Error('PasswordError');
     return userData;
@@ -20,17 +21,52 @@ class UsersService extends Service {
 
   async register(data) {
     let userData;
-    try {
-      userData = await this.findByUsername(data);
-    } catch (e) {
-      //
+    if (!data.username && !data.email && !data.phoneNumber) throw new Error('NotUsername');
+
+    if (data.username) {
+      try {
+        userData = await this.findByUsername(data.username);
+      } catch (e) {
+        //
+      }
+      if (userData) throw new Error('UsernameExist');
     }
-    if (userData) throw new Error('UserAlreadyExist');
+
+    if (data.email) {
+      try {
+        userData = await this.findByUsername(data.email);
+      } catch (e) {
+        //
+      }
+      if (userData) throw new Error('EmailExist');
+    }
+
+    if (data.phoneNumber) {
+      try {
+        userData = await this.findByUsername(data.phoneNumber);
+      } catch (e) {
+        //
+      }
+      if (userData) throw new Error('phoneNumberExist');
+    }
+
+    data.uid = this.createUid(data);
     return await this.Model.create(data);
+  }
+
+  createUid(data) {
+    const { username, email, phoneNumber } = data;
+    return crypto.createHash('md5').update(`${username}${email}${phoneNumber}`).digest('hex');
   }
 
   async findById(userId) {
     const data = await this.Model.findOne({ where: userId });
+    if (!data) throw new Error('NotFoundUser');
+    return data;
+  }
+
+  async findByUid(uid) {
+    const data = await this.Model.findOne({ where: { uid } });
     if (!data) throw new Error('NotFoundUser');
     return data;
   }
@@ -42,7 +78,7 @@ class UsersService extends Service {
     } else if (Rule.mobile.test(username)) {
       where.phoneNumber = username;
     } else {
-      throw new Error('UsernameError');
+      where.username = username;
     }
 
     const data = await this.Model.findOne({ where });

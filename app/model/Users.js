@@ -8,17 +8,21 @@ module.exports = app => {
       type: STRING(255),
       allowNull: false,
     },
+    uid: {
+      type: STRING(255),
+      allowNull: false,
+    },
     username: {
       type: STRING(255),
       defaultValue: '',
     },
     email: {
       type: STRING(255),
-      allowNull: false,
+      defaultValue: '',
     },
     phoneNumber: {
       type: STRING(255),
-      allowNull: false,
+      defaultValue: '',
     },
     password: {
       type: STRING(255),
@@ -52,6 +56,21 @@ module.exports = app => {
       type: BOOLEAN,
       defaultValue: false,
     },
+  }, {
+    indexes: [
+      {
+        fields: [ 'uid' ],
+      },
+      {
+        fields: [ 'phoneNumber' ],
+      },
+      {
+        fields: [ 'email' ],
+      },
+      {
+        fields: [ 'userId' ],
+      },
+    ],
   });
 
   return Model;

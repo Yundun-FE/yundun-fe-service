@@ -3,12 +3,19 @@
 const crypto = require('crypto');
 const Controller = require('egg').Controller;
 const uuidv1 = require('uuid/v1');
+const Rule = require('../../utils/rule');
 
 const rules = {
   email: {
     type: 'email',
-    required: true,
+    required: false,
     message: '邮箱格式不正确',
+  },
+  phoneNumber: {
+    type: 'regexp',
+    pattern: Rule.mobile,
+    required: false,
+    message: '手机格式不正确',
   },
   password: {
     type: 'string',
