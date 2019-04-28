@@ -25,6 +25,23 @@ const rules = {
 };
 
 class AccountsController extends Controller {
+  async info() {
+    const { userId } = this.ctx.state.user;
+    const data = await this.ctx.service.accounts.users.findById(userId);
+    this.ctx.body = this.ctx.service.accounts.users.formatResult(data);
+  }
+
+  async update() {
+    const { avatar, tz, language } = this.ctx.request.body;
+    const { userId } = this.ctx.state.user;
+    const update = {
+      avatar,
+      tz,
+      language,
+    };
+    this.ctx.body = await this.ctx.service.accounts.users.updateById(update, userId);
+  }
+
   async login() {
     const rule = {
       username: {

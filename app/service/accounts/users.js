@@ -17,24 +17,7 @@ class UsersService extends Service {
     const userData = await this.findByUid(uid);
     const _password = crypto.createHmac('sha256', this.app.config.keys).update(password).digest('hex');
     if (_password !== userData.password) throw new Error('PasswordError');
-
-    const uData = {
-      uid,
-      userId: userData.userId,
-    };
-    const token = this.app.jwt.sign(uData, this.app.config.jwt.secret);
-    const result = {
-      userId: userData.userId,
-      username: userData.username,
-      email: userData.email,
-      phoneNumber: userData.phoneNumber,
-      message: userData.message,
-      tz: userData.tz,
-      language: userData.language,
-      token,
-    };
-
-    return result;
+    return this.formatResult(userData);
   }
 
   async register(data) {
@@ -87,10 +70,36 @@ class UsersService extends Service {
     return { username };
   }
 
+  formatResult(userData) {
+    const uData = {
+      uid: userData.uid,
+      userId: userData.userId,
+    };
+    const token = this.app.jwt.sign(uData, this.app.config.jwt.secret);
+    const result = {
+      userId: userData.userId,
+      username: userData.username,
+      email: userData.email,
+      phoneNumber: userData.phoneNumber,
+      message: userData.message,
+      tz: userData.tz,
+      language: userData.language,
+      token,
+    };
+    return result;
+  }
+
   async findById(userId) {
-    const data = await this.Model.findOne({ where: userId });
+    const data = await this.Model.findOne({ where: { userId } });
     if (!data) throw new Error('NotFoundUser');
     return data;
+  }
+
+  async updateById(update, userId) {
+    const result = await this.Model.update(update, {
+      where: { userId },
+    });
+    return result;
   }
 
   async findByUid(uid) {
