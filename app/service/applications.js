@@ -47,7 +47,6 @@ class ApplicationService extends Service {
   }
 
   async getByIdEnv(id, env) {
-    console.log(id, env);
     const dataRoot = await this.Model.findOne({
       where: {
         id,

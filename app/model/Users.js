@@ -56,6 +56,14 @@ module.exports = app => {
       type: BOOLEAN,
       defaultValue: false,
     },
+    lastLoginIp: {
+      type: STRING(255),
+      defaultValue: '',
+    },
+    lastLoginTime: {
+      type: STRING(255),
+      defaultValue: '',
+    },
   }, {
     indexes: [
       {

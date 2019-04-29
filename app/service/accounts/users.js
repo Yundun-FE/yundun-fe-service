@@ -81,10 +81,17 @@ class UsersService extends Service {
       username: userData.username,
       email: userData.email,
       phoneNumber: userData.phoneNumber,
-      message: userData.message,
       tz: userData.tz,
       language: userData.language,
       token,
+      roles: {
+        id: 'admin',
+        permissions: [
+          {
+            permissionId: 'dashboard',
+          },
+        ],
+      },
     };
     return result;
   }
