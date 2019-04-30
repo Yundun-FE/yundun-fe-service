@@ -10,6 +10,7 @@ module.exports = app => {
   router.post('/api/v1/login', controller.accounts.users.login);
   router.get('/api/v1/user/info', app.jwt, controller.accounts.users.info);
   router.put('/api/v1/user/info', app.jwt, controller.accounts.users.update);
+  router.post('/api/v1/user/avatar', app.jwt, controller.accounts.info.avatar);
   // jenkins
   // router.get('/api/v1/jenkins/jobs', controller.jenkins.jobs);
   // router.post('/api/v1/jenkins/jobs/:name/start', controller.jenkins.jobsStart);

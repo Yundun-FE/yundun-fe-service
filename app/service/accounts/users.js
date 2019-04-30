@@ -12,9 +12,8 @@ class UsersService extends Service {
 
   async login(data) {
     const { password, username } = data;
-    const uid = this.createUid(this.formatUsername(username));
-
-    const userData = await this.findByUid(uid);
+    // const uid = this.createUid(this.formatUsername(username));
+    const userData = await this.findByUsername(username);
     const _password = crypto.createHmac('sha256', this.app.config.keys).update(password).digest('hex');
     if (_password !== userData.password) throw new Error('PasswordError');
     return this.formatResult(userData);
@@ -83,6 +82,8 @@ class UsersService extends Service {
       phoneNumber: userData.phoneNumber,
       tz: userData.tz,
       language: userData.language,
+      lastLoginIp: userData.lastLoginIp,
+      lastLoginTime: userData.lastLoginTime,
       token,
       roles: {
         id: 'admin',
