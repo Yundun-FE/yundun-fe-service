@@ -77,6 +77,7 @@ class UsersService extends Service {
     const token = this.app.jwt.sign(uData, this.app.config.jwt.secret);
     const result = {
       userId: userData.userId,
+      avatar: userData.avatar,
       username: userData.username,
       email: userData.email,
       phoneNumber: userData.phoneNumber,
